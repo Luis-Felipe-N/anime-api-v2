@@ -4,19 +4,17 @@ import { CreateAnimeUseCase } from './create-anime'
 import { AnimesRepository } from '../repositories/animes.repository'
 
 const fakeAnimesRepository: AnimesRepository = {
-  create: async  function (anime: Anime): Promise<void> {
-    return;
-  }
+  create: async function (anime: Anime): Promise<void> {},
 }
 
 test('create anime', async () => {
   const animeUseCase = new CreateAnimeUseCase(fakeAnimesRepository)
 
-  const { anime } = await  animeUseCase.execute({
+  const { anime } = await animeUseCase.execute({
     banner: '',
     cover: '',
     description: '',
-    title: 'Jujutsu'
+    title: 'Jujutsu',
   })
 
   expect(anime.title).toEqual('Jujutsu')

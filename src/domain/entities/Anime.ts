@@ -1,3 +1,5 @@
+import { Entity } from '../core/entities/entity'
+
 interface AnimeProps {
   title: string
   description: string
@@ -5,16 +7,8 @@ interface AnimeProps {
   cover: string
 }
 
-export class Anime {
-  public title: string
-  public description: string
-  public banner: string
-  public cover: string
-
-  constructor(props: AnimeProps, id?: string) {
-    this.title = props.title
-    this.description = props.description
-    this.banner = props.banner
-    this.cover = props.cover
+export class Anime extends Entity<AnimeProps> {
+  get title() {
+    return this.props.title
   }
 }
