@@ -1,5 +1,6 @@
 import { Entity } from '../core/entities/entity'
 import { UniqueEntityId } from '../core/entities/unique-entity-id'
+import { Optional } from '../core/types/optional'
 
 interface EpisodeProps {
   animeId: UniqueEntityId
@@ -11,4 +12,19 @@ interface EpisodeProps {
   createdAt: Date
 }
 
-export class Episode extends Entity<EpisodeProps> {}
+export class Episode extends Entity<EpisodeProps> {
+  static create(
+    props: Optional<EpisodeProps, 'createdAt'>,
+    id?: UniqueEntityId,
+  ) {
+    const episode = new Episode(
+      {
+        ...props,
+        createdAt: new Date(),
+      },
+      id,
+    )
+
+    return episode
+  }
+}
