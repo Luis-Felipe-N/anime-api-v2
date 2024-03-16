@@ -1,12 +1,15 @@
-import { Anime } from '../entities/Anime'
-import { AnimesRepository } from '../repositories/animes.repository'
-import { Slug } from '../values-objects/slug'
+import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
+import { Anime } from '@/domain/enterprise/entities/Anime'
 
 interface CreateAnimeUseCaseRequest {
   banner: string
   cover: string
   description: string
   title: string
+}
+
+interface CreateAnimeUseCaseResponse {
+  anime: Anime
 }
 
 export class CreateAnimeUseCase {
@@ -17,9 +20,8 @@ export class CreateAnimeUseCase {
     cover,
     description,
     title,
-  }: CreateAnimeUseCaseRequest) {
+  }: CreateAnimeUseCaseRequest): Promise<CreateAnimeUseCaseResponse> {
     const anime = Anime.create({
-      slug: new Slug(title),
       banner,
       cover,
       description,
@@ -27,8 +29,6 @@ export class CreateAnimeUseCase {
     })
 
     await this.animesRepository.create(anime)
-
-    console.log(anime)
 
     return { anime }
   }
