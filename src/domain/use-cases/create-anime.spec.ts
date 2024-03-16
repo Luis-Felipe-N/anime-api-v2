@@ -4,6 +4,7 @@ import { CreateAnimeUseCase } from './create-anime'
 import { AnimesRepository } from '../repositories/animes.repository'
 
 const fakeAnimesRepository: AnimesRepository = {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   create: async function (anime: Anime): Promise<void> {},
 }
 

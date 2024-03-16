@@ -17,10 +17,38 @@ export class Anime extends Entity<AnimeProps> {
     return this.props.title
   }
 
-  static create(props: Optional<AnimeProps, 'createdAt'>, id?: UniqueEntityId) {
+  get description() {
+    return this.props.description
+  }
+
+  get slug() {
+    return this.props.slug
+  }
+
+  get banner() {
+    return this.props.banner
+  }
+
+  get cover() {
+    return this.props.cover
+  }
+
+  get createdAt() {
+    return this.props.createdAt
+  }
+
+  get excerpt() {
+    return this.props.description.slice(0, 120).trimEnd().concat('...')
+  }
+
+  static create(
+    props: Optional<AnimeProps, 'createdAt' | 'slug'>,
+    id?: UniqueEntityId,
+  ) {
     const anime = new Anime(
       {
         ...props,
+        slug: Slug.createFromText(props.title),
         createdAt: new Date(),
       },
       id,

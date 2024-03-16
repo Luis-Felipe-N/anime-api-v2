@@ -1,5 +1,6 @@
 import { Anime } from '../entities/Anime'
 import { AnimesRepository } from '../repositories/animes.repository'
+import { Slug } from '../values-objects/slug'
 
 interface CreateAnimeUseCaseRequest {
   banner: string
@@ -17,7 +18,8 @@ export class CreateAnimeUseCase {
     description,
     title,
   }: CreateAnimeUseCaseRequest) {
-    const anime = new Anime({
+    const anime = Anime.create({
+      slug: new Slug(title),
       banner,
       cover,
       description,
