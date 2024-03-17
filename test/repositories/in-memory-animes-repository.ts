@@ -8,6 +8,12 @@ export class InMemoryAnimesRepository implements AnimesRepository {
     this.items.push(anime)
   }
 
+  async delete(anime: Anime): Promise<void> {
+    const animeIndex = this.items.findIndex((item) => item.id === anime.id)
+
+    this.items.splice(animeIndex, 1)
+  }
+
   async findBySlug(slug: string): Promise<Anime | null> {
     const anime = this.items.find((item) => item.slug.value === slug)
 

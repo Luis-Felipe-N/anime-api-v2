@@ -7,6 +7,7 @@ export interface FetchEpisodesByAnimeProps {
 
 export interface EpisodesRepository {
   create(episode: Episode): Promise<void>
+  delete(episode: Episode): Promise<void>
   findBySlug(slug: string): Promise<Episode | null>
   findById(id: string): Promise<Episode | null>
   fetchEpisodesByAnime({

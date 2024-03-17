@@ -41,7 +41,7 @@ export class CreateCommentUseCase {
       content,
     })
 
-    this.commentsRepository.create(comment)
+    await this.commentsRepository.create(comment)
 
     return success({
       comment,

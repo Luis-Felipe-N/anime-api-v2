@@ -21,7 +21,7 @@ describe('Create comment', () => {
   it('should be able to create a comment', async () => {
     const episode = makeEpisode()
 
-    inMemoryEpisodesRepository.create(episode)
+    await inMemoryEpisodesRepository.create(episode)
 
     const result = await sut.execute({
       authorId: '1',

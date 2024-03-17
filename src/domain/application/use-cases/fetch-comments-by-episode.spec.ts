@@ -23,9 +23,9 @@ describe('Fetch Episodes by Anime', () => {
   it('should be able to fetch comments of an episode', async () => {
     const episode = makeEpisode()
 
-    inMemoryEpisodesRepository.create(episode)
+    await inMemoryEpisodesRepository.create(episode)
 
-    inMemoryCommentsRepository.create(
+    await inMemoryCommentsRepository.create(
       makeComment({
         episodeId: episode.id,
         content: 'Conteúdo do comentário',

@@ -22,16 +22,16 @@ describe('Fetch Episodes by Anime', () => {
   it('should be able to fetch episodes of an anime', async () => {
     const anime = makeAnime()
 
-    inMemoryAnimesRepository.create(anime)
+    await inMemoryAnimesRepository.create(anime)
 
-    inMemoryEpisodesRepository.create(
+    await inMemoryEpisodesRepository.create(
       makeEpisode({
         animeId: anime.id,
         title: 'Titulo do episódio 01',
       }),
     )
 
-    inMemoryEpisodesRepository.create(
+    await inMemoryEpisodesRepository.create(
       makeEpisode({
         animeId: anime.id,
         title: 'Titulo do episódio 02',
@@ -62,9 +62,9 @@ describe('Fetch Episodes by Anime', () => {
   it('should be able to fetch episodes of an anime with a specific season', async () => {
     const anime = makeAnime()
 
-    inMemoryAnimesRepository.create(anime)
+    await inMemoryAnimesRepository.create(anime)
 
-    inMemoryEpisodesRepository.create(
+    await inMemoryEpisodesRepository.create(
       makeEpisode({
         animeId: anime.id,
         title: 'Titulo do episódio 01',
@@ -72,7 +72,7 @@ describe('Fetch Episodes by Anime', () => {
       }),
     )
 
-    inMemoryEpisodesRepository.create(
+    await inMemoryEpisodesRepository.create(
       makeEpisode({
         animeId: anime.id,
         title: 'Titulo do episódio 02',

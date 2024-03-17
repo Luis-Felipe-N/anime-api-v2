@@ -21,7 +21,7 @@ describe('Create Anime', () => {
   it('should be able to create a episode', async () => {
     const anime = makeAnime()
 
-    inMemoryAnimesRepository.create(anime)
+    await inMemoryAnimesRepository.create(anime)
 
     const result = await sut.execute({
       animeId: anime.id.toValue(),

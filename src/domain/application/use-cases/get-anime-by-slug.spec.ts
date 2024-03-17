@@ -18,7 +18,7 @@ describe('Get Anime by slug', () => {
       slug: Slug.create('titulo-do-anime'),
     })
 
-    inMemoryAnimesRepository.create(animeCreated)
+    await inMemoryAnimesRepository.create(animeCreated)
 
     const result = await sut.execute({
       slug: 'titulo-do-anime',

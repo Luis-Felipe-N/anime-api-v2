@@ -11,6 +11,12 @@ export class InMemoryEpisodesRepository implements EpisodesRepository {
     this.items.push(episode)
   }
 
+  async delete(episode: Episode): Promise<void> {
+    const episodeIndex = this.items.findIndex((item) => item.id === episode.id)
+
+    this.items.splice(episodeIndex, 1)
+  }
+
   async findBySlug(slug: string): Promise<Episode | null> {
     const episode = this.items.find((item) => item.slug.value === slug)
 

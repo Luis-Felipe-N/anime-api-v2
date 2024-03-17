@@ -11,6 +11,22 @@ export class InMemoryCommentsRepository implements CommentsRepository {
     this.items.push(comment)
   }
 
+  async delete(comment: Comment): Promise<void> {
+    const commentIndex = this.items.findIndex((item) => item.id === comment.id)
+
+    this.items.splice(commentIndex, 1)
+  }
+
+  async findById(id: string): Promise<Comment | null> {
+    const comment = this.items.find((item) => item.id.toValue() === id)
+
+    if (!comment) {
+      return null
+    }
+
+    return comment
+  }
+
   async fetchCommentsByEpisode({
     episodeId,
     page,

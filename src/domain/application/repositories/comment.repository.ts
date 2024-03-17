@@ -7,6 +7,8 @@ export interface FetchCommentsByEpisodeProps {
 
 export interface CommentsRepository {
   create(comment: Comment): Promise<void>
+  delete(comment: Comment): Promise<void>
+  findById(id: string): Promise<Comment | null>
   fetchCommentsByEpisode({
     episodeId,
     page,

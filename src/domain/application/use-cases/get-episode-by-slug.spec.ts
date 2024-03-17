@@ -18,7 +18,7 @@ describe('Get Episode by slug', () => {
       slug: Slug.create('titulo-do-episodio'),
     })
 
-    inMemoryEpisodesRepository.create(newEpisode)
+    await inMemoryEpisodesRepository.create(newEpisode)
 
     const result = await sut.execute({
       slug: 'titulo-do-episodio',
