@@ -12,7 +12,7 @@ interface EpisodeProps {
   title: string
   description: string
   cover: string
-  duration: string
+  duration: number
   createdAt: Date
 }
 

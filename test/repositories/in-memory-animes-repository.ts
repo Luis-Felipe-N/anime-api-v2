@@ -10,7 +10,7 @@ export class InMemoryAnimesRepository implements AnimesRepository {
 
   async findBySlug(slug: string): Promise<Anime | null> {
     const anime = this.items.find((item) => item.slug.value === slug)
-    console.log(this.items)
+
     if (!anime) {
       return null
     }

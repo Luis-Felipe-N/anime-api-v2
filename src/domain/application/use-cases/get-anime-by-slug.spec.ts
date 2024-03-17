@@ -28,4 +28,12 @@ describe('Get Anime by slug', () => {
 
     expect(animeCreated.id.toValue()).toEqual(anime.id.toValue())
   })
+
+  it('should not be able to get anime with non-exists slug', async () => {
+    await expect(
+      sut.execute({
+        slug: 'non-exists-slug',
+      }),
+    ).rejects.toBeInstanceOf(Error)
+  })
 })
