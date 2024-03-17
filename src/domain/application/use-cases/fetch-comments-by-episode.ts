@@ -1,15 +1,18 @@
 import { Comment } from '@/domain/enterprise/entities/Comment'
 import { CommentsRepository } from '../repositories/comment.repository'
 import { EpisodesRepository } from '../repositories/episode.repository'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { Either, failure, success } from '@/core/either'
 
 interface FetchCommentsByEpisodeUseCaseRequest {
   episodeId: string
   page: number
 }
 
-interface FetchCommentsByEpisodeUseCaseResponse {
-  comments: Comment[]
-}
+type FetchCommentsByEpisodeUseCaseResponse = Either<
+  ResourceNotFoundError,
+  { comments: Comment[] }
+>
 
 export class FetchCommentsByEpisodeUseCase {
   constructor(
@@ -24,7 +27,7 @@ export class FetchCommentsByEpisodeUseCase {
     const episode = this.episodesRepository.findById(episodeId)
 
     if (!episode) {
-      throw new Error('Episode not found')
+      return failure(new ResourceNotFoundError())
     }
 
     const comments = await this.commentsRepository.fetchCommentsByEpisode({
@@ -33,9 +36,9 @@ export class FetchCommentsByEpisodeUseCase {
     })
 
     if (!comments.length) {
-      throw new Error('Comments not found')
+      return failure(new ResourceNotFoundError())
     }
 
-    return { comments }
+    return success({ comments })
   }
 }
