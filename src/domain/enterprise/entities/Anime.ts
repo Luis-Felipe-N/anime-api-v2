@@ -48,7 +48,7 @@ export class Anime extends Entity<AnimeProps> {
     const anime = new Anime(
       {
         ...props,
-        slug: Slug.createFromText(props.title),
+        slug: props.slug ?? Slug.createFromText(props.title),
         createdAt: new Date(),
       },
       id,

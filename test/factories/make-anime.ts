@@ -1,11 +1,12 @@
 import { Anime, AnimeProps } from '@/domain/enterprise/entities/Anime'
+import { faker } from '@faker-js/faker'
 
 export function makeAnime(override: Partial<AnimeProps> = {}) {
   const anime = Anime.create({
-    title: 'Título do anime',
-    description: 'Descrição do anime',
-    banner: 'banner-link',
-    cover: 'cover-link',
+    title: faker.lorem.sentence(),
+    description: faker.lorem.text(),
+    banner: faker.image.url(),
+    cover: faker.image.url(),
     ...override,
   })
 

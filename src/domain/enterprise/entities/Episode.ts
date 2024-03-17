@@ -69,7 +69,7 @@ export class Episode extends Entity<EpisodeProps> {
     const episode = new Episode(
       {
         ...props,
-        slug: Slug.createFromText(props.title),
+        slug: props.slug ?? Slug.createFromText(props.title),
         createdAt: new Date(),
       },
       id,
