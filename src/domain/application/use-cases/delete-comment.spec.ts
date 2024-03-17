@@ -1,8 +1,4 @@
-import { makeAnime } from 'test/factories/make-anime'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { DeleteEpisodeUseCase } from './delete-episode'
-import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
-import { makeEpisode } from 'test/factories/make-episode'
 import { InMemoryCommentsRepository } from 'test/repositories/in-memory-comments-repository'
 import { DeleteCommentUseCase } from './delete-comment'
 import { makeComment } from 'test/factories/make-comment'

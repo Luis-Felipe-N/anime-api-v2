@@ -20,6 +20,7 @@ describe('Delete Episode', () => {
 
     const result = await sut.execute({
       id: 'episode-id',
+      userId: 'user-id',
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -36,6 +37,7 @@ describe('Delete Episode', () => {
 
     const result = await sut.execute({
       id: 'episode-id-02',
+      userId: 'user-id',
     })
 
     expect(result.isFailure()).toBe(true)

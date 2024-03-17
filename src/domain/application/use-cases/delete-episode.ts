@@ -5,6 +5,7 @@ import { EpisodesRepository } from '../repositories/episode.repository'
 
 interface DeleteEpisodeUseCaseRequest {
   id: string
+  userId: string
 }
 
 type DeleteEpisodeUseCaseResponse = Either<ResourceNotFoundError, {}>

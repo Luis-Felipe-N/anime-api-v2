@@ -1,4 +1,3 @@
-import { CreateAnimeUseCase } from './create-anime'
 import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
 import { DeleteAnimeUseCase } from './delete-anime'
 import { makeAnime } from 'test/factories/make-anime'
@@ -21,6 +20,7 @@ describe('Delete Anime', () => {
 
     const result = await sut.execute({
       id: 'anime-id',
+      userId: 'user-id',
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -37,6 +37,7 @@ describe('Delete Anime', () => {
 
     const result = await sut.execute({
       id: 'anime-id-02',
+      userId: 'user-id',
     })
 
     expect(result.isFailure()).toBe(true)

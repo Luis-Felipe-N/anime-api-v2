@@ -4,6 +4,7 @@ import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface DeleteAnimeUseCaseRequest {
   id: string
+  userId: string
 }
 
 type DeleteAnimeUseCaseResponse = Either<ResourceNotFoundError, {}>
