@@ -3,7 +3,7 @@ import { Slug } from '@/core/values-objects/slug'
 import { Optional } from '@/core/types/optional'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
-interface AnimeProps {
+export interface AnimeProps {
   title: string
   description: string
   slug: Slug
