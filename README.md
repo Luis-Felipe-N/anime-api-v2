@@ -22,9 +22,18 @@ A aplicação utiliza o modo de Credentials.
 - [ ] Deve ser possível pegar animes do ***crunchyroll***;
 - [ ] Deve ser possível pegar filmes do ***vizer.tv***;
 
-<!-- - [ ] Deve ser possível pesquisar por um anime;
-- [ ] Deve ser possível se autenticar com Spotify;
-- [ ] Deve ser possível baixar o card como imagem; -->
+- [x] Deve ser possível listar todos episódios de um anime - com paginação;
+- [ ] Deve ser possível listar os comentários de um episódio - com paginação;
+- [x] Deve ser possível buscar um episódio pelo slug;
+- [ ] Deve ser possível buscar o próximo episódio;
+- [ ] Deve ser possível buscar o episódio anterior;
+- [ ] Deve ser possível salvar o bookmarking do usuário;
+- [ ] Deve ser possível listar o histórico de visualização;
+- [ ] Deve ser possível marcar um episódio como assistido;
+- [ ] Deve ser possível avaliar um episódio;
+
+- [ ] Deve ser possível listar todos animes - com paginação;
+- [x] Deve ser possível buscar um anime pelo slug;
 
 ## RNs (Regras de negócio)
 
