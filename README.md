@@ -25,8 +25,7 @@ A aplicação utiliza o modo de Credentials.
 - [x] Deve ser possível listar todos episódios de um anime - com paginação;
 - [x] Deve ser possível listar os comentários de um episódio - com paginação;
 - [x] Deve ser possível buscar um episódio pelo slug;
-- [x] Deve ser possível buscar o próximo episódio;
-- [ ] Deve ser possível buscar o episódio anterior;
+- [x] Deve ser possível buscar o próximo episódio e o anterior;
 - [ ] Deve ser possível salvar o bookmarking do usuário;
 - [ ] Deve ser possível listar o histórico de visualização;
 - [ ] Deve ser possível marcar um episódio como assistido;
