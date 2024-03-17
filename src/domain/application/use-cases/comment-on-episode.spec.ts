@@ -1,18 +1,18 @@
 import { InMemoryCommentsRepository } from 'test/repositories/in-memory-comments-repository'
-import { CreateCommentUseCase } from './create-comment'
+import { CommentOnEpisodeUseCase } from './comment-on-episode'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeEpisode } from 'test/factories/make-episode'
 
 let inMemoryCommentsRepository: InMemoryCommentsRepository
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
-let sut: CreateCommentUseCase
+let sut: CommentOnEpisodeUseCase
 
 describe('Create comment', () => {
   beforeEach(() => {
     inMemoryCommentsRepository = new InMemoryCommentsRepository()
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
 
-    sut = new CreateCommentUseCase(
+    sut = new CommentOnEpisodeUseCase(
       inMemoryCommentsRepository,
       inMemoryEpisodesRepository,
     )

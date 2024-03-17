@@ -5,20 +5,20 @@ import { Either, failure, success } from '@/core/either'
 import { EpisodesRepository } from '../repositories/episode.repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-interface CreateCommentUseCaseRequest {
+interface CommentOnEpisodeUseCaseRequest {
   authorId: string
   episodeId: string
   content: string
 }
 
-type CreateCommentUseCaseResponse = Either<
+type CommentOnEpisodeUseCaseResponse = Either<
   ResourceNotFoundError,
   {
     comment: Comment
   }
 >
 
-export class CreateCommentUseCase {
+export class CommentOnEpisodeUseCase {
   constructor(
     private commentsRepository: CommentsRepository,
     private episodesRepository: EpisodesRepository,
@@ -28,7 +28,7 @@ export class CreateCommentUseCase {
     authorId,
     content,
     episodeId,
-  }: CreateCommentUseCaseRequest): Promise<CreateCommentUseCaseResponse> {
+  }: CommentOnEpisodeUseCaseRequest): Promise<CommentOnEpisodeUseCaseResponse> {
     const episode = await this.episodesRepository.findById(episodeId)
 
     if (!episode) {
