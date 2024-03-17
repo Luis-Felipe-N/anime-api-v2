@@ -21,6 +21,16 @@ export class InMemoryEpisodesRepository implements EpisodesRepository {
     return episode
   }
 
+  async findById(id: string) {
+    const episode = this.items.find((item) => item.id.toValue() === id)
+
+    if (!episode) {
+      return null
+    }
+
+    return episode
+  }
+
   async fetchEpisodesByAnime({
     animeId,
     season = 1,

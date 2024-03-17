@@ -17,4 +17,14 @@ export class InMemoryAnimesRepository implements AnimesRepository {
 
     return anime
   }
+
+  async findById(id: string): Promise<Anime | null> {
+    const anime = this.items.find((item) => item.id.toValue() === id)
+
+    if (!anime) {
+      return null
+    }
+
+    return anime
+  }
 }

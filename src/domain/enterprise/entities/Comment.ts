@@ -2,7 +2,7 @@ import { Entity } from '@/core/entities/entity'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
 
-interface CommentProps {
+export interface CommentProps {
   authorId: UniqueEntityId
   parentId?: UniqueEntityId
   episodeId: UniqueEntityId
