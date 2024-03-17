@@ -24,7 +24,7 @@ export class FetchCommentsByEpisodeUseCase {
     episodeId,
     page,
   }: FetchCommentsByEpisodeUseCaseRequest): Promise<FetchCommentsByEpisodeUseCaseResponse> {
-    const episode = this.episodesRepository.findById(episodeId)
+    const episode = await this.episodesRepository.findById(episodeId)
 
     if (!episode) {
       return failure(new ResourceNotFoundError())
@@ -34,10 +34,6 @@ export class FetchCommentsByEpisodeUseCase {
       episodeId,
       page,
     })
-
-    if (!comments.length) {
-      return failure(new ResourceNotFoundError())
-    }
 
     return success({ comments })
   }

@@ -1,15 +1,20 @@
 import { Episode } from '@/domain/enterprise/entities/Episode'
 import { EpisodesRepository } from '../repositories/episode.repository'
 import { AnimesRepository } from '../repositories/animes.repository'
+import { Either, failure, success } from '@/core/either'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface FetchEpisodeByAnimeUseCaseRequest {
   animeId: string
   season?: number
 }
 
-interface FetchEpisodeByAnimeUseCaseResponse {
-  episodes: Episode[]
-}
+type FetchEpisodeByAnimeUseCaseResponse = Either<
+  ResourceNotFoundError,
+  {
+    episodes: Episode[]
+  }
+>
 
 export class FetchEpisodeByAnimeUseCase {
   constructor(
@@ -21,10 +26,10 @@ export class FetchEpisodeByAnimeUseCase {
     animeId,
     season,
   }: FetchEpisodeByAnimeUseCaseRequest): Promise<FetchEpisodeByAnimeUseCaseResponse> {
-    const anime = this.animesRepository.findById(animeId)
+    const anime = await this.animesRepository.findById(animeId)
 
     if (!anime) {
-      throw new Error('Anime not found')
+      return failure(new ResourceNotFoundError())
     }
 
     const episodes = await this.episodesRepository.fetchEpisodesByAnime({
@@ -32,10 +37,6 @@ export class FetchEpisodeByAnimeUseCase {
       season,
     })
 
-    if (!episodes.length) {
-      throw new Error('Episodes not found')
-    }
-
-    return { episodes }
+    return success({ episodes })
   }
 }

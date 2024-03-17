@@ -2,6 +2,7 @@ import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-rep
 import { GetAnimeBySlugUseCase } from './get-anime-by-slug'
 import { makeAnime } from 'test/factories/make-anime'
 import { Slug } from '@/core/values-objects/slug'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let sut: GetAnimeBySlugUseCase
@@ -19,18 +20,18 @@ describe('Get Anime by slug', () => {
 
     inMemoryAnimesRepository.create(animeCreated)
 
-    const { anime } = await sut.execute({
+    const result = await sut.execute({
       slug: 'titulo-do-anime',
     })
-
-    expect(animeCreated.id.toValue()).toEqual(anime.id.toValue())
+    expect(result.isSuccess()).toBe(true)
   })
 
   it('should not be able to get anime with non-exists slug', async () => {
-    await expect(
-      sut.execute({
-        slug: 'non-exists-slug',
-      }),
-    ).rejects.toBeInstanceOf(Error)
+    const result = await sut.execute({
+      slug: 'non-exists-slug',
+    })
+
+    expect(result.isFailure()).toBe(true)
+    expect(result.value).toBeInstanceOf(ResourceNotFoundError)
   })
 })

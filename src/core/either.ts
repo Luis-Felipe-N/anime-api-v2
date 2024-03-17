@@ -24,11 +24,11 @@ export class Success<F, S> {
   }
 
   isSuccess(): this is Success<F, S> {
-    return false
+    return true
   }
 
   isFailure(): this is Failure<F, S> {
-    return true
+    return false
   }
 }
 

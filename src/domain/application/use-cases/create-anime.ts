@@ -1,3 +1,4 @@
+import { Either, success } from '@/core/either'
 import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
 import { Anime } from '@/domain/enterprise/entities/Anime'
 
@@ -8,9 +9,12 @@ interface CreateAnimeUseCaseRequest {
   title: string
 }
 
-interface CreateAnimeUseCaseResponse {
-  anime: Anime
-}
+type CreateAnimeUseCaseResponse = Either<
+  null,
+  {
+    anime: Anime
+  }
+>
 
 export class CreateAnimeUseCase {
   constructor(private animesRepository: AnimesRepository) {}
@@ -30,6 +34,6 @@ export class CreateAnimeUseCase {
 
     await this.animesRepository.create(anime)
 
-    return { anime }
+    return success({ anime })
   }
 }

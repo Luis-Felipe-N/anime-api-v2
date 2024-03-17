@@ -1,13 +1,18 @@
+import { Either, failure, success } from '@/core/either'
 import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
 import { Anime } from '@/domain/enterprise/entities/Anime'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface GetAnimeBySlugUseCaseRequest {
   slug: string
 }
 
-interface GetAnimeBySlugUseCaseResponse {
-  anime: Anime
-}
+type GetAnimeBySlugUseCaseResponse = Either<
+  ResourceNotFoundError,
+  {
+    anime: Anime
+  }
+>
 
 export class GetAnimeBySlugUseCase {
   constructor(private animesRepository: AnimesRepository) {}
@@ -18,9 +23,9 @@ export class GetAnimeBySlugUseCase {
     const anime = await this.animesRepository.findBySlug(slug)
 
     if (!anime) {
-      throw new Error('Anime not found')
+      return failure(new ResourceNotFoundError())
     }
 
-    return { anime }
+    return success({ anime })
   }
 }
