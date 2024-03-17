@@ -1,4 +1,4 @@
-import { Comment } from '@/domain/enterprise/entities/Comment'
+import { Comment } from '@/domain/enterprise/entities/comment'
 import { CommentsRepository } from '../repositories/comment.repository'
 import { EpisodesRepository } from '../repositories/episode.repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
@@ -32,7 +32,9 @@ export class FetchCommentsByEpisodeUseCase {
 
     const comments = await this.commentsRepository.fetchCommentsByEpisode({
       episodeId,
-      page,
+      params: {
+        page,
+      },
     })
 
     return success({ comments })

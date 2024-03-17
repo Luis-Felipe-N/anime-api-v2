@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Episode, EpisodeProps } from '@/domain/enterprise/entities/Episode'
+import { Episode, EpisodeProps } from '@/domain/enterprise/entities/episode'
 import { faker } from '@faker-js/faker'
 
 export function makeEpisode(

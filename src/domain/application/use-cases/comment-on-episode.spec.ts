@@ -25,7 +25,7 @@ describe('Create comment', () => {
 
     const result = await sut.execute({
       authorId: '1',
-      episodeId: episode.id.toValue(),
+      episodeId: episode.id.toString(),
       content: 'Conteúdo do comentário',
     })
 

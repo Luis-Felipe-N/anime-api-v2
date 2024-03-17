@@ -1,4 +1,4 @@
-import { Episode } from '@/domain/enterprise/entities/Episode'
+import { Episode } from '@/domain/enterprise/entities/episode'
 import { EpisodesRepository } from '../repositories/episode.repository'
 import { AnimesRepository } from '../repositories/animes.repository'
 import { Either, failure, success } from '@/core/either'
@@ -32,7 +32,7 @@ export class FetchEpisodeByAnimeUseCase {
       return failure(new ResourceNotFoundError())
     }
 
-    const episodes = await this.episodesRepository.fetchEpisodesByAnime({
+    const episodes = await this.episodesRepository.findManyByAnime({
       animeId,
       season,
     })

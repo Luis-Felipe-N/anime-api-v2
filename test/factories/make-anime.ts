@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Anime, AnimeProps } from '@/domain/enterprise/entities/Anime'
+import { Anime, AnimeProps } from '@/domain/enterprise/entities/anime'
 import { faker } from '@faker-js/faker'
 
 export function makeAnime(

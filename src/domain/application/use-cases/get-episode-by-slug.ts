@@ -1,4 +1,4 @@
-import { Episode } from '@/domain/enterprise/entities/Episode'
+import { Episode } from '@/domain/enterprise/entities/episode'
 import { EpisodesRepository } from '../repositories/episode.repository'
 import { Either, failure, success } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'

@@ -39,7 +39,7 @@ describe('Fetch Episodes by Anime', () => {
     )
 
     const result = await sut.execute({
-      animeId: anime.id.toValue(),
+      animeId: anime.id.toString(),
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -81,7 +81,7 @@ describe('Fetch Episodes by Anime', () => {
     )
 
     const result = await sut.execute({
-      animeId: anime.id.toValue(),
+      animeId: anime.id.toString(),
       season: 2,
     })
 

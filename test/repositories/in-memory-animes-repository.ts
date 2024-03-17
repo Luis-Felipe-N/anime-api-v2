@@ -1,4 +1,4 @@
-import { Anime } from '@/domain/enterprise/entities/Anime'
+import { Anime } from '@/domain/enterprise/entities/anime'
 import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
 
 export class InMemoryAnimesRepository implements AnimesRepository {
@@ -25,7 +25,7 @@ export class InMemoryAnimesRepository implements AnimesRepository {
   }
 
   async findById(id: string): Promise<Anime | null> {
-    const anime = this.items.find((item) => item.id.toValue() === id)
+    const anime = this.items.find((item) => item.id.toString() === id)
 
     if (!anime) {
       return null

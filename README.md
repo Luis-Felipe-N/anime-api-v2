@@ -23,7 +23,7 @@ A aplicação utiliza o modo de Credentials.
 - [ ] Deve ser possível pegar filmes do ***vizer.tv***;
 
 - [x] Deve ser possível listar todos episódios de um anime - com paginação;
-- [ ] Deve ser possível listar os comentários de um episódio - com paginação;
+- [x] Deve ser possível listar os comentários de um episódio - com paginação;
 - [x] Deve ser possível buscar um episódio pelo slug;
 - [ ] Deve ser possível buscar o próximo episódio;
 - [ ] Deve ser possível buscar o episódio anterior;

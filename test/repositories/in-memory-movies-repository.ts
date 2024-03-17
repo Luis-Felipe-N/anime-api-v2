@@ -1,4 +1,4 @@
-import { Movie } from '@/domain/enterprise/entities/Movie'
+import { Movie } from '@/domain/enterprise/entities/movie'
 import { MoviesRepository } from '@/domain/application/repositories/movie.repository'
 
 export class InMemoryMoviesRepository implements MoviesRepository {

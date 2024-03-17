@@ -1,6 +1,6 @@
 import { Either, success } from '@/core/either'
 import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
-import { Anime } from '@/domain/enterprise/entities/Anime'
+import { Anime } from '@/domain/enterprise/entities/anime'
 
 interface CreateAnimeUseCaseRequest {
   banner: string

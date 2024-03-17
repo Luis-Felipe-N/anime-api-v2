@@ -28,7 +28,7 @@ export class DeleteCommentUseCase {
       return failure(new ResourceNotFoundError())
     }
 
-    if (userId !== comment.authorId.toValue()) {
+    if (userId !== comment.authorId.toString()) {
       return failure(new NotAllowedError())
     }
     await this.commentsRepository.delete(comment)

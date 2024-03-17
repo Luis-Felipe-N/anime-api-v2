@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Comment, CommentProps } from '@/domain/enterprise/entities/Comment'
+import { Comment, CommentProps } from '@/domain/enterprise/entities/comment'
 import { faker } from '@faker-js/faker'
 
 export function makeComment(

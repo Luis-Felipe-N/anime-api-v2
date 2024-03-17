@@ -1,5 +1,5 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Comment } from '@/domain/enterprise/entities/Comment'
+import { Comment } from '@/domain/enterprise/entities/comment'
 import { CommentsRepository } from '@/domain/application/repositories/comment.repository'
 import { Either, failure, success } from '@/core/either'
 import { EpisodesRepository } from '../repositories/episode.repository'

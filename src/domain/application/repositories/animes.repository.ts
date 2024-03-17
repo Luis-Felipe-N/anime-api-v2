@@ -1,4 +1,4 @@
-import { Anime } from '@/domain/enterprise/entities/Anime'
+import { Anime } from '@/domain/enterprise/entities/anime'
 
 export interface AnimesRepository {
   create(anime: Anime): Promise<void>

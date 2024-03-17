@@ -1,4 +1,4 @@
-import { Comment } from '@/domain/enterprise/entities/Comment'
+import { Comment } from '@/domain/enterprise/entities/comment'
 import {
   CommentsRepository,
   FetchCommentsByEpisodeProps,
@@ -18,7 +18,7 @@ export class InMemoryCommentsRepository implements CommentsRepository {
   }
 
   async findById(id: string): Promise<Comment | null> {
-    const comment = this.items.find((item) => item.id.toValue() === id)
+    const comment = this.items.find((item) => item.id.toString() === id)
 
     if (!comment) {
       return null
@@ -29,11 +29,11 @@ export class InMemoryCommentsRepository implements CommentsRepository {
 
   async fetchCommentsByEpisode({
     episodeId,
-    page,
+    params,
   }: FetchCommentsByEpisodeProps) {
     const comments = this.items
-      .filter((item) => item.episodeId.toValue() === episodeId)
-      .slice((page - 1) * 20, page * 20)
+      .filter((item) => item.episodeId.toString() === episodeId)
+      .slice((params.page - 1) * 20, params.page * 20)
 
     return comments
   }

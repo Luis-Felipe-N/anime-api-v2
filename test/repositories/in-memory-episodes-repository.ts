@@ -1,4 +1,4 @@
-import { Episode } from '@/domain/enterprise/entities/Episode'
+import { Episode } from '@/domain/enterprise/entities/episode'
 import {
   EpisodesRepository,
   FetchEpisodesByAnimeProps,
@@ -28,7 +28,7 @@ export class InMemoryEpisodesRepository implements EpisodesRepository {
   }
 
   async findById(id: string) {
-    const episode = this.items.find((item) => item.id.toValue() === id)
+    const episode = this.items.find((item) => item.id.toString() === id)
 
     if (!episode) {
       return null
@@ -37,12 +37,22 @@ export class InMemoryEpisodesRepository implements EpisodesRepository {
     return episode
   }
 
-  async fetchEpisodesByAnime({
-    animeId,
-    season = 1,
-  }: FetchEpisodesByAnimeProps) {
+  async findByIndex(animeId: string, season: number, episodeIndex: number) {
+    const episode = this.items.find(
+      (item) =>
+        item.animeId.toString() === animeId &&
+        item.index === episodeIndex &&
+        item.season === season,
+    )
+
+    if (!episode) return null
+
+    return episode
+  }
+
+  async findManyByAnime({ animeId, season = 1 }: FetchEpisodesByAnimeProps) {
     const episodes = this.items.filter(
-      (item) => item.animeId.toValue() === animeId && item.season === season,
+      (item) => item.animeId.toString() === animeId && item.season === season,
     )
 
     return episodes

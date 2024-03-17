@@ -1,8 +1,9 @@
-import { Comment } from '@/domain/enterprise/entities/Comment'
+import { PaginationParams } from '@/core/types/paginations-params'
+import { Comment } from '@/domain/enterprise/entities/comment'
 
 export interface FetchCommentsByEpisodeProps {
   episodeId: string
-  page: number
+  params: PaginationParams
 }
 
 export interface CommentsRepository {
@@ -11,6 +12,6 @@ export interface CommentsRepository {
   findById(id: string): Promise<Comment | null>
   fetchCommentsByEpisode({
     episodeId,
-    page,
+    params,
   }: FetchCommentsByEpisodeProps): Promise<Comment[]>
 }

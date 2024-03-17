@@ -24,7 +24,7 @@ describe('Create Anime', () => {
     await inMemoryAnimesRepository.create(anime)
 
     const result = await sut.execute({
-      animeId: anime.id.toValue(),
+      animeId: anime.id.toString(),
       title: 'Titulo do episódio',
       description: 'Descrição do episódio',
       cover: 'episode-cover-link',

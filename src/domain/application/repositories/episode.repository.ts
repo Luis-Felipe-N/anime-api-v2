@@ -1,4 +1,4 @@
-import { Episode } from '@/domain/enterprise/entities/Episode'
+import { Episode } from '@/domain/enterprise/entities/episode'
 
 export interface FetchEpisodesByAnimeProps {
   animeId: string
@@ -10,7 +10,12 @@ export interface EpisodesRepository {
   delete(episode: Episode): Promise<void>
   findBySlug(slug: string): Promise<Episode | null>
   findById(id: string): Promise<Episode | null>
-  fetchEpisodesByAnime({
+  findByIndex(
+    animeId: string,
+    season: number,
+    episodeIndex: number,
+  ): Promise<Episode | null>
+  findManyByAnime({
     animeId,
     season,
   }: FetchEpisodesByAnimeProps): Promise<Episode[]>
