@@ -37,12 +37,11 @@ export class InMemoryEpisodesRepository implements EpisodesRepository {
     return episode
   }
 
-  async findByIndex(animeId: string, season: number, episodeIndex: number) {
+  async findByIndex(seasonId: string, episodeIndex: number) {
     const episode = this.items.find(
       (item) =>
-        item.animeId.toString() === animeId &&
         item.index === episodeIndex &&
-        item.season === season,
+        item.seasonId.toString() === seasonId.toString(),
     )
 
     if (!episode) return null
@@ -50,9 +49,9 @@ export class InMemoryEpisodesRepository implements EpisodesRepository {
     return episode
   }
 
-  async findManyByAnime({ animeId, season = 1 }: FetchEpisodesByAnimeProps) {
+  async findManyBySeason(seasonId: string) {
     const episodes = this.items.filter(
-      (item) => item.animeId.toString() === animeId && item.season === season,
+      (item) => item.seasonId.toString() === seasonId,
     )
 
     return episodes

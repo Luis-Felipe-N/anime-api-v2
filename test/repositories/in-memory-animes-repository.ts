@@ -1,11 +1,16 @@
 import { Anime } from '@/domain/enterprise/entities/anime'
 import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
+import { InMemorySeasonsRepository } from './in-memory-seasons-repository'
 
 export class InMemoryAnimesRepository implements AnimesRepository {
   public items: Anime[] = []
 
+  constructor(private seasonsRepository: InMemorySeasonsRepository) {}
+
   async create(anime: Anime): Promise<void> {
     this.items.push(anime)
+
+    this.seasonsRepository.createMany(anime.seasons.getItems())
   }
 
   async delete(anime: Anime): Promise<void> {

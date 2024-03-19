@@ -1,4 +1,4 @@
-import { SeasonsRepository } from '@/domain/application/repositories/seasons-epository'
+import { SeasonsRepository } from '@/domain/application/repositories/seasons-repository'
 import { Season } from '@/domain/enterprise/entities/season'
 
 export class InMemorySeasonsRepository implements SeasonsRepository {
@@ -6,6 +6,10 @@ export class InMemorySeasonsRepository implements SeasonsRepository {
 
   async create(season: Season): Promise<void> {
     this.items.push(season)
+  }
+
+  async createMany(seasons: Season[]): Promise<void> {
+    this.items.push(...seasons)
   }
 
   async delete(season: Season): Promise<void> {

@@ -8,6 +8,7 @@ export function makeSeason(
 ) {
   const season = Season.create(
     {
+      animeId: new UniqueEntityId(),
       title: faker.lorem.sentence(),
       ...override,
     },
