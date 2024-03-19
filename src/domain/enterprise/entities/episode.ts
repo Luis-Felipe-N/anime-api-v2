@@ -6,9 +6,8 @@ import { Slug } from '@/core/values-objects/slug'
 import dayjs from 'dayjs'
 
 export interface EpisodeProps {
-  animeId: UniqueEntityId
+  seasonId: UniqueEntityId
   index: number
-  season: number
   slug: Slug
   title: string
   description: string
@@ -26,8 +25,8 @@ export class Episode extends Entity<EpisodeProps> {
     return this.props.index
   }
 
-  get season() {
-    return this.props.season
+  get seasonId() {
+    return this.props.seasonId
   }
 
   get description() {
@@ -44,10 +43,6 @@ export class Episode extends Entity<EpisodeProps> {
 
   get createdAt() {
     return this.props.createdAt
-  }
-
-  get animeId() {
-    return this.props.animeId
   }
 
   get slug() {
