@@ -8,13 +8,12 @@ export function makeEpisode(
 ) {
   const episode = Episode.create(
     {
-      animeId: new UniqueEntityId('anime-id'),
       title: faker.lorem.sentence(),
       description: faker.lorem.text(),
       cover: faker.image.url(),
       duration: 800,
       index: 0,
-      season: 1,
+      seasonId: new UniqueEntityId(),
       ...override,
     },
     id,
