@@ -17,6 +17,9 @@ Este repositório contém a implementação da api de animes, uma aplicação co
 ## Autenticação :closed_lock_with_key:
 A aplicação utiliza o modo de Credentials.
 
+## Project anatomy
+
+
 ## RFs (Requisitos funcionais)
 - [ ] Deve ser possível pegar animes do ***animesonlinecc.to***;
 - [ ] Deve ser possível pegar animes do ***crunchyroll***;
