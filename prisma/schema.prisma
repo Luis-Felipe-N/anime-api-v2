@@ -1,0 +1,107 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
+}
+
+model User {
+  id       String   @id @default(uuid())
+  name     String
+  email    String   @unique
+  password String
+  role     UserRole @default(STUDENT)
+
+  uploadedAnimes  Anime[]
+  watchedepisodes Watched[]
+  comments        Comment[]
+
+  @@map("users")
+}
+
+model Anime {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  slug        String    @unique
+  banner      String?
+  cover       String?
+  authorId    String    @map("author_id")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime? @updatedAt @map("updated_at")
+
+  author User @relation(fields: [authorId], references: [id])
+
+  seasons Season[]
+
+  @@map("animes")
+}
+
+model Season {
+  id        String    @id @default(uuid())
+  title     String
+  slug      String    @unique
+  animeId   String?   @map("anime_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  anime    Anime?    @relation(fields: [animeId], references: [id])
+  episodes Episode[]
+
+  @@map("seasons")
+}
+
+model Episode {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  slug        String   @unique
+  cover       String
+  duration    Float
+  index       Int
+  seasonId    String?  @map("season_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  season   Season?   @relation(fields: [seasonId], references: [id])
+  comments Comment[]
+
+  @@map("episodes")
+}
+
+model Watched {
+  id        String    @id @default(uuid())
+  stopAt    Float     @map("stop_at")
+  userId    String?   @map("user_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  user      User?     @relation(fields: [userId], references: [id])
+
+  @@map("watched")
+}
+
+model Comment {
+  id        String    @id @default(uuid())
+  content   String
+  authorId  String    @map("author_id")
+  episodeId String?   @map("episode_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  author  User     @relation(fields: [authorId], references: [id])
+  episode Episode? @relation(fields: [episodeId], references: [id])
+
+  @@map("comments")
+}
