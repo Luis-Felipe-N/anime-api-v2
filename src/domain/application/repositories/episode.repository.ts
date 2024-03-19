@@ -10,13 +10,6 @@ export interface EpisodesRepository {
   delete(episode: Episode): Promise<void>
   findBySlug(slug: string): Promise<Episode | null>
   findById(id: string): Promise<Episode | null>
-  findByIndex(
-    animeId: string,
-    season: number,
-    episodeIndex: number,
-  ): Promise<Episode | null>
-  findManyByAnime({
-    animeId,
-    season,
-  }: FetchEpisodesByAnimeProps): Promise<Episode[]>
+  findByIndex(seasonId: string, episodeIndex: number): Promise<Episode | null>
+  findManyBySeason(seasonId: string): Promise<Episode[]>
 }

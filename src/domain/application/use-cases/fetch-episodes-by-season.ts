@@ -4,19 +4,18 @@ import { Either, failure, success } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { SeasonsRepository } from '../repositories/seasons-repository'
 
-interface GetNextEpisodeUseCaseRequest {
+interface FetchEpisodeBySeasonUseCaseRequest {
   seasonId: string
-  currentEpisodeIndex: number
 }
 
-type GetNextEpisodeUseCaseResponse = Either<
+type FetchEpisodeBySeasonUseCaseResponse = Either<
   ResourceNotFoundError,
   {
-    episode: Episode
+    episodes: Episode[]
   }
 >
 
-export class GetNextEpisodeUseCase {
+export class FetchEpisodeBySeasonUseCase {
   constructor(
     private episodesRepository: EpisodesRepository,
     private seasonsRepository: SeasonsRepository,
@@ -24,23 +23,15 @@ export class GetNextEpisodeUseCase {
 
   async execute({
     seasonId,
-    currentEpisodeIndex,
-  }: GetNextEpisodeUseCaseRequest): Promise<GetNextEpisodeUseCaseResponse> {
+  }: FetchEpisodeBySeasonUseCaseRequest): Promise<FetchEpisodeBySeasonUseCaseResponse> {
     const season = await this.seasonsRepository.findById(seasonId)
 
     if (!season) {
       return failure(new ResourceNotFoundError())
     }
 
-    const episode = await this.episodesRepository.findByIndex(
-      season.id.toString(),
-      currentEpisodeIndex + 1,
-    )
+    const episodes = await this.episodesRepository.findManyBySeason(seasonId)
 
-    if (!episode) {
-      return failure(new ResourceNotFoundError())
-    }
-
-    return success({ episode })
+    return success({ episodes })
   }
 }

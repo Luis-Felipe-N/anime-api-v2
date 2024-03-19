@@ -7,6 +7,7 @@ export interface FetchSeasonsByAnimeProps {
 
 export interface SeasonsRepository {
   create(season: Season): Promise<void>
+  createMany(seasons: Season[]): Promise<void>
   delete(season: Season): Promise<void>
   findBySlug(slug: string): Promise<Season | null>
   findById(id: string): Promise<Season | null>

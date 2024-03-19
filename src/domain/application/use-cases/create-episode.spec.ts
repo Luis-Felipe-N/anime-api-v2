@@ -2,16 +2,21 @@ import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-rep
 import { CreateEpisodeUseCase } from './create-episode'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeAnime } from 'test/factories/make-anime'
+import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
 // import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
 
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
+let inMemorySeasonsRepository: InMemorySeasonsRepository
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let sut: CreateEpisodeUseCase
 
 describe('Create Anime', () => {
   beforeEach(() => {
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
-    inMemoryAnimesRepository = new InMemoryAnimesRepository()
+    inMemorySeasonsRepository = new InMemorySeasonsRepository()
+    inMemoryAnimesRepository = new InMemoryAnimesRepository(
+      inMemorySeasonsRepository,
+    )
     sut = new CreateEpisodeUseCase(
       inMemoryEpisodesRepository,
       inMemoryAnimesRepository,

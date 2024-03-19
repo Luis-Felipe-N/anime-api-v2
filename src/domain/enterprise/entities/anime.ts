@@ -2,6 +2,7 @@ import { Slug } from '@/core/values-objects/slug'
 import { Optional } from '@/core/types/optional'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Entity } from '@/core/entities/entity'
+import { SeasonList } from './season-list'
 
 export interface AnimeProps {
   title: string
@@ -9,6 +10,7 @@ export interface AnimeProps {
   slug: Slug
   banner: string
   cover: string
+  seasons: SeasonList
   createdAt: Date
   updatedAt?: Date
 }
@@ -34,6 +36,10 @@ export class Anime extends Entity<AnimeProps> {
     return this.props.cover
   }
 
+  get seasons() {
+    return this.props.seasons
+  }
+
   get createdAt() {
     return this.props.createdAt
   }
@@ -42,8 +48,12 @@ export class Anime extends Entity<AnimeProps> {
     return this.props.description.slice(0, 120).trimEnd().concat('...')
   }
 
+  set seasons(seasons: SeasonList) {
+    this.props.seasons = seasons
+  }
+
   static create(
-    props: Optional<AnimeProps, 'createdAt' | 'slug'>,
+    props: Optional<AnimeProps, 'createdAt' | 'slug' | 'seasons'>,
     id?: UniqueEntityId,
   ) {
     const anime = new Anime(
@@ -51,6 +61,7 @@ export class Anime extends Entity<AnimeProps> {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.title),
         createdAt: new Date(),
+        seasons: props.seasons ?? new SeasonList(),
       },
       id,
     )

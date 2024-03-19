@@ -3,13 +3,19 @@ import { GetAnimeBySlugUseCase } from './get-anime-by-slug'
 import { makeAnime } from 'test/factories/make-anime'
 import { Slug } from '@/core/values-objects/slug'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
+let inMemorySeasonsRepository: InMemorySeasonsRepository
+
 let sut: GetAnimeBySlugUseCase
 
 describe('Get Anime by slug', () => {
   beforeEach(() => {
-    inMemoryAnimesRepository = new InMemoryAnimesRepository()
+    inMemorySeasonsRepository = new InMemorySeasonsRepository()
+    inMemoryAnimesRepository = new InMemoryAnimesRepository(
+      inMemorySeasonsRepository,
+    )
     sut = new GetAnimeBySlugUseCase(inMemoryAnimesRepository)
   })
 

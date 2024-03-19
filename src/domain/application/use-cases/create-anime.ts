@@ -1,12 +1,16 @@
 import { Either, success } from '@/core/either'
+import { Optional } from '@/core/types/optional'
 import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
 import { Anime } from '@/domain/enterprise/entities/anime'
+import { Season } from '@/domain/enterprise/entities/season'
+import { SeasonList } from '@/domain/enterprise/entities/season-list'
 
 interface CreateAnimeUseCaseRequest {
   banner: string
   cover: string
   description: string
   title: string
+  seasons: Optional<Season, 'slug'>[]
 }
 
 type CreateAnimeUseCaseResponse = Either<
@@ -24,6 +28,7 @@ export class CreateAnimeUseCase {
     cover,
     description,
     title,
+    seasons,
   }: CreateAnimeUseCaseRequest): Promise<CreateAnimeUseCaseResponse> {
     const anime = Anime.create({
       banner,
@@ -31,6 +36,20 @@ export class CreateAnimeUseCase {
       description,
       title,
     })
+
+    // console.log(seasons[0].props)
+
+    const animeSeasons = seasons.map((season) =>
+      Season.create(
+        {
+          animeId: anime.id,
+          ...season.props,
+        },
+        season.id,
+      ),
+    )
+
+    anime.seasons = new SeasonList(animeSeasons)
 
     await this.animesRepository.create(anime)
 

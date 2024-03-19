@@ -1,127 +1,120 @@
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeEpisode } from 'test/factories/make-episode'
 import { GetNextEpisodeUseCase } from './get-next-episode'
-import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
-
-import { makeAnime } from 'test/factories/make-anime'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { makeSeason } from 'test/factories/make-season'
+import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
 
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
-let inMemoryAnimesRepository: InMemoryAnimesRepository
+let inMemorySeasonsRepository: InMemorySeasonsRepository
 let sut: GetNextEpisodeUseCase
 
 describe('Get Next Episode', () => {
   beforeEach(() => {
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
-    inMemoryAnimesRepository = new InMemoryAnimesRepository()
+    inMemorySeasonsRepository = new InMemorySeasonsRepository()
+
     sut = new GetNextEpisodeUseCase(
       inMemoryEpisodesRepository,
-      inMemoryAnimesRepository,
+      inMemorySeasonsRepository,
     )
   })
 
   it('should be able to get the next episode', async () => {
-    const anime = makeAnime()
+    const season = makeSeason()
+    const season2 = makeSeason()
 
-    await inMemoryAnimesRepository.create(anime)
+    await inMemorySeasonsRepository.create(season)
+    await inMemorySeasonsRepository.create(season2)
 
     await inMemoryEpisodesRepository.create(
       makeEpisode({
-        animeId: anime.id,
-        season: 1,
+        seasonId: season.id,
         index: 1,
       }),
     )
 
     await inMemoryEpisodesRepository.create(
       makeEpisode({
-        animeId: anime.id,
-        season: 1,
+        seasonId: season.id,
         index: 2,
       }),
     )
 
     await inMemoryEpisodesRepository.create(
       makeEpisode({
-        animeId: anime.id,
-        season: 2,
+        seasonId: season2.id,
         index: 1,
       }),
     )
 
     const result = await sut.execute({
-      animeId: anime.id.toString(),
-      season: 1,
+      seasonId: season.id.toString(),
       currentEpisodeIndex: 1,
     })
 
     expect(result.isSuccess()).toBe(true)
 
     if (result.isSuccess()) {
-      expect(result.value.episode.season).toBe(1)
+      expect(result.value.episode.seasonId).toBe(season.id)
       expect(result.value.episode.index).toBe(2)
     }
   })
 
   // it('should be able to get the next episode of the next season', async () => {
-  //   const anime = makeAnime()
+  //   const season = makeSeason()
+  //   const season2 = makeSeason()
 
-  //   await inMemoryAnimesRepository.create(anime)
+  //   await inMemorySeasonsRepository.create(season)
 
   //   await inMemoryEpisodesRepository.create(
   //     makeEpisode({
-  //       animeId: anime.id,
-  //       season: 1,
+  //       seasonId: season.id,
   //       index: 1,
   //     }),
   //   )
 
   //   await inMemoryEpisodesRepository.create(
   //     makeEpisode({
-  //       animeId: anime.id,
-  //       season: 1,
+  //       seasonId: season.id,
   //       index: 2,
   //     }),
   //   )
 
   //   await inMemoryEpisodesRepository.create(
   //     makeEpisode({
-  //       animeId: anime.id,
-  //       season: 2,
+  //       seasonId: season2.id,
   //       index: 1,
   //     }),
   //   )
 
   //   const result = await sut.execute({
-  //     animeId: anime.id.toString(),
-  //     season: 1,
+  //     seasonId: season.id.toString(),
   //     currentEpisodeIndex: 2,
   //   })
 
   //   expect(result.isSuccess()).toBe(true)
 
   //   if (result.isSuccess()) {
-  //     expect(result.value.episode.season).toBe(2)
+  //     expect(result.value.episode.seasonId).toBe(season2.id)
   //     expect(result.value.episode.index).toBe(1)
   //   }
   // })
 
   it('should not be able to get the next episode with invalid season', async () => {
-    const anime = makeAnime()
+    const season = makeSeason()
 
-    await inMemoryAnimesRepository.create(anime)
+    await inMemorySeasonsRepository.create(season)
 
     const episode = makeEpisode({
-      animeId: anime.id,
-      season: 1,
+      seasonId: season.id,
       index: 1,
     })
 
     await inMemoryEpisodesRepository.create(episode)
 
     const result = await sut.execute({
-      animeId: anime.id.toString(),
-      season: 0,
+      seasonId: 's',
       currentEpisodeIndex: 1,
     })
 

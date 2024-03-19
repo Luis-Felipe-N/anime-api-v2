@@ -2,12 +2,13 @@ import { Entity } from '@/core/entities/entity'
 import { Slug } from '@/core/values-objects/slug'
 import { Optional } from '@/core/types/optional'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Episode } from './episode'
+import { EpisodeList } from './episode-list'
 
 export interface SeasonProps {
   title: string
   slug: Slug
-  episodes: Episode[]
+  animeId: UniqueEntityId
+  episodes: EpisodeList
   createdAt: Date
   updatedAt?: Date
 }
@@ -25,7 +26,7 @@ export class Season extends Entity<SeasonProps> {
     return this.props.episodes
   }
 
-  set episodes(episodes: Episode[]) {
+  set episodes(episodes: EpisodeList) {
     this.props.episodes = episodes
     this.touch()
   }
@@ -51,7 +52,7 @@ export class Season extends Entity<SeasonProps> {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.title),
         createdAt: new Date(),
-        episodes: [],
+        episodes: props.episodes ?? new EpisodeList(),
       },
       id,
     )

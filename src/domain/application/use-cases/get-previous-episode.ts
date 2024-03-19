@@ -2,11 +2,11 @@ import { Episode } from '@/domain/enterprise/entities/episode'
 import { EpisodesRepository } from '../repositories/episode.repository'
 import { Either, failure, success } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { AnimesRepository } from '../repositories/animes.repository'
+
+import { SeasonsRepository } from '../repositories/seasons-repository'
 
 interface GetPreviousEpisodeUseCaseRequest {
-  animeId: string
-  season: number
+  seasonId: string
   currentEpisodeIndex: number
 }
 
@@ -20,27 +20,24 @@ type GetPreviousEpisodeUseCaseResponse = Either<
 export class GetPreviousEpisodeUseCase {
   constructor(
     private episodesRepository: EpisodesRepository,
-    private animesRepository: AnimesRepository,
+    private seasonsRepository: SeasonsRepository,
   ) {}
 
   async execute({
-    animeId,
-    season,
+    seasonId,
     currentEpisodeIndex,
   }: GetPreviousEpisodeUseCaseRequest): Promise<GetPreviousEpisodeUseCaseResponse> {
-    if (season < 1 || currentEpisodeIndex < 1) {
+    if (currentEpisodeIndex < 1) {
       return failure(new ResourceNotFoundError())
     }
+    const season = await this.seasonsRepository.findById(seasonId)
 
-    const anime = await this.animesRepository.findById(animeId)
-
-    if (!anime) {
+    if (!season) {
       return failure(new ResourceNotFoundError())
     }
 
     const episode = await this.episodesRepository.findByIndex(
-      animeId,
-      season,
+      season.id.toString(),
       currentEpisodeIndex - 1,
     )
 
