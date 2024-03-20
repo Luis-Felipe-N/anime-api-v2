@@ -1,38 +1,77 @@
 import { CreateSeasonUseCase } from './create-season'
 import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
-import { faker } from '@faker-js/faker'
-// import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
+import { makeEpisode } from 'test/factories/make-episode'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { makeAnime } from 'test/factories/make-anime'
+import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
+import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
+import { Slug } from '@/core/values-objects/slug'
 
 let inMemorySeasonsRepository: InMemorySeasonsRepository
+let inMemoryAnimesRepository: InMemoryAnimesRepository
+let inMemoryEpisodesRepository: InMemoryEpisodesRepository
 let sut: CreateSeasonUseCase
 
 describe('Create Season', () => {
   beforeEach(() => {
-    inMemorySeasonsRepository = new InMemorySeasonsRepository()
-    sut = new CreateSeasonUseCase(inMemorySeasonsRepository)
+    inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
+    inMemorySeasonsRepository = new InMemorySeasonsRepository(
+      inMemoryEpisodesRepository,
+    )
+    inMemoryAnimesRepository = new InMemoryAnimesRepository(
+      inMemorySeasonsRepository,
+    )
+    sut = new CreateSeasonUseCase(
+      inMemorySeasonsRepository,
+      inMemoryAnimesRepository,
+    )
   })
 
-  it('should be able to create a episode', async () => {
+  it('should be able to create a season', async () => {
+    const episode = makeEpisode({}, new UniqueEntityId('episode-01'))
+    const anime = makeAnime()
+
+    await inMemoryAnimesRepository.create(anime)
+
     const result = await sut.execute({
       title: 'Mob Psycho 100 II',
-      episodes: [
-        {
-          title: faker.lorem.sentence(),
-          description: faker.lorem.text(),
-          cover: faker.image.url(),
-          duration: 800,
-          index: 0,
-        },
-      ],
+      animeId: anime.id.toString(),
+      episodes: [episode],
     })
 
     expect(result.isSuccess()).toBe(true)
 
-    // if (result.isSuccess()) {
-    //   expect(result.value.episode.title).toEqual('Titulo do episódio')
-    //   expect(inMemoryEpisodesRepository.items[0].id).toEqual(
-    //     result.value.episode.id,
-    //   )
-    // }
+    if (result.isSuccess()) {
+      expect(result.value.season.title).toEqual('Mob Psycho 100 II')
+      expect(inMemorySeasonsRepository.items[0].id).toEqual(
+        result.value.season.id,
+      )
+    }
+  })
+
+  it('should be able to create a season with episodes', async () => {
+    const episode = makeEpisode({}, new UniqueEntityId('episode-01'))
+    const anime = makeAnime()
+
+    await inMemoryAnimesRepository.create(anime)
+
+    const result = await sut.execute({
+      title: 'Mob Psycho 100 II',
+      animeId: anime.id.toString(),
+      episodes: [episode],
+    })
+
+    expect(result.isSuccess()).toBe(true)
+
+    if (result.isSuccess()) {
+      expect(result.value.season.title).toEqual('Mob Psycho 100 II')
+      expect(inMemoryEpisodesRepository.items).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: new UniqueEntityId('episode-01'),
+          }),
+        ]),
+      )
+    }
   })
 })

@@ -37,6 +37,7 @@ describe('Create Anime', () => {
 
   it('should be able to create an anime with seasons', async () => {
     const season = makeSeason({}, new UniqueEntityId('temp-01'))
+
     const result = await sut.execute({
       title: 'Jujutsu',
       banner: 'banner-link',
