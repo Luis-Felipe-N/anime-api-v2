@@ -4,15 +4,24 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Entity } from '@/core/entities/entity'
 import { SeasonList } from './season-list'
 
+enum EpisodeType {
+  CRUNCHYROLL = 'CRUNCHYROLL',
+  ANIMESONLINE = 'ANIMESONLINE',
+}
+
 export interface AnimeProps {
   title: string
+  type: EpisodeType
   description: string
   slug: Slug
-  banner: string
-  cover: string
+  banner: string | null
+  cover: string | null
+  nsfw: boolean
+  trailerYtId: string | null
+  authorId: UniqueEntityId
   seasons: SeasonList
   createdAt: Date
-  updatedAt?: Date
+  updatedAt: Date | null
 }
 
 export class Anime extends Entity<AnimeProps> {

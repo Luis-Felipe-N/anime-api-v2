@@ -12,7 +12,9 @@ let sut: FetchEpisodeBySeasonUseCase
 describe('Fetch Episodes by Season', () => {
   beforeEach(() => {
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
-    inMemorySeasonsRepository = new InMemorySeasonsRepository()
+    inMemorySeasonsRepository = new InMemorySeasonsRepository(
+      inMemoryEpisodesRepository,
+    )
 
     sut = new FetchEpisodeBySeasonUseCase(
       inMemoryEpisodesRepository,

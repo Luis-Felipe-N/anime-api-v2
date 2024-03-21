@@ -10,7 +10,7 @@ export interface EpisodeProps {
   index: number
   slug: Slug
   title: string
-  description: string
+  description: string | null
   cover: string
   duration: number
   createdAt: Date
@@ -54,7 +54,9 @@ export class Episode extends Entity<EpisodeProps> {
   }
 
   get excerpt() {
-    return this.props.description.slice(0, 80).trimEnd().concat('...')
+    if (this.props.description) {
+      return this.props.description.slice(0, 80).trimEnd().concat('...')
+    }
   }
 
   static create(

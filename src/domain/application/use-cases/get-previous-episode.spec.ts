@@ -12,7 +12,9 @@ let sut: GetPreviousEpisodeUseCase
 describe('Get Next Episode', () => {
   beforeEach(() => {
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
-    inMemorySeasonsRepository = new InMemorySeasonsRepository()
+    inMemorySeasonsRepository = new InMemorySeasonsRepository(
+      inMemoryEpisodesRepository,
+    )
 
     sut = new GetPreviousEpisodeUseCase(
       inMemoryEpisodesRepository,
