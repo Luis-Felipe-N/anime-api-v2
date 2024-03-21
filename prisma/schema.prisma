@@ -18,6 +18,11 @@ enum UserRole {
   INSTRUCTOR
 }
 
+enum EpisodeType {
+  CRUNCHYROLL
+  ANIMESONLINE
+}
+
 model User {
   id       String   @id @default(uuid())
   name     String
@@ -39,6 +44,8 @@ model Anime {
   slug        String    @unique
   banner      String?
   cover       String?
+  nsfw        Boolean   @default(false)
+  trailerYtId String?
   authorId    String    @map("author_id")
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
@@ -54,7 +61,7 @@ model Season {
   id        String    @id @default(uuid())
   title     String
   slug      String    @unique
-  animeId   String?   @map("anime_id")
+  animeId   String    @map("anime_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
@@ -65,15 +72,17 @@ model Season {
 }
 
 model Episode {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
+  type        EpisodeType
   title       String
-  description String
-  slug        String   @unique
+  description String?
+  slug        String      @unique
   cover       String
   duration    Float
   index       Int
-  seasonId    String?  @map("season_id")
-  createdAt   DateTime @default(now()) @map("created_at")
+  linkEmbed   String?     @map("link-embed")
+  seasonId    String      @map("season_id")
+  createdAt   DateTime    @default(now()) @map("created_at")
 
   season   Season?   @relation(fields: [seasonId], references: [id])
   comments Comment[]
