@@ -6,8 +6,7 @@ import fastifyJwt from '@fastify/jwt'
 import cors from '@fastify/cors'
 
 // import { usersRoutes } from './http/controllers/users/routes'
-// import { categoriesRouter } from './http/controllers/categories/routes'
-// import { quizzesRoutes } from './http/controllers/quiz/routes'
+import { animesRouter } from './infra/http/controllers/animes/routes'
 
 export const app = fastify()
 
@@ -19,9 +18,8 @@ app.register(cors, {
   // put your options here
 })
 
-app.register(usersRoutes)
-// app.register(categoriesRouter)
-// app.register(quizzesRoutes)
+// app.register(usersRoutes)
+app.register(animesRouter)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
