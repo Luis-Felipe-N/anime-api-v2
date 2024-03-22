@@ -3,14 +3,19 @@ import { CreateAnimeUseCase } from './create-anime'
 import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
+import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
+let inMemoryEpisodesRepository: InMemoryEpisodesRepository
 let inMemorySeasonsRepository: InMemorySeasonsRepository
 let sut: CreateAnimeUseCase
 
 describe('Create Anime', () => {
   beforeEach(() => {
-    inMemorySeasonsRepository = new InMemorySeasonsRepository()
+    inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
+    inMemorySeasonsRepository = new InMemorySeasonsRepository(
+      inMemoryEpisodesRepository,
+    )
     inMemoryAnimesRepository = new InMemoryAnimesRepository(
       inMemorySeasonsRepository,
     )
@@ -23,6 +28,7 @@ describe('Create Anime', () => {
       cover: 'cover-link',
       description: 'Descrição do anime',
       title: 'Jujutsu',
+      nsfw: false,
       seasons: [],
     })
     expect(result.isSuccess()).toBe(true)
@@ -43,6 +49,7 @@ describe('Create Anime', () => {
       banner: 'banner-link',
       cover: 'cover-link',
       description: 'Descrição do anime',
+      nsfw: false,
       seasons: [season],
     })
 

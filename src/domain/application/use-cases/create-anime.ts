@@ -6,10 +6,12 @@ import { Season } from '@/domain/enterprise/entities/season'
 import { SeasonList } from '@/domain/enterprise/entities/season-list'
 
 interface CreateAnimeUseCaseRequest {
-  banner: string
-  cover: string
+  banner: string | null
+  cover: string | null
   description: string
   title: string
+  nsfw: boolean
+  trailerYtId?: string | null
   seasons: Optional<Season, 'slug'>[]
 }
 
@@ -29,15 +31,17 @@ export class CreateAnimeUseCase {
     description,
     title,
     seasons,
+    nsfw,
+    trailerYtId = null,
   }: CreateAnimeUseCaseRequest): Promise<CreateAnimeUseCaseResponse> {
     const anime = Anime.create({
       banner,
       cover,
       description,
       title,
+      nsfw,
+      trailerYtId,
     })
-
-    // console.log(seasons[0].props)
 
     const animeSeasons = seasons.map((season) =>
       Season.create(
