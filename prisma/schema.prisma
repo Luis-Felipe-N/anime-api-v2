@@ -30,7 +30,6 @@ model User {
   password String
   role     UserRole @default(STUDENT)
 
-  uploadedAnimes  Anime[]
   watchedepisodes Watched[]
   comments        Comment[]
 
@@ -46,11 +45,8 @@ model Anime {
   cover       String?
   nsfw        Boolean   @default(false)
   trailerYtId String?
-  authorId    String    @map("author_id")
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
-
-  author User @relation(fields: [authorId], references: [id])
 
   seasons Season[]
 
