@@ -4,20 +4,25 @@ import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-rep
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
+import { makeGenre } from 'test/factories/make-genre'
+import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-repository'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
+let inMemoryGenresRepository: InMemoryGenresRepository
 let inMemorySeasonsRepository: InMemorySeasonsRepository
 let sut: CreateAnimeUseCase
 
 describe('Create Anime', () => {
   beforeEach(() => {
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
+    inMemoryGenresRepository = new InMemoryGenresRepository()
     inMemorySeasonsRepository = new InMemorySeasonsRepository(
       inMemoryEpisodesRepository,
     )
     inMemoryAnimesRepository = new InMemoryAnimesRepository(
       inMemorySeasonsRepository,
+      inMemoryGenresRepository,
     )
     sut = new CreateAnimeUseCase(inMemoryAnimesRepository)
   })
@@ -30,6 +35,7 @@ describe('Create Anime', () => {
       title: 'Jujutsu',
       nsfw: false,
       seasons: [],
+      genres: [],
     })
     expect(result.isSuccess()).toBe(true)
 
@@ -51,6 +57,7 @@ describe('Create Anime', () => {
       description: 'Descrição do anime',
       nsfw: false,
       seasons: [season],
+      genres: [],
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -61,6 +68,33 @@ describe('Create Anime', () => {
         expect.arrayContaining([
           expect.objectContaining({
             id: new UniqueEntityId('temp-01'),
+          }),
+        ]),
+      )
+    }
+  })
+
+  it('should be able to create an anime with genres', async () => {
+    const genre = makeGenre({}, new UniqueEntityId('genero-acao'))
+
+    const result = await sut.execute({
+      title: 'Jujutsu',
+      banner: 'banner-link',
+      cover: 'cover-link',
+      description: 'Descrição do anime',
+      nsfw: false,
+      seasons: [],
+      genres: [genre],
+    })
+
+    expect(result.isSuccess()).toBe(true)
+
+    if (result.isSuccess()) {
+      expect(result.value.anime.slug.value).toEqual('jujutsu')
+      expect(inMemoryGenresRepository.items).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            id: new UniqueEntityId('genero-acao'),
           }),
         ]),
       )

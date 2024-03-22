@@ -4,16 +4,25 @@ import { makeAnime } from 'test/factories/make-anime'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
+import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
+import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-repository'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let inMemorySeasonsRepository: InMemorySeasonsRepository
+let inMemoryEpisodesRepository: InMemoryEpisodesRepository
+let inMemoryGenresRepository: InMemoryGenresRepository
 let sut: DeleteAnimeUseCase
 
 describe('Delete Anime', () => {
   beforeEach(() => {
-    inMemorySeasonsRepository = new InMemorySeasonsRepository()
+    inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
+    inMemoryGenresRepository = new InMemoryGenresRepository()
+    inMemorySeasonsRepository = new InMemorySeasonsRepository(
+      inMemoryEpisodesRepository,
+    )
     inMemoryAnimesRepository = new InMemoryAnimesRepository(
       inMemorySeasonsRepository,
+      inMemoryGenresRepository,
     )
     sut = new DeleteAnimeUseCase(inMemoryAnimesRepository)
   })

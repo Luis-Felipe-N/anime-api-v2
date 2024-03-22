@@ -2,6 +2,8 @@ import { Either, success } from '@/core/either'
 import { Optional } from '@/core/types/optional'
 import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
 import { Anime } from '@/domain/enterprise/entities/anime'
+import { Genre } from '@/domain/enterprise/entities/genre'
+import { GenreList } from '@/domain/enterprise/entities/genre-list'
 import { Season } from '@/domain/enterprise/entities/season'
 import { SeasonList } from '@/domain/enterprise/entities/season-list'
 
@@ -13,6 +15,7 @@ interface CreateAnimeUseCaseRequest {
   nsfw: boolean
   trailerYtId?: string | null
   seasons: Optional<Season, 'slug'>[]
+  genres: Optional<Genre, 'slug'>[]
 }
 
 type CreateAnimeUseCaseResponse = Either<
@@ -31,6 +34,7 @@ export class CreateAnimeUseCase {
     description,
     title,
     seasons,
+    genres,
     nsfw,
     trailerYtId = null,
   }: CreateAnimeUseCaseRequest): Promise<CreateAnimeUseCaseResponse> {
@@ -46,14 +50,27 @@ export class CreateAnimeUseCase {
     const animeSeasons = seasons.map((season) =>
       Season.create(
         {
+          title: season.title,
+          createdAt: season.createdAt,
+          updatedAt: season.updatedAt,
           animeId: anime.id,
-          ...season.props,
         },
         season.id,
       ),
     )
 
+    const animeGenres = genres.map((genre) =>
+      Genre.create(
+        {
+          title: genre.title,
+          animeId: anime.id,
+        },
+        genre.id,
+      ),
+    )
+
     anime.seasons = new SeasonList(animeSeasons)
+    anime.genres = new GenreList(animeGenres)
 
     await this.animesRepository.create(anime)
 

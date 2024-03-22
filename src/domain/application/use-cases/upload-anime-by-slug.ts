@@ -6,6 +6,8 @@ import { Anime } from '@/domain/enterprise/entities/anime'
 import { Season } from '@/domain/enterprise/entities/season'
 import { SeasonList } from '@/domain/enterprise/entities/season-list'
 import { Slug } from '@/core/values-objects/slug'
+import { Genre } from '@/domain/enterprise/entities/genre'
+import { GenreList } from '@/domain/enterprise/entities/genre-list'
 
 interface UploadAnimeBySlugUseCaseProps {
   slug: string
@@ -24,6 +26,7 @@ export class UploadAnimeBySlugUseCase {
   async execute({
     slug,
   }: UploadAnimeBySlugUseCaseProps): Promise<UploadAnimeBySlugUseCaseResponse> {
+    const animePrisma = await this.animesRepository.findBySlug(slug)
     const scraper = new AnimesOnlineScrapper()
 
     const result = await scraper.getAnimeBySlug(slug, true)
@@ -32,29 +35,43 @@ export class UploadAnimeBySlugUseCase {
       return failure(new UploadAnimeError())
     }
 
-    const anime = Anime.create({
-      banner: result.value.anime.banner,
-      cover: result.value.anime.cover,
-      description: result.value.anime.description,
-      nsfw: result.value.anime.nsfw,
-      title: result.value.anime.title,
-      trailerYtId: result.value.anime.trailerYtId,
-    })
+    const anime = Anime.create(
+      {
+        banner: result.value.anime.banner,
+        cover: result.value.anime.cover,
+        description: result.value.anime.description,
+        nsfw: result.value.anime.nsfw,
+        title: result.value.anime.title,
+        trailerYtId: result.value.anime.trailerYtId,
+      },
+      animePrisma?.id,
+    )
 
     const animeSeasons = result.value.seasons.map((season) =>
       Season.create(
         {
           title: season.title,
           animeId: anime.id,
-          ...season.props,
         },
         season.id,
       ),
     )
 
-    anime.seasons = new SeasonList(animeSeasons)
+    const animeGenres = result.value.genres.map((genre) =>
+      Genre.create({
+        title: genre.title,
+        animeId: anime.id,
+      }),
+    )
 
-    await this.animesRepository.create(anime)
+    anime.seasons = new SeasonList(animeSeasons)
+    anime.genres = new GenreList(animeGenres)
+
+    if (animePrisma) {
+      await this.animesRepository.save(anime)
+    } else {
+      await this.animesRepository.create(anime)
+    }
 
     return success({ anime })
   }

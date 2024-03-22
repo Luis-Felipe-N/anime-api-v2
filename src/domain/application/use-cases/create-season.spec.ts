@@ -5,21 +5,24 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { makeAnime } from 'test/factories/make-anime'
 import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
-import { Slug } from '@/core/values-objects/slug'
+import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-repository'
 
 let inMemorySeasonsRepository: InMemorySeasonsRepository
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
+let inMemoryGenresRepository: InMemoryGenresRepository
 let sut: CreateSeasonUseCase
 
 describe('Create Season', () => {
   beforeEach(() => {
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
+    inMemoryGenresRepository = new InMemoryGenresRepository()
     inMemorySeasonsRepository = new InMemorySeasonsRepository(
       inMemoryEpisodesRepository,
     )
     inMemoryAnimesRepository = new InMemoryAnimesRepository(
       inMemorySeasonsRepository,
+      inMemoryGenresRepository,
     )
     sut = new CreateSeasonUseCase(
       inMemorySeasonsRepository,

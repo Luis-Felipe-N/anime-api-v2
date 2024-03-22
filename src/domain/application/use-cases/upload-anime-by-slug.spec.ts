@@ -1,23 +1,26 @@
-import { makeSeason } from 'test/factories/make-season'
 import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { UploadAnimeBySlugUseCase } from '@/domain/application/use-cases/upload-anime-by-slug'
+import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-repository'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
 let inMemorySeasonsRepository: InMemorySeasonsRepository
+let inMemoryGenresRepository: InMemoryGenresRepository
 let sut: UploadAnimeBySlugUseCase
 
 describe('Upload Anime By Slug', () => {
   beforeEach(() => {
+    inMemoryGenresRepository = new InMemoryGenresRepository()
+
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
     inMemorySeasonsRepository = new InMemorySeasonsRepository(
       inMemoryEpisodesRepository,
     )
     inMemoryAnimesRepository = new InMemoryAnimesRepository(
       inMemorySeasonsRepository,
+      inMemoryGenresRepository,
     )
     sut = new UploadAnimeBySlugUseCase(inMemoryAnimesRepository)
   })
