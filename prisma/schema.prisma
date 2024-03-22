@@ -49,6 +49,7 @@ model Anime {
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
   seasons Season[]
+  genres  Genre[]
 
   @@map("animes")
 }
@@ -86,6 +87,17 @@ model Episode {
   @@map("episodes")
 }
 
+model Genre {
+  id    String @id @default(uuid())
+  slug  String @unique
+  title String
+
+  Anime   Anime? @relation(fields: [animeId], references: [id])
+  animeId String @map("anime_id")
+
+  @@map("genres")
+}
+
 model Watched {
   id        String    @id @default(uuid())
   stopAt    Float     @map("stop_at")
@@ -101,7 +113,7 @@ model Comment {
   id        String    @id @default(uuid())
   content   String
   authorId  String    @map("author_id")
-  episodeId String?   @map("episode_id")
+  episodeId String    @map("episode_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
