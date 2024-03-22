@@ -8,7 +8,7 @@ export interface CommentProps {
   episodeId: UniqueEntityId
   content: string
   createdAt: Date
-  updatedAt?: Date
+  updatedAt?: Date | null
 }
 
 export class Comment extends Entity<CommentProps> {

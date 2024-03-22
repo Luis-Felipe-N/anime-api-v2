@@ -3,12 +3,14 @@ import { Optional } from '@/core/types/optional'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Entity } from '@/core/entities/entity'
 import { SeasonList } from './season-list'
+import { GenreList } from './genre-list'
 
 export interface AnimeProps {
   title: string
   description: string
   slug: Slug
   seasons: SeasonList
+  genres: GenreList
   banner: string | null
   cover: string | null
   nsfw: boolean
@@ -50,6 +52,10 @@ export class Anime extends Entity<AnimeProps> {
     return this.props.seasons
   }
 
+  get genres() {
+    return this.props.genres
+  }
+
   get createdAt() {
     return this.props.createdAt
   }
@@ -60,10 +66,22 @@ export class Anime extends Entity<AnimeProps> {
 
   set seasons(seasons: SeasonList) {
     this.props.seasons = seasons
+
+    this.touch()
+  }
+
+  set genres(genres: GenreList) {
+    this.props.genres = genres
+
+    this.touch()
+  }
+
+  private touch() {
+    this.props.updatedAt = new Date()
   }
 
   static create(
-    props: Optional<AnimeProps, 'createdAt' | 'slug' | 'seasons'>,
+    props: Optional<AnimeProps, 'createdAt' | 'slug' | 'seasons' | 'genres'>,
     id?: UniqueEntityId,
   ) {
     const anime = new Anime(
@@ -72,6 +90,7 @@ export class Anime extends Entity<AnimeProps> {
         slug: props.slug ?? Slug.createFromText(props.title),
         createdAt: new Date(),
         seasons: props.seasons ?? new SeasonList(),
+        genres: props.genres ?? new GenreList(),
       },
       id,
     )
