@@ -35,4 +35,19 @@ export class PrismaEpisodeMapper {
       type: raw.type,
     }
   }
+
+  static toPrismaMany(raws: Episode[]): Prisma.EpisodeUncheckedCreateInput[] {
+    return raws.map((raw) => ({
+      id: raw.id.toString(),
+      seasonId: raw.seasonId.toString(),
+      title: raw.title,
+      cover: raw.cover,
+      description: raw.description,
+      duration: raw.duration,
+      index: raw.index,
+      slug: raw.slug.value,
+      createdAt: raw.createdAt,
+      type: raw.type,
+    }))
+  }
 }

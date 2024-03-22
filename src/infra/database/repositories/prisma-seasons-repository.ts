@@ -8,17 +8,37 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
 
   async create(season: Season) {
     const data = PrismaSeasonMapper.toPrisma(season)
-    await prisma.season.create({
+
+    const seasonPrisma = await prisma.season.findUnique({
+      where: {
+        slug: data.slug,
+      },
+    })
+
+    if (seasonPrisma) {
+      await this.save(season)
+    } else {
+      await prisma.season.create({
+        data,
+      })
+    }
+  }
+
+  async save(season: Season) {
+    const data = PrismaSeasonMapper.toPrisma(season)
+
+    await prisma.season.update({
+      where: {
+        slug: data.slug,
+      },
       data,
     })
   }
 
   async createMany(seasons: Season[]) {
-    const data = PrismaSeasonMapper.toPrismaMany(seasons)
+    const data = PrismaSeasonMapper.toPrismaUpdateMany(seasons)
 
-    await prisma.season.createMany({
-      data,
-    })
+    await prisma.season.updateMany(data)
   }
 
   async findBySlug(slug: string) {

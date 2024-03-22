@@ -4,6 +4,7 @@ import { Anime } from '@/domain/enterprise/entities/anime'
 import { Anime as PrismaAnime, Season as PrismaSeason } from '@prisma/client'
 
 import { PrismaSeasonMapper } from './prisma-season-mapper'
+import { SeasonList } from '@/domain/enterprise/entities/season-list'
 
 type PrismaAnimeDetails = PrismaAnime & {
   seasons: PrismaSeason[]
@@ -18,10 +19,9 @@ export class PrismaAnimeDetailsMapper {
         banner: raw.banner,
         cover: raw.cover,
         nsfw: raw.nsfw,
-        authorId: new UniqueEntityId(raw.authorId),
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
-        seasons: raw.seasons.map(PrismaSeasonMapper.toDomain),
+        seasons: new SeasonList(raw.seasons.map(PrismaSeasonMapper.toDomain)),
         trailerYtId: raw.trailerYtId,
         slug: Slug.create(raw.slug),
       },

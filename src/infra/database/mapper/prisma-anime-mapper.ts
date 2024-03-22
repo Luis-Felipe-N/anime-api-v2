@@ -12,7 +12,6 @@ export class PrismaAnimeMapper {
         banner: raw.banner,
         cover: raw.cover,
         nsfw: raw.nsfw,
-        authorId: new UniqueEntityId(raw.authorId),
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
         trailerYtId: raw.trailerYtId,
@@ -32,8 +31,6 @@ export class PrismaAnimeMapper {
       cover: raw.cover,
       nsfw: raw.nsfw,
       createdAt: raw.createdAt,
-      updatedAt: raw.updatedAt,
-      seasons: raw.seasons,
     }
   }
 }

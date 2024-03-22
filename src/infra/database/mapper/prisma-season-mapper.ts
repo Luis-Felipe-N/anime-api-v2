@@ -38,4 +38,21 @@ export class PrismaSeasonMapper {
       createdAt: raw.createdAt,
     }))
   }
+
+  static toPrismaUpdateMany(seasons: Season[]): Prisma.SeasonUpdateManyArgs {
+    const seasonsIds = seasons.map((season) => {
+      return season.id.toString()
+    })
+
+    return {
+      where: {
+        id: {
+          in: seasonsIds,
+        },
+      },
+      data: {
+        animeId: seasons[0].animeId.toString(),
+      },
+    }
+  }
 }
