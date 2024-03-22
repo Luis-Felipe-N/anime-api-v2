@@ -12,6 +12,8 @@ export function makeAnime(
       description: faker.lorem.text(),
       banner: faker.image.url(),
       cover: faker.image.url(),
+      nsfw: false,
+      trailerYtId: faker.internet.url(),
       ...override,
     },
     id,

@@ -1,14 +1,15 @@
 import { Episode } from '@/domain/enterprise/entities/episode'
-import {
-  EpisodesRepository,
-  FetchEpisodesByAnimeProps,
-} from '@/domain/application/repositories/episode.repository'
+import { EpisodesRepository } from '@/domain/application/repositories/episode.repository'
 
 export class InMemoryEpisodesRepository implements EpisodesRepository {
   public items: Episode[] = []
 
   async create(episode: Episode): Promise<void> {
     this.items.push(episode)
+  }
+
+  async createMany(episodes: Episode[]): Promise<void> {
+    this.items.push(...episodes)
   }
 
   async delete(episode: Episode): Promise<void> {

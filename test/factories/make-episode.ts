@@ -13,6 +13,7 @@ export function makeEpisode(
       cover: faker.image.url(),
       duration: 800,
       index: 0,
+      type: 'ANIMESONLINE',
       seasonId: new UniqueEntityId(),
       ...override,
     },
