@@ -1,17 +1,25 @@
 import { Anime } from '@/domain/enterprise/entities/anime'
 import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
 import { InMemorySeasonsRepository } from './in-memory-seasons-repository'
+import { PaginationParams } from '@/core/types/pagination-params'
+import { InMemoryGenresRepository } from './in-memory-genres-repository'
 
 export class InMemoryAnimesRepository implements AnimesRepository {
   public items: Anime[] = []
 
-  constructor(private seasonsRepository: InMemorySeasonsRepository) {}
+  constructor(
+    private seasonsRepository: InMemorySeasonsRepository,
+    private genresRepository: InMemoryGenresRepository,
+  ) {}
 
   async create(anime: Anime): Promise<void> {
     this.items.push(anime)
 
     this.seasonsRepository.createMany(anime.seasons.getItems())
+    this.genresRepository.createMany(anime.genres.getItems())
   }
+
+  save(anime: Anime): Promise<void> {}
 
   async delete(anime: Anime): Promise<void> {
     const animeIndex = this.items.findIndex((item) => item.id === anime.id)
@@ -37,5 +45,15 @@ export class InMemoryAnimesRepository implements AnimesRepository {
     }
 
     return anime
+  }
+
+  async findManyByGenre(genreSlug: string, params: PaginationParams) {
+    const animes = this.items
+      .filter((item) =>
+        item.genres.getItems().some((genre) => genre.slug.value === genreSlug),
+      )
+      .slice((params.page - 1) * 20, params.page * 20)
+
+    return animes
   }
 }
