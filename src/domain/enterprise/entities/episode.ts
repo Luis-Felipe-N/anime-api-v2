@@ -4,10 +4,20 @@ import { Optional } from '@/core/types/optional'
 import { Slug } from '@/core/values-objects/slug'
 
 import dayjs from 'dayjs'
+export const Type: {
+  CRUNCHYROLL: 'CRUNCHYROLL'
+  ANIMESONLINE: 'ANIMESONLINE'
+} = {
+  CRUNCHYROLL: 'CRUNCHYROLL',
+  ANIMESONLINE: 'ANIMESONLINE',
+}
+
+export type Type = (typeof Type)[keyof typeof Type]
 
 export interface EpisodeProps {
   seasonId: UniqueEntityId
   index: number
+  type: Type
   slug: Slug
   title: string
   description: string | null
@@ -47,6 +57,10 @@ export class Episode extends Entity<EpisodeProps> {
 
   get slug() {
     return this.props.slug
+  }
+
+  get type() {
+    return this.props.type
   }
 
   get isNew(): boolean {

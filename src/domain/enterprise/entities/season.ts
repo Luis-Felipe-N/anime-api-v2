@@ -26,6 +26,10 @@ export class Season extends Entity<SeasonProps> {
     return this.props.episodes
   }
 
+  get animeId() {
+    return this.props.animeId
+  }
+
   set episodes(episodes: EpisodeList) {
     this.props.episodes = episodes
     this.touch()
