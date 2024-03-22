@@ -1,21 +1,51 @@
-// import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
-// import { Anime } from '@/domain/enterprise/entities/anime'
-// import { prisma } from '../prisma/prisma'
+import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
+import { Anime } from '@/domain/enterprise/entities/anime'
+import { prisma } from '../prisma/prisma'
+import { PrismaAnimeMapper } from '../mapper/prisma-anime-mapper'
+import { SeasonsRepository } from '@/domain/application/repositories/seasons-repository'
 
-// export class PrismaAnimesRepository implements AnimesRepository {
-//   create(anime: Anime): Promise<void> {
-//     prisma.
-//   }
+export class PrismaAnimesRepository implements AnimesRepository {
+  constructor(private seasonsRepository: SeasonsRepository) {}
 
-//   findBySlug(slug: string): Promise<Anime | null> {
-//     throw new Error('Method not implemented.')
-//   }
+  async create(anime: Anime) {
+    const data = PrismaAnimeMapper.toPrisma(anime)
+    await prisma.anime.create({
+      data,
+    })
 
-//   findById(id: string): Promise<Anime | null> {
-//     throw new Error('Method not implemented.')
-//   }
+    await this.seasonsRepository.createMany(anime.seasons.getItems())
+  }
 
-//   delete(anime: Anime): Promise<void> {
-//     throw new Error('Method not implemented.')
-//   }
-// }
+  async findBySlug(slug: string) {
+    const anime = await prisma.anime.findUnique({
+      where: {
+        slug,
+      },
+    })
+
+    if (!anime) return null
+
+    return PrismaAnimeMapper.toDomain(anime)
+  }
+
+  async findById(id: string): Promise<Anime | null> {
+    const anime = await prisma.anime.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!anime) return null
+
+    return PrismaAnimeMapper.toDomain(anime)
+  }
+
+  async delete(anime: Anime) {
+    const data = PrismaAnimeMapper.toPrisma(anime)
+    await prisma.anime.delete({
+      where: {
+        id: data.id,
+      },
+    })
+  }
+}
