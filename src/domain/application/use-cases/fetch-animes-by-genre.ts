@@ -11,7 +11,7 @@ interface FetchAnimesByGenreUseCaseRequest {
 
 type FetchAnimesByGenreUseCaseResponse = Either<
   ResourceNotFoundError,
-  { animes: Anime }
+  { animes: Anime[] }
 >
 
 export class FetchAnimesByGenreUseCase {
