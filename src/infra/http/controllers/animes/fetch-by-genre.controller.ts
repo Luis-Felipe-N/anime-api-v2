@@ -1,21 +1,30 @@
 import { makeFetchAnimesByGenreUseCase } from '@/infra/factories/make-fetch-animes-by-genre-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
+import { AnimePresenter } from '../../presenters/anime-presenters'
 
 export async function fetchByGenre(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-  const fetchAnimesByGenreBodySchema = z.object({
-    genreSlug: z.string(),
-    page: z.number().default(0),
+  const fetchAnimesByGenreParamsSchema = z.object({
+    slug: z.string(),
   })
 
-  const { genreSlug, page } = fetchAnimesByGenreBodySchema.parse(request.body)
+  const fetchAnimesByGenreQuerySchema = z.object({
+    page: z.number().default(1),
+  })
+
+  const { slug } = fetchAnimesByGenreParamsSchema.parse(request.params)
+  const { page } = fetchAnimesByGenreQuerySchema.parse(request.query)
 
   const useCase = makeFetchAnimesByGenreUseCase()
 
-  const animes = await useCase.execute({ genreSlug, page })
+  const result = await useCase.execute({ genreSlug: slug, page })
 
-  return reply.status(200).send(animes)
+  if (result.isSuccess()) {
+    return reply
+      .status(200)
+      .send({ animes: result.value.animes.map(AnimePresenter.toHTTP) })
+  }
 }
