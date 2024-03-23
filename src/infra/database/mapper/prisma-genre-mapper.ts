@@ -7,7 +7,7 @@ export class PrismaGenreMapper {
   static toDomain(raw: PrismaGenre): Genre {
     return Genre.create(
       {
-        animeId: new UniqueEntityId(raw.anime_id),
+        animeId: new UniqueEntityId(raw.animeId),
         title: raw.title,
         slug: Slug.create(raw.slug),
       },
@@ -20,12 +20,14 @@ export class PrismaGenreMapper {
       id: raw.id.toString(),
       title: raw.title,
       slug: raw.slug.value,
+      animeId: raw.animeId.toString(),
     }
   }
 
   static toPrismaMany(raws: Genre[]): Prisma.GenreUncheckedCreateInput[] {
     return raws.map((raw) => ({
       id: raw.id.toString(),
+      animeId: raw.animeId.toString(),
       title: raw.title,
       slug: raw.slug.value,
     }))
