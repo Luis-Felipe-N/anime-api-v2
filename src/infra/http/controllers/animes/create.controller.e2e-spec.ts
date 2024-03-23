@@ -13,7 +13,7 @@ describe('Create Anime (e2e)', () => {
     await app.close()
   })
 
-  it('should be to able to create a gym', async () => {
+  it('[POST] /animes', async () => {
     // const { token } = await createAndAuthenticateUser(app)
 
     const response = await request(app.server).post('/animes').send({
