@@ -8,4 +8,5 @@ export interface AnimesRepository {
   findById(id: string): Promise<Anime | null>
   delete(anime: Anime): Promise<void>
   findManyByGenre(genreSlug: string, params: PaginationParams): Promise<Anime[]>
+  findManyByKeyword(keyword: string, params: PaginationParams): Promise<Anime[]>
 }

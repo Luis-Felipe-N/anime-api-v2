@@ -3,6 +3,7 @@ import { AnimesRepository } from '@/domain/application/repositories/animes.repos
 import { InMemorySeasonsRepository } from './in-memory-seasons-repository'
 import { PaginationParams } from '@/core/types/pagination-params'
 import { InMemoryGenresRepository } from './in-memory-genres-repository'
+import { Normalize } from '@/core/values-objects/normalize'
 
 export class InMemoryAnimesRepository implements AnimesRepository {
   public items: Anime[] = []
@@ -51,6 +52,21 @@ export class InMemoryAnimesRepository implements AnimesRepository {
     const animes = this.items
       .filter((item) =>
         item.genres.getItems().some((genre) => genre.slug.value === genreSlug),
+      )
+      .slice((params.page - 1) * 20, params.page * 20)
+
+    return animes
+  }
+
+  async findManyByKeyword(
+    keyword: string,
+    params: PaginationParams,
+  ): Promise<Anime[]> {
+    const animes = this.items
+      .filter(
+        (item) =>
+          Normalize.normalizeText(item.title).includes(keyword) ||
+          item.description.toLowerCase().includes(keyword),
       )
       .slice((params.page - 1) * 20, params.page * 20)
 
