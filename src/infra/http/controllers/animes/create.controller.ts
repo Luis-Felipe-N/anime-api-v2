@@ -1,4 +1,4 @@
-import { makeUploadAnimeBySlugUseCase } from '@/infra/factories/make-upload-anime-by-slug-use-case'
+import { makeUploadAnimeBySlugUseCase } from '@/infra/factories/animes/make-upload-anime-by-slug-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
