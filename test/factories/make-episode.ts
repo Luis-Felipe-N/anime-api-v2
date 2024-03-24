@@ -1,5 +1,7 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Episode, EpisodeProps } from '@/domain/enterprise/entities/episode'
+import { PrismaEpisodeMapper } from '@/infra/database/mapper/prisma-episode-mapper'
+import { prisma } from '@/infra/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export function makeEpisode(
@@ -14,11 +16,22 @@ export function makeEpisode(
       duration: 800,
       index: 0,
       type: 'ANIMESONLINE',
+      video: faker.internet.url(),
       seasonId: new UniqueEntityId(),
       ...override,
     },
     id,
   )
+
+  return episode
+}
+
+export async function makePrismaEpisode(
+  data: Partial<EpisodeProps> = {},
+): Promise<Episode> {
+  const episode = makeEpisode(data)
+
+  await prisma.episode.create({ data: PrismaEpisodeMapper.toPrisma(episode) })
 
   return episode
 }
