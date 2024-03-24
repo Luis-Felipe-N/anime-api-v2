@@ -46,7 +46,7 @@ describe('Create Anime (e2e)', () => {
     const response = await request(app.server).get(
       `/episodes/season/${seasonPrisma02.id}`,
     )
-    console.log(response.body)
+
     expect(response.statusCode).toEqual(200)
 
     expect(response.body.episodes[0].title).toBe('Episodio 02')
