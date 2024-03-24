@@ -22,6 +22,7 @@ export interface EpisodeProps {
   title: string
   description: string | null
   cover: string
+  video: string
   duration: number
   createdAt: Date
 }
@@ -45,6 +46,10 @@ export class Episode extends Entity<EpisodeProps> {
 
   get cover() {
     return this.props.cover
+  }
+
+  get video() {
+    return this.props.video
   }
 
   get duration() {
