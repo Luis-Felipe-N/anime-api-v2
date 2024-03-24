@@ -35,7 +35,7 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
   }
 
   async findByIndex(seasonId: string, episodeIndex: number) {
-    const episode = await prisma.episode.findUnique({
+    const episode = await prisma.episode.findFirst({
       where: {
         seasonId,
         index: episodeIndex,
@@ -48,7 +48,7 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
   }
 
   async findBySlug(slug: string) {
-    const episode = await prisma.episode.findUnique({
+    const episode = await prisma.episode.findFirst({
       where: {
         slug,
       },

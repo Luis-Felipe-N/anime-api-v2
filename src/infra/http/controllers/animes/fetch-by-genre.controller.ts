@@ -12,7 +12,10 @@ export async function fetchByGenre(
   })
 
   const fetchAnimesByGenreQuerySchema = z.object({
-    page: z.number().default(1),
+    page: z
+      .string()
+      .transform((state) => Number(state))
+      .default('1'),
   })
 
   const { slug } = fetchAnimesByGenreParamsSchema.parse(request.params)

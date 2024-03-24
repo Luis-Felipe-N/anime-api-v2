@@ -65,6 +65,12 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
     return PrismaSeasonMapper.toDomain(season)
   }
 
+  async findManyByAnime(animeId: string): Promise<Season[] | null> {
+    const seasons = await prisma.season.findMany({ where: { animeId } })
+
+    return seasons.map(PrismaSeasonMapper.toDomain)
+  }
+
   async delete(season: Season) {
     const data = PrismaSeasonMapper.toPrisma(season)
     await prisma.season.delete({
