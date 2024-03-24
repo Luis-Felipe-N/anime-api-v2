@@ -15,22 +15,17 @@ describe('Create Anime (e2e)', () => {
     await app.close()
   })
 
-  it('[GET] /animes/genre/[:slug]', async () => {
+  it('[GET] /animes/[:slug]', async () => {
     // const { token } = await createAndAuthenticateUser(app)
 
-    const animePrisma = await makePrismaAnime({
+    await makePrismaAnime({
       title: 'Jujutsu',
     })
 
-    await makePrismaGenre({
-      animeId: animePrisma.id,
-      title: 'Ação',
-    })
-
-    const response = await request(app.server).get('/animes/genre/acao')
+    const response = await request(app.server).get('/animes/jujutsu')
 
     expect(response.statusCode).toEqual(200)
 
-    expect(response.body.animes[0].title).toBe('Jujutsu')
+    expect(response.body.anime.title).toBe('Jujutsu')
   })
 })
