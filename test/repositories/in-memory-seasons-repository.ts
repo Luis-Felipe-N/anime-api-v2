@@ -43,6 +43,16 @@ export class InMemorySeasonsRepository implements SeasonsRepository {
     return season
   }
 
+  async findManyByAnime(animeId: string): Promise<Season[] | null> {
+    const seasons = this.items
+      .filter((item) => item.animeId.toString() === animeId)
+      .sort(function (o1, o2) {
+        return o1.createdAt.getTime() - o2.createdAt.getTime()
+      })
+
+    return seasons
+  }
+
   // async findManyByAnime({ animeId }: FetchSeasonsByAnimeProps) {
   //   const seasons = this.items.filter(
   //     (item) => item.animeId.toString() === animeId && item.season === season,

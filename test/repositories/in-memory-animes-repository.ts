@@ -20,7 +20,14 @@ export class InMemoryAnimesRepository implements AnimesRepository {
     this.genresRepository.createMany(anime.genres.getItems())
   }
 
-  async save(anime: Anime): Promise<void> {}
+  async save(anime: Anime): Promise<void> {
+    const animeIndex = this.items.findIndex((item) => item.id === anime.id)
+
+    this.items[animeIndex] = anime
+
+    this.seasonsRepository.createMany(anime.seasons.getItems())
+    this.genresRepository.createMany(anime.genres.getItems())
+  }
 
   async delete(anime: Anime): Promise<void> {
     const animeIndex = this.items.findIndex((item) => item.id === anime.id)
