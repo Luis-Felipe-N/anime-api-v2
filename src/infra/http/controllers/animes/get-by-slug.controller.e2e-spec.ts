@@ -2,7 +2,6 @@ import { app } from '@/app'
 import request from 'supertest'
 
 import { makePrismaAnime } from 'test/factories/make-anime'
-import { makePrismaGenre } from 'test/factories/make-genre'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 // import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
 
