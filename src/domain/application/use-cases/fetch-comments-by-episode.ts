@@ -30,12 +30,12 @@ export class FetchCommentsByEpisodeUseCase {
       return failure(new ResourceNotFoundError())
     }
 
-    const comments = await this.commentsRepository.fetchCommentsByEpisode({
+    const comments = await this.commentsRepository.fetchCommentsByEpisode(
       episodeId,
-      params: {
+      {
         page,
       },
-    })
+    )
 
     return success({ comments })
   }

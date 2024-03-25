@@ -43,6 +43,7 @@ describe('Fetch Episodes by Season', () => {
 
     const result = await sut.execute({
       seasonId: season.id.toString(),
+      page: 1,
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -65,6 +66,7 @@ describe('Fetch Episodes by Season', () => {
   it('should not be able to fetch episodes of a non-existent season', async () => {
     const result = await sut.execute({
       seasonId: 'non-existent-season',
+      page: 1,
     })
 
     expect(result.isFailure()).toBe(true)

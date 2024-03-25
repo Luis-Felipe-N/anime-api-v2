@@ -76,8 +76,6 @@ describe('Get Next Episode', () => {
       currentEpisodeIndex: 1,
     })
 
-    console.log(result)
-
     expect(result.isSuccess()).toBe(true)
 
     if (result.isSuccess()) {
@@ -127,8 +125,6 @@ describe('Get Next Episode', () => {
       animeId: anime.id.toString(),
       currentEpisodeIndex: 2,
     })
-
-    console.log(result)
 
     expect(result.isSuccess()).toBe(true)
 

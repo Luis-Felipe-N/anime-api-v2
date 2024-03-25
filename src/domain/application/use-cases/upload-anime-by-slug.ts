@@ -5,9 +5,10 @@ import { UploadAnimeError } from './errors/upload-anime-error'
 import { Anime } from '@/domain/enterprise/entities/anime'
 import { Season } from '@/domain/enterprise/entities/season'
 import { SeasonList } from '@/domain/enterprise/entities/season-list'
-import { Slug } from '@/core/values-objects/slug'
 import { Genre } from '@/domain/enterprise/entities/genre'
 import { GenreList } from '@/domain/enterprise/entities/genre-list'
+import { EpisodeList } from '@/domain/enterprise/entities/episode-list'
+import { Episode } from '@/domain/enterprise/entities/episode'
 
 interface UploadAnimeBySlugUseCaseProps {
   slug: string
@@ -47,11 +48,27 @@ export class UploadAnimeBySlugUseCase {
       animePrisma?.id,
     )
 
+    console.log()
+
     const animeSeasons = result.value.seasons.map((season) =>
       Season.create(
         {
           title: season.title,
           animeId: anime.id,
+          episodes: new EpisodeList(
+            result.value.episodes.map((episode) =>
+              Episode.create({
+                title: episode.title,
+                description: episode.description,
+                index: episode.index,
+                type: episode.type,
+                cover: episode.cover,
+                duration: episode.duration,
+                video: episode.video,
+                seasonId: season.id,
+              }),
+            ),
+          ),
         },
         season.id,
       ),

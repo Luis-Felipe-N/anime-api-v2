@@ -11,5 +11,5 @@ export interface SeasonsRepository {
   delete(season: Season): Promise<void>
   findBySlug(slug: string): Promise<Season | null>
   findById(id: string): Promise<Season | null>
-  findManyByAnime(animeId: string): Promise<Season[] | null>
+  findManyByAnime(animeId: string): Promise<Season[]>
 }

@@ -13,7 +13,7 @@ describe('Get Episode by id', () => {
     sut = new GetEpisodeByIdUseCase(inMemoryEpisodesRepository)
   })
 
-  it('should be able to get episode by slug', async () => {
+  it('should be able to get episode by id', async () => {
     const newEpisode = makeEpisode({}, new UniqueEntityId('id-do-episodio'))
 
     await inMemoryEpisodesRepository.create(newEpisode)
