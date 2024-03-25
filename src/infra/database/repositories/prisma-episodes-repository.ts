@@ -15,6 +15,7 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
   }
 
   async createMany(episodes: Episode[]): Promise<void> {
+    console.log(episodes)
     const data = PrismaEpisodeMapper.toPrismaMany(episodes)
 
     await prisma.episode.createMany({

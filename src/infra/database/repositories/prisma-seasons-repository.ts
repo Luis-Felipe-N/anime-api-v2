@@ -2,26 +2,30 @@ import { SeasonsRepository } from '@/domain/application/repositories/seasons-rep
 import { PrismaSeasonMapper } from '../mapper/prisma-season-mapper'
 import { prisma } from '../prisma/prisma'
 import { Season } from '@/domain/enterprise/entities/season'
+import { PrismaSeasonDetailsMapper } from '../mapper/prisma-season-detail-mapper'
+import { EpisodesRepository } from '@/domain/application/repositories/episode.repository'
 
 export class PrismaSeasonsRepository implements SeasonsRepository {
-  // constructor(private seasonsRepository: SeasonsRepository) {}
+  constructor(private episodesRepository: EpisodesRepository) {}
 
   async create(season: Season) {
     const data = PrismaSeasonMapper.toPrisma(season)
 
-    const seasonPrisma = await prisma.season.findUnique({
+    await prisma.season.upsert({
       where: {
         slug: data.slug,
       },
+      create: data,
+      update: {
+        slug: season.slug.value,
+        animeId: season.animeId.toString(),
+        title: season.title,
+        updatedAt: season.updatedAt,
+        createdAt: season.createdAt,
+      },
     })
 
-    if (seasonPrisma) {
-      await this.save(season)
-    } else {
-      await prisma.season.create({
-        data,
-      })
-    }
+    this.episodesRepository.createMany(season.episodes.getItems())
   }
 
   async save(season: Season) {
@@ -36,9 +40,8 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
   }
 
   async createMany(seasons: Season[]) {
-    const data = PrismaSeasonMapper.toPrismaUpdateMany(seasons)
-
-    await prisma.season.updateMany(data)
+    // const data = PrismaSeasonMapper.toPrismaUpdateMany(seasons)
+    seasons.map((season) => this.create(season))
   }
 
   async findBySlug(slug: string) {
@@ -58,14 +61,15 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
       where: {
         id,
       },
+      include: { episodes: true },
     })
 
     if (!season) return null
 
-    return PrismaSeasonMapper.toDomain(season)
+    return PrismaSeasonDetailsMapper.toDomain(season)
   }
 
-  async findManyByAnime(animeId: string): Promise<Season[] | null> {
+  async findManyByAnime(animeId: string): Promise<Season[]> {
     const seasons = await prisma.season.findMany({ where: { animeId } })
 
     return seasons.map(PrismaSeasonMapper.toDomain)

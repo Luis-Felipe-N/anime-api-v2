@@ -28,6 +28,24 @@ describe('Create Anime (e2e)', () => {
       },
     })
 
+    const seasonOnDatabase = await prisma.season.findFirst({
+      where: {
+        anime: {
+          slug: 'castlevania',
+        },
+      },
+    })
+
+    const episodesOnDatabase = await prisma.episode.findMany({
+      where: {
+        seasonId: seasonOnDatabase?.id,
+      },
+    })
+
+    console.log(seasonOnDatabase, episodesOnDatabase)
+
     expect(animeOnDatabase).toBeTruthy()
+    expect(seasonOnDatabase).toBeTruthy()
+    expect(episodesOnDatabase.length).toBeGreaterThan(0)
   })
 })

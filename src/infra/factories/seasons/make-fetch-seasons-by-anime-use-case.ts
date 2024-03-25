@@ -1,10 +1,10 @@
-import { GetNextEpisodeUseCase } from '@/domain/application/use-cases/get-next-episode'
+import { PrismaSeasonsRepository } from '../../database/repositories/prisma-seasons-repository'
+import { FetchSeasonsByAnimeUseCase } from '@/domain/application/use-cases/fetch-seasons-by-anime'
 import { PrismaAnimesRepository } from '@/infra/database/repositories/prisma-animes-repository'
 import { PrismaEpisodesRepository } from '@/infra/database/repositories/prisma-episodes-repository'
 import { PrismaGenresRepository } from '@/infra/database/repositories/prisma-genres-repository'
-import { PrismaSeasonsRepository } from '@/infra/database/repositories/prisma-seasons-repository'
 
-export function makeGetNextEpisodeUseCase() {
+export function makeFetchSeasonsByAnimeUseCase() {
   const episodesRepository = new PrismaEpisodesRepository()
   const seasonsRepository = new PrismaSeasonsRepository(episodesRepository)
   const genresRepository = new PrismaGenresRepository()
@@ -13,8 +13,7 @@ export function makeGetNextEpisodeUseCase() {
     genresRepository,
   )
 
-  const useCase = new GetNextEpisodeUseCase(
-    episodesRepository,
+  const useCase = new FetchSeasonsByAnimeUseCase(
     seasonsRepository,
     animesRepository,
   )

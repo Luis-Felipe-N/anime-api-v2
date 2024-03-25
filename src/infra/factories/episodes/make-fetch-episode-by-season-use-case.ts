@@ -4,7 +4,7 @@ import { PrismaEpisodesRepository } from '@/infra/database/repositories/prisma-e
 
 export function makeFetchEpisodeBySeasonUseCase() {
   const episodesRepository = new PrismaEpisodesRepository()
-  const seasonsRepository = new PrismaSeasonsRepository()
+  const seasonsRepository = new PrismaSeasonsRepository(episodesRepository)
 
   const useCase = new FetchEpisodeBySeasonUseCase(
     episodesRepository,

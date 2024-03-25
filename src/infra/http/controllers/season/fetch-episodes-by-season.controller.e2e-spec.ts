@@ -7,7 +7,7 @@ import { makePrismaSeason } from 'test/factories/make-season'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 // import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
 
-describe('Get Next Episode (e2e)', () => {
+describe('Create Anime (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -16,7 +16,9 @@ describe('Get Next Episode (e2e)', () => {
     await app.close()
   })
 
-  it('[POST] /episodes/next', async () => {
+  it('[GET] /episodes/[:seasonId]', async () => {
+    // const { token } = await createAndAuthenticateUser(app)
+
     const animePrisma = await makePrismaAnime({
       title: 'Jujutsu',
     })
@@ -26,44 +28,27 @@ describe('Get Next Episode (e2e)', () => {
       animeId: animePrisma.id,
     })
 
-    await makePrismaEpisode({
-      title: 'Episode 01',
-      seasonId: seasonPrisma01.id,
-      index: 1,
-    })
-
-    const episodePrisma02 = await makePrismaEpisode({
-      title: 'Episode 02',
-      seasonId: seasonPrisma01.id,
-      index: 2,
-    })
-
     const seasonPrisma02 = await makePrismaSeason({
       title: 'Temporada 02',
       animeId: animePrisma.id,
     })
 
     await makePrismaEpisode({
-      title: 'Episode 01',
-      seasonId: seasonPrisma02.id,
-      index: 1,
+      title: 'Episodio 02',
+      seasonId: seasonPrisma01.id,
     })
 
     await makePrismaEpisode({
-      title: 'Episode 02',
+      title: 'Episodio 02',
       seasonId: seasonPrisma02.id,
-      index: 2,
     })
 
-    const response = await request(app.server).post(`/episodes/next`).send({
-      seasonId: seasonPrisma01.id.toString(),
-      animeId: animePrisma.id.toString(),
-      currentIndex: episodePrisma02.index,
-    })
+    const response = await request(app.server).get(
+      `/episodes/season/${seasonPrisma02.id}`,
+    )
 
     expect(response.statusCode).toEqual(200)
 
-    expect(response.body.episode.seasonId).toBe(seasonPrisma02.id.toString())
-    expect(response.body.episode.title).toBe('Episode 01')
+    expect(response.body.episodes[0].title).toBe('Episodio 02')
   })
 })

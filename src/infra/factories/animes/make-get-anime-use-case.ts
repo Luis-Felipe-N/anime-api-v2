@@ -2,9 +2,11 @@ import { PrismaAnimesRepository } from '../../database/repositories/prisma-anime
 import { PrismaSeasonsRepository } from '../../database/repositories/prisma-seasons-repository'
 import { PrismaGenresRepository } from '../../database/repositories/prisma-genres-repository'
 import { GetAnimeBySlugUseCase } from '@/domain/application/use-cases/get-anime-by-slug'
+import { PrismaEpisodesRepository } from '@/infra/database/repositories/prisma-episodes-repository'
 
 export function makeGetAnimeBySlugUseCase() {
-  const seasonsRepository = new PrismaSeasonsRepository()
+  const episodesRepository = new PrismaEpisodesRepository()
+  const seasonsRepository = new PrismaSeasonsRepository(episodesRepository)
   const genresRepository = new PrismaGenresRepository()
   const animesRepository = new PrismaAnimesRepository(
     seasonsRepository,
