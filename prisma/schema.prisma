@@ -73,7 +73,7 @@ model Episode {
   type        EpisodeType
   title       String
   description String?
-  slug        String
+  slug        String      @unique
   cover       String
   duration    Float
   index       Int
