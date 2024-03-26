@@ -35,12 +35,6 @@ describe('Upload Anime By Slug', () => {
     if (result.isSuccess()) {
       expect(result.value.anime.title).toBe('Castlevania')
     }
-    // if (result.isSuccess()) {
-    //   expect(result.value.anime.title).toEqual('Jujutsu')
-    //   expect(inMemoryAnimesRepository.items[0].id).toEqual(
-    //     result.value.anime.id,
-    //   )
-    // }
   })
 
   // it('should be able to create an anime with seasons', async () => {

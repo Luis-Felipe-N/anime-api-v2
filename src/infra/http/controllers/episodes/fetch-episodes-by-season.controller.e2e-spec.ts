@@ -1,11 +1,11 @@
 import { app } from '@/app'
+import { Slug } from '@/core/values-objects/slug'
 import request from 'supertest'
 
 import { makePrismaAnime } from 'test/factories/make-anime'
 import { makePrismaEpisode } from 'test/factories/make-episode'
 import { makePrismaSeason } from 'test/factories/make-season'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-// import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
 
 describe('Create Anime (e2e)', () => {
   beforeAll(async () => {
@@ -17,8 +17,6 @@ describe('Create Anime (e2e)', () => {
   })
 
   it('[GET] /episodes/[:seasonId]', async () => {
-    // const { token } = await createAndAuthenticateUser(app)
-
     const animePrisma = await makePrismaAnime({
       title: 'Jujutsu',
     })
@@ -36,10 +34,12 @@ describe('Create Anime (e2e)', () => {
     await makePrismaEpisode({
       title: 'Episodio 02',
       seasonId: seasonPrisma01.id,
+      slug: Slug.createFromText('temporada-01-episode-02'),
     })
 
     await makePrismaEpisode({
       title: 'Episodio 02',
+      slug: Slug.createFromText('temporada-02-episode-02'),
       seasonId: seasonPrisma02.id,
     })
 

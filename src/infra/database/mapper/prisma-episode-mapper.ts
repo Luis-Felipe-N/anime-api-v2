@@ -16,6 +16,7 @@ export class PrismaEpisodeMapper {
         slug: Slug.create(raw.slug),
         createdAt: raw.createdAt,
         type: raw.type,
+        video: raw.video,
       },
       new UniqueEntityId(raw.id),
     )
@@ -33,13 +34,17 @@ export class PrismaEpisodeMapper {
       slug: raw.slug.value,
       createdAt: raw.createdAt,
       type: raw.type,
+      video: raw.video,
     }
   }
 
-  static toPrismaMany(raws: Episode[]): Prisma.EpisodeUncheckedCreateInput[] {
-    return raws.map((raw) => ({
+  static toPrismaScrapper(
+    raw: Episode,
+    seasonId: string,
+  ): Prisma.EpisodeUncheckedCreateInput {
+    return {
       id: raw.id.toString(),
-      seasonId: raw.seasonId.toString(),
+      seasonId,
       title: raw.title,
       cover: raw.cover,
       description: raw.description,
@@ -48,6 +53,42 @@ export class PrismaEpisodeMapper {
       slug: raw.slug.value,
       createdAt: raw.createdAt,
       type: raw.type,
+      video: raw.video,
+    }
+  }
+
+  static toPrismaMany(raws: Episode[]): Prisma.EpisodeUncheckedCreateInput[] {
+    return raws.map((raw) => ({
+      seasonId: raw.seasonId.toString(),
+      id: raw.id.toString(),
+      title: raw.title,
+      cover: raw.cover,
+      description: raw.description,
+      duration: raw.duration,
+      index: raw.index,
+      slug: raw.slug.value,
+      createdAt: raw.createdAt,
+      type: raw.type,
+      video: raw.video,
+    }))
+  }
+
+  static toPrismaManyFromScrapper(
+    raws: Episode[],
+    seasonId: string,
+  ): Prisma.EpisodeUncheckedCreateInput[] {
+    return raws.map((raw) => ({
+      seasonId,
+      id: raw.id.toString(),
+      title: raw.title,
+      cover: raw.cover,
+      description: raw.description,
+      duration: raw.duration,
+      index: raw.index,
+      slug: raw.slug.value,
+      createdAt: raw.createdAt,
+      type: raw.type,
+      video: raw.video,
     }))
   }
 }

@@ -1,8 +1,6 @@
 import { Comment } from '@/domain/enterprise/entities/comment'
-import {
-  CommentsRepository,
-  FetchCommentsByEpisodeProps,
-} from '@/domain/application/repositories/comment.repository'
+import { CommentsRepository } from '@/domain/application/repositories/comment.repository'
+import { PaginationParams } from '@/core/types/pagination-params'
 
 export class InMemoryCommentsRepository implements CommentsRepository {
   public items: Comment[] = []
@@ -27,10 +25,7 @@ export class InMemoryCommentsRepository implements CommentsRepository {
     return comment
   }
 
-  async fetchCommentsByEpisode({
-    episodeId,
-    params,
-  }: FetchCommentsByEpisodeProps) {
+  async fetchCommentsByEpisode(episodeId: string, params: PaginationParams) {
     const comments = this.items
       .filter((item) => item.episodeId.toString() === episodeId)
       .slice((params.page - 1) * 20, params.page * 20)

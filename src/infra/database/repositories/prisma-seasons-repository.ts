@@ -9,23 +9,44 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
   constructor(private episodesRepository: EpisodesRepository) {}
 
   async create(season: Season) {
-    const data = PrismaSeasonMapper.toPrisma(season)
+    const { id, ...data } = PrismaSeasonMapper.toPrisma(season)
 
     await prisma.season.upsert({
       where: {
         slug: data.slug,
       },
-      create: data,
-      update: {
-        slug: season.slug.value,
-        animeId: season.animeId.toString(),
-        title: season.title,
-        updatedAt: season.updatedAt,
-        createdAt: season.createdAt,
+      create: {
+        id,
+        ...data,
       },
+      update: data,
     })
 
     this.episodesRepository.createMany(season.episodes.getItems())
+  }
+
+  async createFromScrapper(season: Season, animeId: string) {
+    const { id, ...data } = PrismaSeasonMapper.toPrisma(season)
+
+    const seasons = await prisma.season.upsert({
+      where: {
+        slug: data.slug,
+      },
+      create: {
+        id,
+        ...data,
+        animeId,
+      },
+      update: {
+        ...data,
+        animeId,
+      },
+    })
+
+    this.episodesRepository.createManyFromScrapper(
+      season.episodes.getItems(),
+      seasons.id,
+    )
   }
 
   async save(season: Season) {
@@ -40,8 +61,11 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
   }
 
   async createMany(seasons: Season[]) {
-    // const data = PrismaSeasonMapper.toPrismaUpdateMany(seasons)
     seasons.map((season) => this.create(season))
+  }
+
+  async createManyFromScrapper(seasons: Season[], animeId: string) {
+    seasons.map((season) => this.createFromScrapper(season, animeId))
   }
 
   async findBySlug(slug: string) {

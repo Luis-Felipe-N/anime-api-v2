@@ -14,8 +14,28 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
     })
   }
 
+  async createFromScrapper(episode: Episode, seasonId: string): Promise<void> {
+    const { id, ...data } = PrismaEpisodeMapper.toPrismaScrapper(
+      episode,
+      seasonId,
+    )
+    const episodePrisma = await prisma.episode.upsert({
+      where: {
+        slug: data.slug,
+      },
+      create: {
+        id,
+        ...data,
+      },
+      update: {
+        ...data,
+      },
+    })
+
+    console.log(episodePrisma)
+  }
+
   async createMany(episodes: Episode[]): Promise<void> {
-    console.log(episodes)
     const data = PrismaEpisodeMapper.toPrismaMany(episodes)
 
     await prisma.episode.createMany({
@@ -23,10 +43,21 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
     })
   }
 
+  async createManyFromScrapper(
+    episodes: Episode[],
+    seasonId: string,
+  ): Promise<void> {
+    console.log(seasonId)
+    episodes.map((episode) => this.createFromScrapper(episode, seasonId))
+  }
+
   async findManyBySeason(seasonId: string, params: PaginationParams) {
     const episodes = await prisma.episode.findMany({
       where: {
         seasonId,
+      },
+      orderBy: {
+        index: 'asc',
       },
       skip: (params.page - 1) * 20,
       take: 20,

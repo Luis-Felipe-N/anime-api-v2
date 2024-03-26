@@ -42,8 +42,6 @@ describe('Create Anime (e2e)', () => {
       },
     })
 
-    console.log(seasonOnDatabase, episodesOnDatabase)
-
     expect(animeOnDatabase).toBeTruthy()
     expect(seasonOnDatabase).toBeTruthy()
     expect(episodesOnDatabase.length).toBeGreaterThan(0)

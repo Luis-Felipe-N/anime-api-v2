@@ -1,4 +1,5 @@
 import { app } from '@/app'
+import { Slug } from '@/core/values-objects/slug'
 import request from 'supertest'
 
 import { makePrismaAnime } from 'test/factories/make-anime'
@@ -46,12 +47,14 @@ describe('Get Next Episode (e2e)', () => {
     await makePrismaEpisode({
       title: 'Episode 01',
       seasonId: seasonPrisma02.id,
+      slug: Slug.createFromText('temporada-02-episode-01'),
       index: 1,
     })
 
     await makePrismaEpisode({
       title: 'Episode 02',
       seasonId: seasonPrisma02.id,
+      slug: Slug.createFromText('temporada-02-episode-02'),
       index: 2,
     })
 

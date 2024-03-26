@@ -17,12 +17,39 @@ export class PrismaAnimesRepository implements AnimesRepository {
   ) {}
 
   async create(anime: Anime) {
-    const data = PrismaAnimeMapper.toPrisma(anime)
-    await prisma.anime.create({
-      data,
+    const { id, ...data } = PrismaAnimeMapper.toPrisma(anime)
+    await prisma.anime.upsert({
+      where: {
+        slug: data.slug,
+      },
+      create: {
+        id,
+        ...data,
+      },
+      update: data,
     })
 
     await this.seasonsRepository.createMany(anime.seasons.getItems())
+    await this.genresRepository.createMany(anime.genres.getItems())
+  }
+
+  async createFromScrapper(anime: Anime) {
+    const { id, ...data } = PrismaAnimeMapper.toPrisma(anime)
+    const animePrisma = await prisma.anime.upsert({
+      where: {
+        slug: data.slug,
+      },
+      create: {
+        id,
+        ...data,
+      },
+      update: data,
+    })
+
+    await this.seasonsRepository.createManyFromScrapper(
+      anime.seasons.getItems(),
+      animePrisma.id,
+    )
     await this.genresRepository.createMany(anime.genres.getItems())
   }
 
