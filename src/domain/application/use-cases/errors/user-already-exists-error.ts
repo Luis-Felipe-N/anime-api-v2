@@ -1,6 +1,4 @@
-import { UseCaseError } from '@/core/errors/use-case-errors'
-
-export class UserAlreadyExistsError extends Error implements UseCaseError {
+export class UserAlreadyExistsError extends Error {
   constructor() {
     super('User with e-email already exits')
   }

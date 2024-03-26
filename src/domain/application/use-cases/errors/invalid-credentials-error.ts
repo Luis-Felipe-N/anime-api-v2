@@ -1,6 +1,4 @@
-import { UseCaseError } from '@/core/errors/use-case-errors'
-
-export class InvalidCredentialsError extends Error implements UseCaseError {
+export class InvalidCredentialsError extends Error {
   constructor() {
     super('Invalid credentials')
   }
