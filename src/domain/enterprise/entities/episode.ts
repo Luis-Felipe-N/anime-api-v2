@@ -4,6 +4,7 @@ import { Optional } from '@/core/types/optional'
 import { Slug } from '@/core/values-objects/slug'
 
 import dayjs from 'dayjs'
+
 export const Type: {
   CRUNCHYROLL: 'CRUNCHYROLL'
   ANIMESONLINE: 'ANIMESONLINE'

@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { InMemoryUsersRepository } from '@/repositories/memory/in-memory-users-repository'
 import { GetUserProfileUseCase } from './get-user-profile.usecase'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 import { hash } from 'bcryptjs'
+import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
+import { makeUser } from 'test/factories/make-user'
 
 let usersRepository: InMemoryUsersRepository
 let sut: GetUserProfileUseCase
@@ -16,20 +17,26 @@ describe('Get User Profile Use Case', () => {
   })
 
   it('should be able to get user profile', async () => {
-    const createdUser = await usersRepository.create({
+    const user = makeUser({
       name: 'Teste da Silva',
+
       email: 'testedasilva@gmail.com',
       password_hash: await hash('123456', 6),
     })
+    const createdUser = await usersRepository.create(user)
 
-    const { user } = await sut.execute({ userId: createdUser.id })
+    const result = await sut.execute({ userId: createdUser.id.toString() })
 
-    expect(user.name).toBe('Teste da Silva')
+    expect(result.isSuccess()).toBe(true)
+
+    if (result.isSuccess()) {
+      expect(result.value.user.name).toBe('Teste da Silva')
+    }
   })
 
   it('should not be able to get user profile with wrong id', async () => {
-    await expect(
-      sut.execute({ userId: 'non-exists-id' }),
-    ).rejects.toBeInstanceOf(ResourceNotFoundError)
+    const result = await sut.execute({ userId: 'non-exists-id' })
+
+    expect(result.value).toBeInstanceOf(ResourceNotFoundError)
   })
 })

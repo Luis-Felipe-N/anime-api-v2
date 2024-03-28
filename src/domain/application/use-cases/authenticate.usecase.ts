@@ -1,16 +1,21 @@
-import { UsersRepository } from '@/repositories/users-repository'
 import { compare } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
-import { User } from '@prisma/client'
+import { User } from '@/domain/enterprise/entities/user'
+import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { UsersRepository } from '../repositories/users-repository'
+import { Either, failure, success } from '@/core/either'
 
 interface AuthenticateUseCaseRequest {
   email: string
   password: string
 }
 
-interface AuthenticateUseCaseResponse {
-  user: User
-}
+type AuthenticateUseCaseResponse = Either<
+  ResourceNotFoundError | InvalidCredentialsError,
+  {
+    user: User
+  }
+>
 
 export class AuthenticateUseCase {
   constructor(private usersRepository: UsersRepository) {}
@@ -22,15 +27,15 @@ export class AuthenticateUseCase {
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {
-      throw new InvalidCredentialsError()
+      return failure(new ResourceNotFoundError())
     }
 
     const doesPasswordMatch = await compare(password, user.password_hash)
 
     if (!doesPasswordMatch) {
-      throw new InvalidCredentialsError()
+      return failure(new InvalidCredentialsError())
     }
 
-    return { user }
+    return success({ user })
   }
 }
