@@ -16,6 +16,7 @@ export function makeAnime(
       cover: faker.image.url(),
       nsfw: false,
       trailerYtId: faker.internet.url(),
+      rating: 9,
       ...override,
     },
     id,

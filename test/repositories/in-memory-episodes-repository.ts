@@ -12,6 +12,14 @@ export class InMemoryEpisodesRepository implements EpisodesRepository {
     this.items.push(...episodes)
   }
 
+  async createFromScrapper(episode: Episode): Promise<void> {
+    this.items.push(episode)
+  }
+
+  async createManyFromScrapper(episodes: Episode[]): Promise<void> {
+    this.items.push(...episodes)
+  }
+
   async delete(episode: Episode): Promise<void> {
     const episodeIndex = this.items.findIndex((item) => item.id === episode.id)
 

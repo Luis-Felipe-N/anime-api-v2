@@ -17,6 +17,16 @@ export class InMemorySeasonsRepository implements SeasonsRepository {
     this.items.push(...seasons)
   }
 
+  async createFromScrapper(season: Season): Promise<void> {
+    this.items.push(season)
+
+    this.episodesRepository.createManyFromScrapper(season.episodes.getItems())
+  }
+
+  async createManyFromScrapper(seasons: Season[]): Promise<void> {
+    this.items.push(...seasons)
+  }
+
   async delete(season: Season): Promise<void> {
     const seasonIndex = this.items.findIndex((item) => item.id === season.id)
 
@@ -52,12 +62,4 @@ export class InMemorySeasonsRepository implements SeasonsRepository {
 
     return seasons
   }
-
-  // async findManyByAnime({ animeId }: FetchSeasonsByAnimeProps) {
-  //   const seasons = this.items.filter(
-  //     (item) => item.animeId.toString() === animeId && item.season === season,
-  //   )
-
-  //   return seasons
-  // }
 }

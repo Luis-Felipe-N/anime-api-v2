@@ -20,6 +20,13 @@ export class InMemoryAnimesRepository implements AnimesRepository {
     this.genresRepository.createMany(anime.genres.getItems())
   }
 
+  async createFromScrapper(anime: Anime): Promise<void> {
+    this.items.push(anime)
+
+    this.seasonsRepository.createMany(anime.seasons.getItems())
+    this.genresRepository.createMany(anime.genres.getItems())
+  }
+
   async save(anime: Anime): Promise<void> {
     const animeIndex = this.items.findIndex((item) => item.id === anime.id)
 
@@ -78,5 +85,13 @@ export class InMemoryAnimesRepository implements AnimesRepository {
       .slice((params.page - 1) * 20, params.page * 20)
 
     return animes
+  }
+
+  async findManyPopular() {
+    const animes = this.items.sort(function (o1, o2) {
+      return o1.rating - o2.rating
+    })
+
+    return animes.slice(0, 5)
   }
 }
