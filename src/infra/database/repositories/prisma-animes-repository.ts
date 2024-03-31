@@ -50,7 +50,10 @@ export class PrismaAnimesRepository implements AnimesRepository {
       anime.seasons.getItems(),
       animePrisma.id,
     )
-    await this.genresRepository.createMany(anime.genres.getItems())
+    await this.genresRepository.createManyFromScrapper(
+      anime.genres.getItems(),
+      animePrisma.id,
+    )
   }
 
   async save(anime: Anime) {

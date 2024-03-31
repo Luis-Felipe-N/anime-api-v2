@@ -3,8 +3,7 @@ import { FastifyInstance } from 'fastify'
 import { register } from './register.controller'
 import { authenticate } from './authenticate.controller'
 import { profile } from './profile.controller'
-
-import { verifyJwtMiddleware } from '@/middleware/verify-jwt.middleware'
+import { verifyJwtMiddleware } from '@/infra/middleware/verify-jwt.middleware'
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post('/users', register)

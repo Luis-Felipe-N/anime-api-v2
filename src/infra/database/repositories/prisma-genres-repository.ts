@@ -14,10 +14,34 @@ export class PrismaGenresRepository implements GenresRepository {
     })
   }
 
-  async createMany(genres: Genre[]): Promise<void> {
-    const data = PrismaGenreMapper.toPrismaUpdateMany(genres)
+  async createFromScrapper(genre: Genre, animeId: string) {
+    const { id, ...data } = PrismaGenreMapper.toPrisma(genre)
 
-    await prisma.genre.updateMany(data)
+    await prisma.genre.upsert({
+      where: {
+        slug: data.slug,
+      },
+      create: {
+        id,
+        ...data,
+        animeId,
+      },
+      update: {
+        ...data,
+        animeId,
+      },
+    })
+  }
+
+  async createMany(genres: Genre[]): Promise<void> {
+    genres.map((genre) => this.create(genre))
+  }
+
+  async createManyFromScrapper(
+    genres: Genre[],
+    animeId: string,
+  ): Promise<void> {
+    genres.map((genre) => this.createFromScrapper(genre, animeId))
   }
 
   async findBySlug(slug: string) {

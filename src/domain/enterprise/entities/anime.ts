@@ -17,6 +17,7 @@ export interface AnimeProps {
   trailerYtId: string | null
   createdAt: Date
   updatedAt?: Date | null
+  rating: number
 }
 
 export class Anime extends Entity<AnimeProps> {
@@ -58,6 +59,10 @@ export class Anime extends Entity<AnimeProps> {
 
   get createdAt() {
     return this.props.createdAt
+  }
+
+  get rating() {
+    return this.props.rating
   }
 
   get excerpt() {
