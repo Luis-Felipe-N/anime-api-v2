@@ -14,8 +14,8 @@ datasource db {
 }
 
 enum UserRole {
-  STUDENT
-  INSTRUCTOR
+  ADMIN
+  USER
 }
 
 enum EpisodeType {
@@ -24,11 +24,11 @@ enum EpisodeType {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  name     String
-  email    String   @unique
-  password String
-  role     UserRole @default(STUDENT)
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  role          UserRole @default(USER)
 
   watchedepisodes Watched[]
   comments        Comment[]
@@ -45,6 +45,7 @@ model Anime {
   cover       String?
   nsfw        Boolean   @default(false)
   trailerYtId String?
+  rating      Float     @default(0)
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
@@ -77,6 +78,7 @@ model Episode {
   cover       String
   duration    Float
   index       Int
+  video       String
   linkEmbed   String?     @map("link-embed")
   seasonId    String      @map("season_id")
   createdAt   DateTime    @default(now()) @map("created_at")
