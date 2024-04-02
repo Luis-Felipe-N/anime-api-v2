@@ -3,6 +3,7 @@ import { Episode } from '@/domain/enterprise/entities/episode'
 import { PaginationParams } from '@/core/types/pagination-params'
 import { PrismaEpisodeMapper } from '../mapper/prisma-episode-mapper'
 import { EpisodesRepository } from '@/domain/application/repositories/episode.repository'
+import { PrismaEpisodeDetailsMapper } from '../mapper/prisma-episode-detail-mapper'
 
 export class PrismaEpisodesRepository implements EpisodesRepository {
   constructor() {}
@@ -19,7 +20,7 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
       episode,
       seasonId,
     )
-    const episodePrisma = await prisma.episode.upsert({
+    await prisma.episode.upsert({
       where: {
         slug: data.slug,
       },
@@ -31,8 +32,6 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
         ...data,
       },
     })
-
-    console.log(episodePrisma)
   }
 
   async createMany(episodes: Episode[]): Promise<void> {
@@ -47,7 +46,6 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
     episodes: Episode[],
     seasonId: string,
   ): Promise<void> {
-    console.log(seasonId)
     episodes.map((episode) => this.createFromScrapper(episode, seasonId))
   }
 
@@ -56,6 +54,11 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
       where: {
         seasonId,
       },
+      include: {
+        season: {
+          include: { anime: true },
+        },
+      },
       orderBy: {
         index: 'asc',
       },
@@ -63,7 +66,7 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
       take: 20,
     })
 
-    return episodes.map(PrismaEpisodeMapper.toDomain)
+    return episodes.map(PrismaEpisodeDetailsMapper.toDomain)
   }
 
   async findByIndex(seasonId: string, episodeIndex: number) {

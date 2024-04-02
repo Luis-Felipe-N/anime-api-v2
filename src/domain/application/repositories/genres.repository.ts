@@ -11,6 +11,6 @@ export interface GenresRepository {
   createFromScrapper(genre: Genre, animeId: string): Promise<void>
   createManyFromScrapper(genres: Genre[], animeId: string): Promise<void>
   delete(genre: Genre): Promise<void>
-  findBySlug(slug: string): Promise<Genre | null>
+  findBySlug(slug: string, animeId: string): Promise<Genre | null>
   findById(id: string): Promise<Genre | null>
 }

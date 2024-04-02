@@ -1,6 +1,6 @@
 import { beforeEach, expect, it, describe } from 'vitest'
 
-import { RegisterUseCase } from './register.usecase'
+import { RegisterUseCase } from './register'
 
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 import { compare } from 'bcryptjs'

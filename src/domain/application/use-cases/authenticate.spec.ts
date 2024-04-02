@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { AuthenticateUseCase } from './authenticate.usecase'
+import { AuthenticateUseCase } from './authenticate'
 import { hash } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
@@ -26,7 +26,6 @@ describe('Authenticate Use Case', () => {
       email: 'testedasilva@gmail.com',
       password: '123456',
     })
-    console.log(result)
 
     expect(result.isSuccess()).toBe(true)
 

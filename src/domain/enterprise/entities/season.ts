@@ -3,6 +3,7 @@ import { Slug } from '@/core/values-objects/slug'
 import { Optional } from '@/core/types/optional'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { EpisodeList } from './episode-list'
+import { Anime } from './anime'
 
 export interface SeasonProps {
   title: string
@@ -11,6 +12,7 @@ export interface SeasonProps {
   episodes: EpisodeList
   createdAt: Date
   updatedAt?: Date | null
+  anime?: Anime
 }
 
 export class Season extends Entity<SeasonProps> {
@@ -41,6 +43,10 @@ export class Season extends Entity<SeasonProps> {
 
   get updatedAt() {
     return this.props.updatedAt
+  }
+
+  get anime() {
+    return this.props.anime
   }
 
   private touch() {

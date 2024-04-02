@@ -1,5 +1,8 @@
+import { GetUserProfileUseCase } from '@/domain/application/use-cases/get-user-profile'
+import { PrismaUsersRepository } from '@/infra/database/repositories/prisma-users-repository'
+
 export function makeGetUserProfileUseCase() {
-  // const gymsRepository = new PrismaGymsRepository()
-  // const useCase = new FetchNearbyGymsUseCase(gymsRepository)
-  // return useCase
+  const usersRepository = new PrismaUsersRepository()
+  const useCase = new GetUserProfileUseCase(usersRepository)
+  return useCase
 }

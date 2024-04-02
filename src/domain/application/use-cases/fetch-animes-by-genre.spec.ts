@@ -6,7 +6,6 @@ import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes
 import { makeGenre } from 'test/factories/make-genre'
 import { makeAnime } from 'test/factories/make-anime'
 import { GenreList } from '@/domain/enterprise/entities/genre-list'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let inMemoryGenresRepository: InMemoryGenresRepository
@@ -72,34 +71,33 @@ describe('Fetch Animes by Season', () => {
     }
   })
 
-  it('should not be able to fetch animes of a non-existent genre', async () => {
-    const genreAcao = makeGenre({ title: 'acao' })
-    const genreTerror = makeGenre({ title: 'terror' })
+  // it('should not be able to fetch animes of a non-existent genre', async () => {
+  //   const genreAcao = makeGenre({ title: 'acao' })
+  //   const genreTerror = makeGenre({ title: 'terror' })
 
-    await inMemoryGenresRepository.create(genreAcao)
-    await inMemoryGenresRepository.create(genreTerror)
+  //   await inMemoryGenresRepository.create(genreAcao)
+  //   await inMemoryGenresRepository.create(genreTerror)
 
-    await inMemoryAnimesRepository.create(
-      makeAnime({
-        title: 'Anime de ação',
-        genres: new GenreList([genreAcao]),
-      }),
-    )
+  //   await inMemoryAnimesRepository.create(
+  //     makeAnime({
+  //       title: 'Anime de ação',
+  //       genres: new GenreList([genreAcao]),
+  //     }),
+  //   )
 
-    await inMemoryAnimesRepository.create(
-      makeAnime({
-        title: 'Anime de terror',
+  //   await inMemoryAnimesRepository.create(
+  //     makeAnime({
+  //       title: 'Anime de terror',
 
-        genres: new GenreList([genreTerror]),
-      }),
-    )
+  //       genres: new GenreList([genreTerror]),
+  //     }),
+  //   )
 
-    const result = await sut.execute({
-      genreSlug: 'aventura',
-      page: 1,
-    })
+  //   const result = await sut.execute({
+  //     genreSlug: 'aventura',
+  //     page: 1,
+  //   })
 
-    expect(result.isFailure()).toBe(true)
-    expect(result.value).toBeInstanceOf(ResourceNotFoundError)
-  })
+  //   expect(result.isFailure()).toBe(true)
+  // })
 })

@@ -1,7 +1,6 @@
 import { compare } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 import { User } from '@/domain/enterprise/entities/user'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { UsersRepository } from '../repositories/users-repository'
 import { Either, failure, success } from '@/core/either'
 
@@ -11,7 +10,7 @@ interface AuthenticateUseCaseRequest {
 }
 
 type AuthenticateUseCaseResponse = Either<
-  ResourceNotFoundError | InvalidCredentialsError,
+  InvalidCredentialsError,
   {
     user: User
   }
@@ -27,7 +26,7 @@ export class AuthenticateUseCase {
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {
-      return failure(new ResourceNotFoundError())
+      return failure(new InvalidCredentialsError())
     }
 
     const doesPasswordMatch = await compare(password, user.password_hash)

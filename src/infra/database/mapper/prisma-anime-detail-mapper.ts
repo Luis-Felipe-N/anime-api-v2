@@ -32,6 +32,7 @@ export class PrismaAnimeDetailsMapper {
         genres: new GenreList(raw.genres.map(PrismaGenreMapper.toDomain)),
         trailerYtId: raw.trailerYtId,
         slug: Slug.create(raw.slug),
+        rating: raw.rating,
       },
       new UniqueEntityId(raw.id),
     )

@@ -16,6 +16,7 @@ export class PrismaAnimeMapper {
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
         slug: Slug.create(raw.slug),
+        rating: raw.rating,
       },
       new UniqueEntityId(raw.id),
     )
@@ -31,6 +32,8 @@ export class PrismaAnimeMapper {
       cover: raw.cover,
       nsfw: raw.nsfw,
       createdAt: raw.createdAt,
+      rating: raw.rating,
+      trailerYtId: raw.trailerYtId,
     }
   }
 }

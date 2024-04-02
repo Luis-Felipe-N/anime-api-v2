@@ -110,11 +110,20 @@ export class PrismaAnimesRepository implements AnimesRepository {
           },
         },
       },
+      include: {
+        seasons: true,
+        genres: true,
+      },
+      orderBy: {
+        banner: {
+          sort: 'asc',
+        },
+      },
       skip: (params.page - 1) * 20,
       take: 20,
     })
 
-    return animes.map(PrismaAnimeMapper.toDomain)
+    return animes.map(PrismaAnimeDetailsMapper.toDomain)
   }
 
   async delete(anime: Anime) {
@@ -145,5 +154,28 @@ export class PrismaAnimesRepository implements AnimesRepository {
         limit ${20} ;`
 
     return animes.map(PrismaAnimeMapper.toDomain)
+  }
+
+  async findManyPopular(): Promise<Anime[]> {
+    const animes = await prisma.anime.findMany({
+      where: {
+        banner: {
+          not: null,
+        },
+        trailerYtId: {
+          not: null,
+        },
+      },
+      include: {
+        seasons: true,
+        genres: true,
+      },
+      orderBy: {
+        rating: 'desc',
+      },
+      take: 5,
+    })
+
+    return animes.map(PrismaAnimeDetailsMapper.toDomain)
   }
 }

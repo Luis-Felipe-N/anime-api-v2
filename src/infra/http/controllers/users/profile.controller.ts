@@ -1,19 +1,20 @@
 import { makeGetUserProfileUseCase } from '@/infra/factories/users/make-get-user-profile-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
-
-import { undefined, z } from 'zod'
+import { UserPresenter } from '../../presenters/user-presenters'
+import { BadRequestException } from '@/core/exception/bad-request.exception'
 
 export async function profile(request: FastifyRequest, reply: FastifyReply) {
-  const getUserProfile = makeGetUserProfileUseCase()
+  const useCase = makeGetUserProfileUseCase()
 
-  const { user } = await getUserProfile.execute({
+  const result = await useCase.execute({
     userId: request.user.sub,
   })
 
+  if (result.isFailure()) {
+    throw new BadRequestException()
+  }
+
   return reply.status(200).send({
-    user: {
-      ...user,
-      password_hash: undefined,
-    },
+    user: UserPresenter.toHTTP(result.value.user),
   })
 }

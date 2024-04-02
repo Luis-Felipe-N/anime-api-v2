@@ -17,7 +17,7 @@ describe('Create Anime (e2e)', () => {
     await app.close()
   })
 
-  it('[GET] /episodes/[:seasonId]', async () => {
+  it('[GET] /seasons/anime/[:animeId]', async () => {
     // const { token } = await createAndAuthenticateUser(app)
 
     const animePrisma = await makePrismaAnime({

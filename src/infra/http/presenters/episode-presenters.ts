@@ -1,4 +1,5 @@
 import { Episode } from '@/domain/enterprise/entities/episode'
+import { SeasonPresenter } from './season-presenters'
 
 export class EpisodePresenter {
   static toHTTP(episode: Episode) {
@@ -15,6 +16,7 @@ export class EpisodePresenter {
       type: episode.type,
       video: episode.video,
       seasonId: episode.seasonId.toString(),
+      season: episode.season && SeasonPresenter.toHTTP(episode.season),
     }
   }
 }

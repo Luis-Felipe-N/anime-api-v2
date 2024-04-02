@@ -1,3 +1,6 @@
+import { BadRequestException } from '@/core/exception/bad-request.exception'
+import { UnauthorizedException } from '@/core/exception/unauthorized.exception'
+import { InvalidCredentialsError } from '@/domain/application/use-cases/errors/invalid-credentials-error'
 import { makeAuthenticateUseCase } from '@/infra/factories/users/make-authenticate-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
 
@@ -14,27 +17,40 @@ export async function authenticate(
 
   const { email, password } = authenticateBodySchema.parse(request.body)
 
-  try {
-    const authenticateUseCase = makeAuthenticateUseCase()
+  const authenticateUseCase = makeAuthenticateUseCase()
 
-    const { user } = await authenticateUseCase.execute({ email, password })
+  const result = await authenticateUseCase.execute({ email, password })
 
-    const token = await reply.jwtSign(
-      {},
-      {
-        sign: {
-          sub: user.id,
-        },
-      },
-    )
-    return reply.status(200).send({
-      token,
-    })
-  } catch (error) {
-    if (error instanceof InvalidCredentialsError) {
-      return reply.status(400).send({ message: error.message })
+  if (result.isFailure()) {
+    const error = result.value
+
+    switch (error.constructor) {
+      case InvalidCredentialsError:
+        throw new UnauthorizedException(error.message)
+      default:
+        throw new BadRequestException(error.message)
     }
-
-    throw error
   }
+
+  const token = await reply.jwtSign(
+    {},
+    {
+      sign: {
+        sub: result.value.user.id.toString(),
+      },
+    },
+  )
+  return reply.status(200).send({
+    token,
+  })
+
+  // try {
+
+  // } catch (error) {
+  //   if (error instanceof InvalidCredentialsError) {
+  //     return reply.status(400).send({ message: error.message })
+  //   }
+
+  //   throw error
+  // }
 }

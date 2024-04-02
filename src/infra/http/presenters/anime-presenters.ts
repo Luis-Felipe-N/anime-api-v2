@@ -13,9 +13,11 @@ export class AnimePresenter {
       cover: anime.cover,
       nsfw: anime.nsfw,
       genres: anime.genres.getItems().map(GenrePresenter.toHTTP),
-      season: anime.seasons.getItems().map(SeasonPresenter.toHTTP),
+      seasons: anime.seasons.getItems().map(SeasonPresenter.toHTTP),
       trailerYtId: anime.trailerYtId,
       createdAt: anime.createdAt,
+      updatedAt: anime.updatedAt,
+      rating: anime.rating,
     }
   }
 }

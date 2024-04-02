@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { GetUserProfileUseCase } from './get-user-profile.usecase'
+import { GetUserProfileUseCase } from './get-user-profile'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 import { hash } from 'bcryptjs'

@@ -2,7 +2,6 @@ import { GenresRepository } from '@/domain/application/repositories/genres.repos
 import { prisma } from '../prisma/prisma'
 import { PrismaGenreMapper } from '../mapper/prisma-genre-mapper'
 import { Genre } from '@/domain/enterprise/entities/genre'
-
 export class PrismaGenresRepository implements GenresRepository {
   constructor() {}
 
@@ -19,7 +18,10 @@ export class PrismaGenresRepository implements GenresRepository {
 
     await prisma.genre.upsert({
       where: {
-        slug: data.slug,
+        genreIdentifier: {
+          animeId,
+          slug: data.slug,
+        },
       },
       create: {
         id,
@@ -31,6 +33,14 @@ export class PrismaGenresRepository implements GenresRepository {
         animeId,
       },
     })
+
+    // await prisma.$queryRaw`
+    //   INSERT INTO genres (id, title, slug, anime_id)
+    //   VALUES (${id}, ${data.title}, ${data.slug}, ${animeId})
+    //   ON CONFLICT (anime_id, slug)
+    //   DO UPDATE
+    //   SET title = EXCLUDED.title, slug = EXCLUDED.slug, anime_id = EXCLUDED.anime_id;
+    //   `
   }
 
   async createMany(genres: Genre[]): Promise<void> {
@@ -44,10 +54,19 @@ export class PrismaGenresRepository implements GenresRepository {
     genres.map((genre) => this.createFromScrapper(genre, animeId))
   }
 
-  async findBySlug(slug: string) {
+  async findBySlug(slug: string, animeId: string) {
+    // const genre: PrismaGenre = await prisma.$queryRaw`
+    //   SELECT *
+    //   FROM genres
+    //   WHERE anime_id = ${animeId} AND slug = ${slug};
+    // `
+
     const genre = await prisma.genre.findUnique({
       where: {
-        slug,
+        genreIdentifier: {
+          animeId,
+          slug,
+        },
       },
     })
 

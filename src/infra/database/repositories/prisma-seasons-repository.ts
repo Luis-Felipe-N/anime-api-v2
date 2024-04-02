@@ -28,9 +28,12 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
   async createFromScrapper(season: Season, animeId: string) {
     const { id, ...data } = PrismaSeasonMapper.toPrisma(season)
 
-    const seasons = await prisma.season.upsert({
+    const seasonPrisma = await prisma.season.upsert({
       where: {
-        slug: data.slug,
+        seasonIdentifier: {
+          animeId,
+          slug: data.slug,
+        },
       },
       create: {
         id,
@@ -45,7 +48,7 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
 
     this.episodesRepository.createManyFromScrapper(
       season.episodes.getItems(),
-      seasons.id,
+      seasonPrisma.id,
     )
   }
 
@@ -85,7 +88,7 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
       where: {
         id,
       },
-      include: { episodes: true },
+      include: { episodes: true, anime: true },
     })
 
     if (!season) return null

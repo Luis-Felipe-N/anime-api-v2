@@ -42,6 +42,12 @@ export class Anime extends Entity<AnimeProps> {
   }
 
   get nsfw() {
+    if (
+      this.props.genres
+        .getItems()
+        .find((item) => item.slug.value === 'sem-censura')
+    )
+      return true
     return this.props.nsfw
   }
 
@@ -59,6 +65,10 @@ export class Anime extends Entity<AnimeProps> {
 
   get createdAt() {
     return this.props.createdAt
+  }
+
+  get updatedAt() {
+    return this.props.updatedAt
   }
 
   get rating() {

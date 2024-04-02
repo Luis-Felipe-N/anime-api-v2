@@ -9,6 +9,7 @@ export function makeAnimeUseCase(data: AnimeProps) {
     nsfw: data.nsfw,
     title: data.title,
     trailerYtId: data.trailerYtId,
+    rating: data.rating,
   })
 
   return anime

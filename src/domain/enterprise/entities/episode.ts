@@ -4,6 +4,7 @@ import { Optional } from '@/core/types/optional'
 import { Slug } from '@/core/values-objects/slug'
 
 import dayjs from 'dayjs'
+import { Season } from './season'
 
 export const Type: {
   CRUNCHYROLL: 'CRUNCHYROLL'
@@ -26,6 +27,7 @@ export interface EpisodeProps {
   video: string
   duration: number
   createdAt: Date
+  season?: Season
 }
 
 export class Episode extends Entity<EpisodeProps> {
@@ -67,6 +69,10 @@ export class Episode extends Entity<EpisodeProps> {
 
   get type() {
     return this.props.type
+  }
+
+  get season() {
+    return this.props.season
   }
 
   get isNew(): boolean {
