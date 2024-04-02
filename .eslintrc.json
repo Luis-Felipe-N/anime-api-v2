@@ -5,7 +5,16 @@
   ],
   "rules": {
     "camelcase": "off",
-    "no-useless-constructor": "off"
+    "no-useless-constructor": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "extendDefaults": true,
+        "types": {
+          "{}": false
+        }
+      }
+    ]
   },
   "env": {
     "vitest-globals/env": true
