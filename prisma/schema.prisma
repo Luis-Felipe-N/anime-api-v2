@@ -45,7 +45,7 @@ model Anime {
   cover       String?
   nsfw        Boolean   @default(false)
   trailerYtId String?
-  rating      Float     @default(0)
+  rating      Float
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
@@ -58,7 +58,7 @@ model Anime {
 model Season {
   id        String    @id @default(uuid())
   title     String
-  slug      String    @unique
+  slug      String
   animeId   String    @map("anime_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
@@ -66,6 +66,7 @@ model Season {
   anime    Anime?    @relation(fields: [animeId], references: [id])
   episodes Episode[]
 
+  @@unique([animeId, slug], name: "seasonIdentifier")
   @@map("seasons")
 }
 
@@ -91,12 +92,13 @@ model Episode {
 
 model Genre {
   id    String @id @default(uuid())
-  slug  String @unique
+  slug  String
   title String
 
-  Anime   Anime? @relation(fields: [animeId], references: [id])
+  Anime   Anime  @relation(fields: [animeId], references: [id])
   animeId String @map("anime_id")
 
+  @@unique([animeId, slug], name: "genreIdentifier")
   @@map("genres")
 }
 

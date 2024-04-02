@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "animes" ADD COLUMN     "rating" DOUBLE PRECISION NOT NULL DEFAULT 0;
