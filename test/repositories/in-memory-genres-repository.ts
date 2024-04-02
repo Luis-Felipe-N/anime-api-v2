@@ -12,14 +12,24 @@ export class InMemoryGenresRepository implements GenresRepository {
     this.items.push(...genres)
   }
 
+  async createFromScrapper(genre: Genre): Promise<void> {
+    this.items.push(genre)
+  }
+
+  async createManyFromScrapper(genres: Genre[]): Promise<void> {
+    this.items.push(...genres)
+  }
+
   async delete(genre: Genre): Promise<void> {
     const genreIndex = this.items.findIndex((item) => item.id === genre.id)
 
     this.items.splice(genreIndex, 1)
   }
 
-  async findBySlug(slug: string): Promise<Genre | null> {
-    const genre = this.items.find((item) => item.slug.value === slug)
+  async findBySlug(slug: string, animeId: string): Promise<Genre | null> {
+    const genre = this.items.find(
+      (item) => item.slug.value === slug && item.animeId.toString() === animeId,
+    )
 
     if (!genre) {
       return null
