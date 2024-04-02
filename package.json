@@ -23,6 +23,7 @@
   "description": "",
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.11.27",
     "@types/supertest": "^6.0.2",
     "eslint": "^8.57.0",
@@ -43,6 +44,7 @@
     "ansi-styles": "^5.2.0",
     "assertion-error": "^1.1.0",
     "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
     "cac": "^6.7.14",
     "chai": "^4.4.1",
     "check-error": "^1.0.3",
