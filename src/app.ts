@@ -7,7 +7,9 @@ import cors from '@fastify/cors'
 
 // import { usersRoutes } from './http/controllers/users/routes'
 import { animesRouter } from './infra/http/controllers/animes/routes'
+import { seasonsRouter } from './infra/http/controllers/season/routes'
 import { episodesRouter } from './infra/http/controllers/episodes/routes'
+import { usersRoutes } from './infra/http/controllers/users/routes'
 
 export const app = fastify()
 
@@ -19,11 +21,17 @@ app.register(cors, {
   // put your options here
 })
 
-// app.register(usersRoutes)
+app.register(usersRoutes)
 app.register(animesRouter)
+app.register(seasonsRouter)
 app.register(episodesRouter)
 
 app.setErrorHandler((error, _, reply) => {
+  try {
+    return reply
+      .status(error.message.statusCode)
+      .send({ message: error.message.error })
+  } catch (error) {}
   if (error instanceof ZodError) {
     return reply
       .status(400)
