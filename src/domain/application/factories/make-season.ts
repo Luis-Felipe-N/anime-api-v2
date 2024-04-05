@@ -5,6 +5,7 @@ import { Season } from '@/domain/enterprise/entities/season'
 import { makeEpisodeUseCase } from './make-episode'
 
 export function makeSeasonUseCase(data: SeasonProps) {
+  
   const season = Season.create({
     animeId: new UniqueEntityId(), // WILL BE SUBSCRIPT
     title: data.title,
