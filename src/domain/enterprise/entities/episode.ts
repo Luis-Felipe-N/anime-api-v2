@@ -5,21 +5,14 @@ import { Slug } from '@/core/values-objects/slug'
 
 import dayjs from 'dayjs'
 import { Season } from './season'
+import { EpisodeTypes } from '@/core/enums/episode-types.enum'
 
-export const Type: {
-  CRUNCHYROLL: 'CRUNCHYROLL'
-  ANIMESONLINE: 'ANIMESONLINE'
-} = {
-  CRUNCHYROLL: 'CRUNCHYROLL',
-  ANIMESONLINE: 'ANIMESONLINE',
-}
 
-export type Type = (typeof Type)[keyof typeof Type]
 
 export interface EpisodeProps {
   seasonId: UniqueEntityId
   index: number
-  type: Type
+  type: EpisodeTypes
   slug: Slug
   title: string
   description: string | null
@@ -93,7 +86,7 @@ export class Episode extends Entity<EpisodeProps> {
       {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.title),
-        createdAt: new Date(),
+        createdAt: props.createdAt ?? new Date(),
       },
       id,
     )

@@ -16,6 +16,7 @@ export interface UserProps {
   email: string
   password_hash: string
   role: Type
+  avatar: string | null
 
   // watchedepisodes Watched[]
   // comments        Comment[]
@@ -36,6 +37,10 @@ export class User extends Entity<UserProps> {
 
   get role() {
     return this.props.role
+  }
+
+  get avatar() {
+    return this.props.avatar
   }
 
   set password_hash(password_hash: string) {
