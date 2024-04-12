@@ -28,10 +28,12 @@ model User {
   name          String
   email         String   @unique
   password_hash String
+  avatar        String?
   role          UserRole @default(USER)
 
   watchedepisodes Watched[]
   comments        Comment[]
+  Watchlist       Watchlist[]
 
   @@map("users")
 }
@@ -49,8 +51,10 @@ model Anime {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
-  seasons Season[]
-  genres  Genre[]
+  seasons     Season[]
+  genres      Genre[]
+  Watchlist   Watchlist? @relation(fields: [watchlistId], references: [id])
+  watchlistId String?
 
   @@map("animes")
 }
@@ -105,12 +109,25 @@ model Genre {
 model Watched {
   id        String    @id @default(uuid())
   stopAt    Float     @map("stop_at")
-  userId    String?   @map("user_id")
+  userId    String    @map("user_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
   user      User?     @relation(fields: [userId], references: [id])
 
-  @@map("watched")
+  @@map("watcheds")
+}
+
+model Watchlist {
+  id     String @id @default(uuid())
+  userId String @unique @map("user_id")
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at")
+
+  user   User?   @relation(fields: [userId], references: [id])
+  animes Anime[]
+
+  @@map("watchlists")
 }
 
 model Comment {
