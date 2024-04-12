@@ -7,7 +7,7 @@ import { makePrismaEpisode } from 'test/factories/make-episode'
 import { makePrismaSeason } from 'test/factories/make-season'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
-describe('Create Anime (e2e)', () => {
+describe('Fetch Episodes By Season (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })

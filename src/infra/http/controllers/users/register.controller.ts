@@ -5,6 +5,7 @@ import { makeRegisterUseCase } from '@/infra/factories/users/make-register-use-c
 import { FastifyRequest, FastifyReply } from 'fastify'
 
 import { z } from 'zod'
+import { UserPresenter } from '../../presenters/user-presenters'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
@@ -30,5 +31,7 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     }
   }
 
-  return reply.status(201).send()
+  return reply
+    .status(201)
+    .send({ user: UserPresenter.toHTTP(result.value.user) })
 }

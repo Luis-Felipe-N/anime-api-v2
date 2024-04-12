@@ -1,11 +1,16 @@
 import { FastifyInstance } from 'fastify'
 import { fetchEpisodesBySeason } from './fetch-episodes-by-season.controller'
 import { getById } from './get.controller'
-import { getNextEpisode } from './get-next-epsisode.contoller'
+import { getNextEpisode } from './get-next-episode.contoller'
+import { verifyJwtMiddleware } from '@/infra/middleware/verify-jwt.middleware'
+import { comment } from './comment.controller'
 
 export async function episodesRouter(app: FastifyInstance) {
   app.post('/episodes/next', getNextEpisode)
 
   app.get('/episodes/:id', getById)
   app.get('/episodes/season/:seasonId', fetchEpisodesBySeason)
+
+  /** AUTHENTICATED */
+  app.post('/episodes/:episodeId/comments', { onRequest: [verifyJwtMiddleware] }, comment)
 }
