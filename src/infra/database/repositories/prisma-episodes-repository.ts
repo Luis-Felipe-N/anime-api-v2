@@ -6,7 +6,7 @@ import { EpisodesRepository } from '@/domain/application/repositories/episode.re
 import { PrismaEpisodeDetailsMapper } from '../mapper/prisma-episode-detail-mapper'
 
 export class PrismaEpisodesRepository implements EpisodesRepository {
-  constructor() {}
+  constructor() { }
 
   async create(episode: Episode) {
     const data = PrismaEpisodeMapper.toPrisma(episode)
@@ -56,7 +56,11 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
       },
       include: {
         season: {
-          include: { anime: true },
+          include: {
+            anime: {
+              include: { genres: true }
+            }
+          },
         },
       },
       orderBy: {
@@ -75,11 +79,20 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
         seasonId,
         index: episodeIndex,
       },
+      include: {
+        season: {
+          include: {
+            anime: {
+              include: { genres: true }
+            }
+          },
+        },
+      },
     })
 
     if (!episode) return null
 
-    return PrismaEpisodeMapper.toDomain(episode)
+    return PrismaEpisodeDetailsMapper.toDomain(episode)
   }
 
   async findBySlug(slug: string) {
@@ -99,11 +112,20 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
       where: {
         id,
       },
+      include: {
+        season: {
+          include: {
+            anime: {
+              include: { genres: true }
+            }
+          },
+        },
+      },
     })
 
     if (!episode) return null
 
-    return PrismaEpisodeMapper.toDomain(episode)
+    return PrismaEpisodeDetailsMapper.toDomain(episode)
   }
 
   async delete(episode: Episode) {

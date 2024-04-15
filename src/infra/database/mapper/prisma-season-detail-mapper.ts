@@ -6,17 +6,23 @@ import {
   Anime as PrismaAnime,
   Season as PrismaSeason,
   Episode as PrismaEpisode,
+  Genre as PrismaGenre,
 } from '@prisma/client'
 import { PrismaEpisodeMapper } from './prisma-episode-mapper'
 import { PrismaAnimeMapper } from './prisma-anime-mapper'
+import { PrismaAnimeDetailsMapper } from './prisma-anime-detail-mapper'
+
+type PrismaAnimeDetails = PrismaAnime & {
+  genres: PrismaGenre[] | null
+}
 
 type PrismaSeasonDetails = PrismaSeason & {
   episodes: PrismaEpisode[]
-  anime: PrismaAnime
+  anime: PrismaAnimeDetails | null
 }
 
 type PrismaSeasonDetailsWithoutEpisodes = PrismaSeason & {
-  anime: PrismaAnime
+  anime: PrismaAnimeDetails | null
 }
 
 export class PrismaSeasonDetailsMapper {
@@ -31,7 +37,7 @@ export class PrismaSeasonDetailsMapper {
         ),
         updatedAt: raw.updatedAt,
         createdAt: raw.createdAt,
-        anime: PrismaAnimeMapper.toDomain(raw.anime),
+        anime: raw.anime && PrismaAnimeMapper.toDomain(raw.anime),
       },
       new UniqueEntityId(raw.id),
     )
@@ -47,7 +53,7 @@ export class PrismaSeasonDetailsMapper {
         slug: Slug.create(raw.slug),
         updatedAt: raw.updatedAt,
         createdAt: raw.createdAt,
-        anime: PrismaAnimeMapper.toDomain(raw.anime),
+        anime: PrismaAnimeDetailsMapper.toDomainWithoutSeasons(raw.anime),
       },
       new UniqueEntityId(raw.id),
     )

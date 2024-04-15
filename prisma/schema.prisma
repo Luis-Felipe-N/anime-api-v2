@@ -33,7 +33,7 @@ model User {
 
   watchedepisodes Watched[]
   comments        Comment[]
-  Watchlist       Watchlist[]
+  watchlist       Watchlist[]
 
   @@map("users")
 }
@@ -51,10 +51,10 @@ model Anime {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
-  seasons     Season[]
-  genres      Genre[]
-  Watchlist   Watchlist? @relation(fields: [watchlistId], references: [id])
-  watchlistId String?
+  seasons Season[]
+  genres  Genre[]
+
+  watchlists WatchlistOnAnimes[]
 
   @@map("animes")
 }
@@ -124,10 +124,21 @@ model Watchlist {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
 
-  user   User?   @relation(fields: [userId], references: [id])
-  animes Anime[]
+  user   User?               @relation(fields: [userId], references: [id])
+  animes WatchlistOnAnimes[]
 
   @@map("watchlists")
+}
+
+model WatchlistOnAnimes {
+  anime       Anime     @relation(fields: [animeId], references: [id])
+  animeId     String
+  watchlist   Watchlist @relation(fields: [watchlistId], references: [id])
+  watchlistId String // relation scalar field (used in the `@relation` attribute above)
+  assignedAt  DateTime  @default(now())
+  assignedBy  String
+
+  @@id([animeId, watchlistId])
 }
 
 model Comment {

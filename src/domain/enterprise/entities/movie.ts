@@ -10,7 +10,6 @@ interface MovieProps {
   banner: string
   cover: string
   createdAt: Date
-
   duration: number
 }
 

@@ -40,7 +40,7 @@ export class UploadAnimeBySlugUseCase {
     const animeSeasons = result.value.seasons.map((season) =>
       makeSeasonUseCase(season),
     )
-    
+
     const animeGenres = result.value.genres.map((genre) =>
       makeGenreUseCase(genre),
     )

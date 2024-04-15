@@ -4,6 +4,7 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Entity } from '@/core/entities/entity'
 import { SeasonList } from './season-list'
 import { GenreList } from './genre-list'
+import { valideYoutubeVideoId } from '@/core/uteis/valide-yotube-video-id'
 
 export interface AnimeProps {
   title: string
@@ -45,7 +46,7 @@ export class Anime extends Entity<AnimeProps> {
     if (
       this.props.genres
         .getItems()
-        .find((item) => item.slug.value === 'sem-censura')
+        .find((item) => item.slug.value === 'sem-censura' || item.slug.value === '18')
     )
       return true
     return this.props.nsfw
@@ -77,6 +78,11 @@ export class Anime extends Entity<AnimeProps> {
 
   get excerpt() {
     return this.props.description.slice(0, 120).trimEnd().concat('...')
+  }
+
+  get videoIdIsValid() {
+    if (!this.props.trailerYtId) return false
+    return valideYoutubeVideoId(this.props.trailerYtId)
   }
 
   set seasons(seasons: SeasonList) {

@@ -9,16 +9,16 @@ export async function animeToWatchlist(
   reply: FastifyReply,
 ) {
   const animeToWatchListBodySchema = z.object({
-    animeId: z.string(),
+    animes: z.array(z.string().uuid()),
   })
 
-  const { animeId } = animeToWatchListBodySchema.parse(request.body)
+  const { animes } = animeToWatchListBodySchema.parse(request.body)
 
   const useCase = makeAddAnimeOnWatchlistUseCase()
 
   const result = await useCase.execute({
     userId: request.user.sub,
-    animeId,
+    animesIds: animes,
   })
 
   if (result.isFailure()) {

@@ -12,7 +12,7 @@ export interface SeasonProps {
   episodes: EpisodeList
   createdAt: Date
   updatedAt?: Date | null
-  anime?: Anime
+  anime?: Anime | null
 }
 
 export class Season extends Entity<SeasonProps> {

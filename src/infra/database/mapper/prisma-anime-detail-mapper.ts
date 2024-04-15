@@ -17,6 +17,10 @@ type PrismaAnimeDetails = PrismaAnime & {
   genres: PrismaGenre[]
 }
 
+type PrismaAnimeDetailsWithoutSeasons = PrismaAnime & {
+  genres: PrismaGenre[]
+}
+
 export class PrismaAnimeDetailsMapper {
   static toDomain(raw: PrismaAnimeDetails): Anime {
     return Anime.create(
@@ -37,4 +41,24 @@ export class PrismaAnimeDetailsMapper {
       new UniqueEntityId(raw.id),
     )
   }
+
+  static toDomainWithoutSeasons(raw: PrismaAnimeDetailsWithoutSeasons): Anime {
+    return Anime.create(
+      {
+        title: raw.title,
+        description: raw.description,
+        banner: raw.banner,
+        cover: raw.cover,
+        nsfw: raw.nsfw,
+        createdAt: raw.createdAt,
+        updatedAt: raw.updatedAt,
+        genres: new GenreList(raw.genres.map(PrismaGenreMapper.toDomain)),
+        trailerYtId: raw.trailerYtId,
+        slug: Slug.create(raw.slug),
+        rating: raw.rating,
+      },
+      new UniqueEntityId(raw.id),
+    )
+  }
 }
+

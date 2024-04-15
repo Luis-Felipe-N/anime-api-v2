@@ -14,7 +14,7 @@ export class PrismaAnimesRepository implements AnimesRepository {
   constructor(
     private seasonsRepository: SeasonsRepository,
     private genresRepository: GenresRepository,
-  ) {}
+  ) { }
 
   async create(anime: Anime) {
     const { id, ...data } = PrismaAnimeMapper.toPrisma(anime)
@@ -104,11 +104,33 @@ export class PrismaAnimesRepository implements AnimesRepository {
   async findManyByGenre(genreSlug: string, params: PaginationParams) {
     const animes = await prisma.anime.findMany({
       where: {
-        genres: {
-          some: {
-            slug: genreSlug,
+        AND: [
+          {
+            genres: {
+              some: {
+                slug: genreSlug,
+              },
+            },
           },
-        },
+          {
+            NOT: {
+              genres: {
+                some: {
+                  slug: "sem-censura"
+                }
+              }
+            }
+          },
+          {
+            NOT: {
+              genres: {
+                some: {
+                  slug: "18"
+                }
+              }
+            }
+          },
+        ]
       },
       include: {
         seasons: true,
@@ -149,18 +171,30 @@ export class PrismaAnimesRepository implements AnimesRepository {
 
     const animes: PrismaAnime[] = await prisma.$queryRaw`        
         select * from animes 
-        where unaccent(title) LIKE ${`%${Normalize.normalizeText(keyword)}%`} 
+        where unaccent(slug) LIKE ${`%${Normalize.normalizeText(keyword)}%`}
         offset ${(params.page - 1) * 20}
-        limit ${20} ;`
+        limit ${20};`
 
     return animes.map(PrismaAnimeMapper.toDomain)
   }
 
   async findManyPopular(): Promise<Anime[]> {
+    const itemCount = await prisma.anime.count({
+      where: {
+        banner: {
+          startsWith: 'https://media.kitsu.io',
+        },
+        trailerYtId: {
+          not: null,
+        },
+      }
+    });
+    const skip = Math.max(0, Math.floor(Math.random() * itemCount) - 5);
+
     const animes = await prisma.anime.findMany({
       where: {
         banner: {
-          not: null,
+          startsWith: 'https://media.kitsu.io',
         },
         trailerYtId: {
           not: null,
@@ -170,9 +204,17 @@ export class PrismaAnimesRepository implements AnimesRepository {
         seasons: true,
         genres: true,
       },
-      orderBy: {
-        rating: 'desc',
-      },
+      orderBy: [
+        // {
+        //   rating: 'desc',
+        // },
+        {
+          banner: {
+            sort: 'asc',
+          },
+        }
+      ],
+      skip: skip,
       take: 5,
     })
 

@@ -1,17 +1,16 @@
 import { Entity } from '@/core/entities/entity'
 import { Optional } from '@/core/types/optional'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { AnimeList } from './anime-list'
+import { WatchlistAnimeList } from './watchlist-anime-list'
 
 export interface WatchlistProps {
   userId: UniqueEntityId
-  animes: AnimeList
   createdAt: Date
-  updatedAt?: Date
+  updatedAt?: Date | null
+  animes: WatchlistAnimeList
 }
 
 export class Watchlist extends Entity<WatchlistProps> {
-
   get userId() {
     return this.props.userId
   }
@@ -24,7 +23,7 @@ export class Watchlist extends Entity<WatchlistProps> {
     return this.props.updatedAt
   }
 
-  set animes(animes: AnimeList) {
+  set animes(animes: WatchlistAnimeList) {
     this.props.animes = animes
 
     this.touch()
@@ -42,7 +41,7 @@ export class Watchlist extends Entity<WatchlistProps> {
       {
         ...props,
         createdAt: new Date(),
-        animes: props.animes ?? new AnimeList()
+        animes: props.animes ?? new WatchlistAnimeList(),
       },
       id,
     )

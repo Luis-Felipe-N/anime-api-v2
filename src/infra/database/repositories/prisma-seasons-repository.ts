@@ -6,14 +6,17 @@ import { PrismaSeasonDetailsMapper } from '../mapper/prisma-season-detail-mapper
 import { EpisodesRepository } from '@/domain/application/repositories/episode.repository'
 
 export class PrismaSeasonsRepository implements SeasonsRepository {
-  constructor(private episodesRepository: EpisodesRepository) {}
+  constructor(private episodesRepository: EpisodesRepository) { }
 
   async create(season: Season) {
     const { id, ...data } = PrismaSeasonMapper.toPrisma(season)
 
     await prisma.season.upsert({
       where: {
-        slug: data.slug,
+        seasonIdentifier: {
+          animeId: season.animeId.toString(),
+          slug: data.slug,
+        },
       },
       create: {
         id,
@@ -97,7 +100,11 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
   }
 
   async findManyByAnime(animeId: string): Promise<Season[]> {
-    const seasons = await prisma.season.findMany({ where: { animeId } })
+    const seasons = await prisma.season.findMany({
+      where: { animeId }, orderBy: {
+        slug: 'asc'
+      }
+    })
 
     return seasons.map(PrismaSeasonMapper.toDomain)
   }

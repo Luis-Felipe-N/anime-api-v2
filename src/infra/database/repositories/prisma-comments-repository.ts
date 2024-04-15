@@ -2,13 +2,11 @@ import { Comment } from '@/domain/enterprise/entities/comment'
 import { prisma } from '../prisma/prisma'
 import { SeasonsRepository } from '@/domain/application/repositories/seasons-repository'
 import { PrismaCommentMapper } from '../mapper/prisma-comment-mapper'
-import {
-  CommentsRepository,
-  FetchCommentsByEpisodeProps,
-} from '@/domain/application/repositories/comment.repository'
+import { CommentsRepository } from '@/domain/application/repositories/comment.repository'
+import { PaginationParams } from '@/core/types/pagination-params'
 
 export class PrismaCommentsRepository implements CommentsRepository {
-  constructor(private seasonsRepository: SeasonsRepository) {}
+  // constructor(private seasonsRepository: SeasonsRepository) {}
 
   async create(comment: Comment) {
     const data = PrismaCommentMapper.toPrisma(comment)
@@ -17,10 +15,7 @@ export class PrismaCommentsRepository implements CommentsRepository {
     })
   }
 
-  async fetchCommentsByEpisode({
-    episodeId,
-    params,
-  }: FetchCommentsByEpisodeProps) {
+  async fetchCommentsByEpisode(episodeId: string, params: PaginationParams) {
     const comments = await prisma.comment.findMany({
       where: {
         episodeId,

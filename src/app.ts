@@ -31,7 +31,7 @@ app.setErrorHandler((error, _, reply) => {
     return reply
       .status(error.message.statusCode)
       .send({ message: error.message.error })
-  } catch (error) {}
+  } catch (error) { }
   if (error instanceof ZodError) {
     return reply
       .status(400)

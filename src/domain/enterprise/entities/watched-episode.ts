@@ -7,7 +7,7 @@ export interface WatchedEpisodeProps {
   userId: UniqueEntityId
   duration: number
   createdAt: Date
-  updatedAt?: Date
+  updatedAt?: Date | null
 }
 
 export class WatchedEpisode extends Entity<WatchedEpisodeProps> {

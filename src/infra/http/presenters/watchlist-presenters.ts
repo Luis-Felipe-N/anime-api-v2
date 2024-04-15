@@ -17,7 +17,7 @@ export class WatchlistPresenter {
     return {
       id: watchlist.id.toString(),
       userId: watchlist.userId.toString(),
-      animes: watchlist.animes.getItems().map(AnimePresenter.toHTTP),
+      // animes: watchlist.animes.getItems().map(AnimePresenter.toHTTP),
       createdAt: watchlist.createdAt,
       updatedAt: watchlist.updatedAt,
     }

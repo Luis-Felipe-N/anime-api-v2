@@ -21,25 +21,23 @@ export class UploadAnimesUseCase {
 
     const slugsResult = await scraper.getSlugsFromPage(genre, page)
 
-    
     if (slugsResult.isSuccess()) {
       ;(async () => {
         for await (const slug of slugsResult.value.slugs) {
           const result = await scraper.getAnimeBySlug(slug.trim())
-          
 
           if (result.isFailure()) {
             return failure(new UploadAnimeError())
           }
 
           const anime = makeAnimeUseCase(result.value.anime)
-          
+
           const animeSeasons = result.value.seasons.map((season) =>
-          makeSeasonUseCase(season),
+            makeSeasonUseCase(season),
           )
 
           const animeGenres = result.value.genres.map((genre) =>
-          makeGenreUseCase(genre),
+            makeGenreUseCase(genre),
           )
 
           anime.seasons = new SeasonList(animeSeasons)

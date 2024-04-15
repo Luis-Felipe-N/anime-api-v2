@@ -4,6 +4,7 @@ import { SeasonPresenter } from './season-presenters'
 
 export class AnimePresenter {
   static toHTTP(anime: Anime) {
+
     return {
       id: anime.id.toString(),
       title: anime.title,

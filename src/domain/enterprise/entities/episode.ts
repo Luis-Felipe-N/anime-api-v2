@@ -7,8 +7,6 @@ import dayjs from 'dayjs'
 import { Season } from './season'
 import { EpisodeTypes } from '@/core/enums/episode-types.enum'
 
-
-
 export interface EpisodeProps {
   seasonId: UniqueEntityId
   index: number
@@ -20,7 +18,7 @@ export interface EpisodeProps {
   video: string
   duration: number
   createdAt: Date
-  season?: Season
+  season?: Season | null
 }
 
 export class Episode extends Entity<EpisodeProps> {

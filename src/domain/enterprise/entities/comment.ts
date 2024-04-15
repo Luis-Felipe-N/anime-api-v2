@@ -4,7 +4,7 @@ import { Optional } from '@/core/types/optional'
 
 export interface CommentProps {
   authorId: UniqueEntityId
-  parentId?: UniqueEntityId
+  parentId?: UniqueEntityId | null
   episodeId: UniqueEntityId
   content: string
   createdAt: Date
