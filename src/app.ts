@@ -18,8 +18,8 @@ app.register(fastifyJwt, {
 })
 
 app.register(cors, {
-  origin: "https://animes.luisfelipenunes.com/",
-  credentials: true
+  origin: "*",
+  // credentials: true
 })
 
 app.register(usersRoutes)
