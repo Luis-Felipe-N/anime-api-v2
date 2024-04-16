@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsup src --out-dir build",
+    "build": "tsc -p tsconfig.json",
     "start": "node build/server.js",
     "start:dev": "tsx watch src/server.ts",
     "test": "vitest run -c vitest.unit.config.ts",
