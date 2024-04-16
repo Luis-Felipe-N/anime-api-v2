@@ -5,7 +5,7 @@ export function makeAnimeUseCase(data: AnimeProps) {
   const anime = Anime.create({
     banner: data.banner,
     cover: data.cover,
-    description: data.description,
+    description: data.description ?? '',
     nsfw: data.nsfw,
     title: data.title,
     trailerYtId: data.trailerYtId,
