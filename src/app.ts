@@ -18,7 +18,7 @@ app.register(fastifyJwt, {
 })
 
 app.register(cors, {
-  // put your options here
+  origin: "*"
 })
 
 app.register(usersRoutes)
