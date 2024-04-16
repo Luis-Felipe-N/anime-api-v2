@@ -21,4 +21,4 @@ jobs:
         username: ${{secrets.USERNAME}}
         key: ${{secrets.KEY}}
         source: "., !node_modules"
-        target: "test"
+        target: "~/app/anime-api-v2"
