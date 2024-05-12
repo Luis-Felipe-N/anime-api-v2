@@ -88,31 +88,36 @@ export default class AnimeBrBiz {
     page: number,
   ): Promise<Either<ResourceNotFoundError, { slugs: string[] }>> {
     const slugs = []
-    const baseURLGenre = `${BASE_URL}/genero/${genre}`
 
-    const url = baseURLGenre + `/page/` + page
+    for (let i = page; i < 80; i++) {
+      const baseURLGenre = `${BASE_URL}/genero/${genre}`
 
-    const data = await fetchOrCache(url)
+      const url = baseURLGenre + `/page/` + i
 
-    if (!data) {
-      return failure(new ResourceNotFoundError())
-    }
+      const data = await fetchOrCache(url)
 
-    const $ = cheerio.load(data)
-
-    const pages = $('.items article').toArray()
-
-    for (const page of pages) {
-      const slug = $(page)
-        .find('.data a')
-        .attr('href')
-        ?.replace('https://animesonlinecc.to/anime/', '')
-        .replace('/', '')
-
-      if (slug) {
-        slugs.push(slug)
+      if (!data) {
+        return failure(new ResourceNotFoundError())
       }
+
+      const $ = cheerio.load(data)
+
+      const pages = $('.items article').toArray()
+
+      for (const page of pages) {
+        const slug = $(page)
+          .find('.data a')
+          .attr('href')
+          ?.replace('https://animesonlinecc.to/anime/', '')
+          .replace('/', '')
+
+        if (slug) {
+          slugs.push(slug)
+        }
+      }
+
     }
+
 
     return success({ slugs })
   }
