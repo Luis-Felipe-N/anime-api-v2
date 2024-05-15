@@ -14,7 +14,7 @@ export class PrismaAnimesRepository implements AnimesRepository {
   constructor(
     private seasonsRepository: SeasonsRepository,
     private genresRepository: GenresRepository,
-  ) { }
+  ) {}
 
   async create(anime: Anime) {
     const { id, ...data } = PrismaAnimeMapper.toPrisma(anime)
@@ -116,21 +116,21 @@ export class PrismaAnimesRepository implements AnimesRepository {
             NOT: {
               genres: {
                 some: {
-                  slug: "sem-censura"
-                }
-              }
-            }
+                  slug: 'sem-censura',
+                },
+              },
+            },
           },
           {
             NOT: {
               genres: {
                 some: {
-                  slug: "18"
-                }
-              }
-            }
+                  slug: '18',
+                },
+              },
+            },
           },
-        ]
+        ],
       },
       include: {
         seasons: true,
@@ -187,9 +187,9 @@ export class PrismaAnimesRepository implements AnimesRepository {
         trailerYtId: {
           not: null,
         },
-      }
-    });
-    const skip = Math.max(0, Math.floor(Math.random() * itemCount) - 5);
+      },
+    })
+    const skip = Math.max(0, Math.floor(Math.random() * itemCount) - 5)
 
     const animes = await prisma.anime.findMany({
       where: {
@@ -212,9 +212,9 @@ export class PrismaAnimesRepository implements AnimesRepository {
           banner: {
             sort: 'asc',
           },
-        }
+        },
       ],
-      skip: skip,
+      skip,
       take: 5,
     })
 

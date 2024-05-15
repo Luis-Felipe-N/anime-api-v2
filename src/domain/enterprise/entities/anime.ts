@@ -46,7 +46,10 @@ export class Anime extends Entity<AnimeProps> {
     if (
       this.props.genres
         .getItems()
-        .find((item) => item.slug.value === 'sem-censura' || item.slug.value === '18')
+        .find(
+          (item) =>
+            item.slug.value === 'sem-censura' || item.slug.value === '18',
+        )
     )
       return true
     return this.props.nsfw

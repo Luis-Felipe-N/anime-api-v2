@@ -1,3 +1,5 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
 import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
 import { FetchAnimesByGenreUseCase } from './fetch-animes-by-genre'

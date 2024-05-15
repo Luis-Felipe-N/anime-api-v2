@@ -6,7 +6,7 @@ import { EpisodesRepository } from '@/domain/application/repositories/episode.re
 import { PrismaEpisodeDetailsMapper } from '../mapper/prisma-episode-detail-mapper'
 
 export class PrismaEpisodesRepository implements EpisodesRepository {
-  constructor() { }
+  constructor() {}
 
   async create(episode: Episode) {
     const data = PrismaEpisodeMapper.toPrisma(episode)
@@ -58,8 +58,8 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
         season: {
           include: {
             anime: {
-              include: { genres: true }
-            }
+              include: { genres: true },
+            },
           },
         },
       },
@@ -83,8 +83,8 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
         season: {
           include: {
             anime: {
-              include: { genres: true }
-            }
+              include: { genres: true },
+            },
           },
         },
       },
@@ -116,8 +116,8 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
         season: {
           include: {
             anime: {
-              include: { genres: true }
-            }
+              include: { genres: true },
+            },
           },
         },
       },

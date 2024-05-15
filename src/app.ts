@@ -18,7 +18,7 @@ app.register(fastifyJwt, {
 })
 
 app.register(cors, {
-  origin: "*",
+  origin: '*',
   // credentials: true
 })
 
@@ -30,8 +30,8 @@ app.register(episodesRouter)
 app.setErrorHandler((error, _, reply) => {
   try {
     return reply
-      .status(error.message.statusCode)
-      .send({ message: error.message.error })
+      .status(error.statusCode || 500)
+      .send({ message: error.message })
   } catch (error) { }
   if (error instanceof ZodError) {
     return reply

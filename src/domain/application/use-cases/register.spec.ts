@@ -21,6 +21,7 @@ describe('Register Use Case', () => {
       name: 'Teste da Silva',
       email: 'testedasilva01@gmail.com',
       password: '123456',
+      avatar: ''
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -35,6 +36,7 @@ describe('Register Use Case', () => {
       name: 'Teste da Silva',
       email: 'testedasilva01@gmail.com',
       password: '123456',
+      avatar: ''
     })
 
     expect(result.isSuccess()).toBe(true)
@@ -54,12 +56,14 @@ describe('Register Use Case', () => {
       name: 'Teste da Silva',
       email: 'testedasilva01@gmail.com',
       password: '123456',
+      avatar: ''
     })
 
     const result = await sut.execute({
       name: 'Teste da Silva',
       email: 'testedasilva01@gmail.com',
       password: '123456',
+      avatar: ''
     })
 
     expect(result.value).toBeInstanceOf(UserAlreadyExistsError)

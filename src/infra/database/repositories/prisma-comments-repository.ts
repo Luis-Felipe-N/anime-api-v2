@@ -1,6 +1,5 @@
 import { Comment } from '@/domain/enterprise/entities/comment'
 import { prisma } from '../prisma/prisma'
-import { SeasonsRepository } from '@/domain/application/repositories/seasons-repository'
 import { PrismaCommentMapper } from '../mapper/prisma-comment-mapper'
 import { CommentsRepository } from '@/domain/application/repositories/comment.repository'
 import { PaginationParams } from '@/core/types/pagination-params'

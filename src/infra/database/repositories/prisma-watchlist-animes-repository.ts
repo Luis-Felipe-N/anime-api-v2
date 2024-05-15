@@ -1,43 +1,43 @@
-import { WatchlistAnimesRepository } from "@/domain/application/repositories/question-animes.repository"
-import { WatchlistAnime } from "@/domain/enterprise/entities/watchlist-anime"
-import { prisma } from "../prisma/prisma"
+// import { WatchlistAnimesRepository } from '@/domain/application/repositories/question-animes.repository'
+// import { WatchlistAnime } from '@/domain/enterprise/entities/watchlist-anime'
+// import { prisma } from '../prisma/prisma'
+// import { PrismaWatchlistOnAnimesMapper } from '../mapper/prisma-watchlist-anime-mapper'
 
-export class PrismaWatchlistAnimesRepository
-    implements WatchlistAnimesRepository {
+// export class PrismaWatchlistAnimesRepository
+//   implements WatchlistAnimesRepository {
+//   async createMany(watchlists: WatchlistAnime[]): Promise<void> {
+//     if (watchlists.length === 0) {
+//       return
+//     }
 
-    async createMany(attachments: WatchlistAnime[]): Promise<void> {
-        if (attachments.length === 0) {
-            return
-        }
+//     const data = PrismaWatchlistOnAnimesMapper.toPrismaUpdateMany(watchlists)
 
-        const data = PrismaQuestionAttachmentMapper.toPrismaUpdateMany(attachments)
+//     await prisma.watchlistOnAnimes.updateMany(data)
+//   }
 
-        await prisma.watchlistOnAnimes.updateMany(data)
-    }
+//   async deleteMany(watchlists: WatchlistAnime[]): Promise<void> {
+//     if (watchlists.length === 0) {
+//       return
+//     }
 
-    async deleteMany(attachments: QuestionAttachment[]): Promise<void> {
-        if (attachments.length === 0) {
-            return
-        }
+//     const attachmentIds = attachments.map((attachment) => {
+//       return attachment.id.toString()
+//     })
 
-        const attachmentIds = attachments.map((attachment) => {
-            return attachment.id.toString()
-        })
+//     await prisma.watchlist.deleteMany({
+//       where: {
+//         id: {
+//           in: attachmentIds,
+//         },
+//       },
+//     })
+//   }
 
-        await this.prisma.attachment.deleteMany({
-            where: {
-                id: {
-                    in: attachmentIds,
-                },
-            },
-        })
-    }
-
-    async deleteManyByQuestionId(questionId: string): Promise<void> {
-        await this.prisma.attachment.deleteMany({
-            where: {
-                questionId,
-            },
-        })
-    }
-}
+//   async deleteManyByQuestionId(questionId: string): Promise<void> {
+//     await prisma.watchlist.deleteMany({
+//       where: {
+//         questionId,
+//       },
+//     })
+//   }
+// }

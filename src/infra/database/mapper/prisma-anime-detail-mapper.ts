@@ -18,7 +18,7 @@ type PrismaAnimeDetails = PrismaAnime & {
 }
 
 type PrismaAnimeDetailsWithoutSeasons = PrismaAnime & {
-  genres: PrismaGenre[]
+  genres: PrismaGenre[] | null
 }
 
 export class PrismaAnimeDetailsMapper {
@@ -52,7 +52,7 @@ export class PrismaAnimeDetailsMapper {
         nsfw: raw.nsfw,
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
-        genres: new GenreList(raw.genres.map(PrismaGenreMapper.toDomain)),
+        genres: raw.genres ? new GenreList(raw.genres.map(PrismaGenreMapper.toDomain)) : new GenreList(),
         trailerYtId: raw.trailerYtId,
         slug: Slug.create(raw.slug),
         rating: raw.rating,
@@ -61,4 +61,3 @@ export class PrismaAnimeDetailsMapper {
     )
   }
 }
-

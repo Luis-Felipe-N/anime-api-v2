@@ -12,5 +12,9 @@ export async function episodesRouter(app: FastifyInstance) {
   app.get('/episodes/season/:seasonId', fetchEpisodesBySeason)
 
   /** AUTHENTICATED */
-  app.post('/episodes/:episodeId/comments', { onRequest: [verifyJwtMiddleware] }, comment)
+  app.post(
+    '/episodes/:episodeId/comments',
+    { onRequest: [verifyJwtMiddleware] },
+    comment,
+  )
 }

@@ -3,6 +3,7 @@ import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-r
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { UploadAnimeBySlugUseCase } from '@/domain/application/use-cases/upload-anime-by-slug'
 import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-repository'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository

@@ -9,6 +9,7 @@ interface RegisterUseCaseRequest {
   name: string
   email: string
   password: string
+  avatar: string
 }
 
 type RegisterUseCaseResponse = Either<
@@ -19,12 +20,13 @@ type RegisterUseCaseResponse = Either<
 >
 
 export class RegisterUseCase {
-  constructor(private usersRepository: UsersRepository) {}
+  constructor(private usersRepository: UsersRepository) { }
 
   async execute({
     name,
     email,
     password,
+    avatar
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
     const password_hash = await hash(password, 6)
 
@@ -37,6 +39,7 @@ export class RegisterUseCase {
 
     const user = User.create({
       role: 'USER',
+      avatar,
       name,
       email,
       password_hash,

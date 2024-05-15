@@ -4,31 +4,35 @@ import { failure } from '@/core/either'
 import { makeCommentOnEpisodeUseCase } from '@/infra/factories/episodes/make-comment-on-epside-use-case'
 import { CommentPresenter } from '../../presenters/comment-presenters'
 
-export async function comment(request: FastifyRequest, reply: FastifyReply) {
-    const commentOnEpisodeBodySchema = z.object({
-        content: z.string(),
-    })
+interface FastifyRequestC extends FastifyRequest {
+  user: any
+}
 
-    const commentOnEpisodeParamsSchema = z.object({
-        episodeId: z.string(),
-    })
+export async function comment(request: FastifyRequestC, reply: FastifyReply) {
+  const commentOnEpisodeBodySchema = z.object({
+    content: z.string(),
+  })
 
-    const { content } = commentOnEpisodeBodySchema.parse(request.body)
-    const { episodeId } = commentOnEpisodeParamsSchema.parse(request.params)
+  const commentOnEpisodeParamsSchema = z.object({
+    episodeId: z.string(),
+  })
 
-    const useCase = makeCommentOnEpisodeUseCase()
+  const { content } = commentOnEpisodeBodySchema.parse(request.body)
+  const { episodeId } = commentOnEpisodeParamsSchema.parse(request.params)
 
-    const result = await useCase.execute({
-        authorId: request.user.sub,
-        content,
-        episodeId
-    })
+  const useCase = makeCommentOnEpisodeUseCase()
 
-    if (result.isFailure()) {
-        return failure(new Error())
-    }
+  const result = await useCase.execute({
+    authorId: request.user.sub,
+    content,
+    episodeId,
+  })
 
-    return reply
-        .status(200)
-        .send({ comment: CommentPresenter.toHTTP(result.value.comment) })
+  if (result.isFailure()) {
+    return failure(new Error())
+  }
+
+  return reply
+    .status(200)
+    .send({ comment: CommentPresenter.toHTTP(result.value.comment) })
 }

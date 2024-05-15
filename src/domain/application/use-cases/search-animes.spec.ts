@@ -4,6 +4,7 @@ import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-rep
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeAnime } from 'test/factories/make-anime'
 import { SearchAnimeUseCase } from './search-animes'
+import { beforeEach, describe, expect, it } from 'vitest'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let inMemoryGenresRepository: InMemoryGenresRepository

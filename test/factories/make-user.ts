@@ -11,6 +11,7 @@ export function makeUser(
 ) {
   const user = User.create(
     {
+      avatar: faker.image.avatar(),
       role: 'USER',
       email: faker.internet.email(),
       name: faker.person.fullName(),

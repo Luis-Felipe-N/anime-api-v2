@@ -77,7 +77,7 @@ export class Episode extends Entity<EpisodeProps> {
   }
 
   static create(
-    props: Optional<EpisodeProps, 'createdAt' | 'slug'>,
+    props: Optional<EpisodeProps, 'createdAt' | 'slug' | 'season'>,
     id?: UniqueEntityId,
   ) {
     const episode = new Episode(
@@ -85,6 +85,7 @@ export class Episode extends Entity<EpisodeProps> {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.title),
         createdAt: props.createdAt ?? new Date(),
+        season: props.season ?? null
       },
       id,
     )

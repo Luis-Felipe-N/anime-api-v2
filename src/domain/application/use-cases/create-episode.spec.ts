@@ -1,9 +1,12 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
 import { CreateEpisodeUseCase } from './create-episode'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeAnime } from 'test/factories/make-anime'
 import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
 import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-repository'
+import { makeSeason } from 'test/factories/make-season'
 // import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
 
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
@@ -19,29 +22,28 @@ describe('Create Anime', () => {
       inMemoryEpisodesRepository,
     )
     inMemoryGenresRepository = new InMemoryGenresRepository()
-    inMemoryAnimesRepository = new InMemoryAnimesRepository(
-      inMemorySeasonsRepository,
-      inMemoryGenresRepository,
-    )
+
     sut = new CreateEpisodeUseCase(
       inMemoryEpisodesRepository,
-      inMemoryAnimesRepository,
+      inMemorySeasonsRepository,
     )
   })
 
   it('should be able to create a episode', async () => {
-    const anime = makeAnime()
+    const season = makeSeason()
 
-    await inMemoryAnimesRepository.create(anime)
+    await inMemorySeasonsRepository.create(season)
 
     const result = await sut.execute({
-      animeId: anime.id.toString(),
+      seasonId: season.id.toString(),
       title: 'Titulo do episódio',
       description: 'Descrição do episódio',
       cover: 'episode-cover-link',
       duration: 800,
       index: 0,
       season: 1,
+      video: '',
+      type: "ANIMESONLINE"
     })
 
     expect(result.isSuccess()).toBe(true)

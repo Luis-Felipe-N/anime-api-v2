@@ -1,8 +1,10 @@
+
 import { app } from '@/app'
+
 import request from 'supertest'
 
 import { makePrismaAnime } from 'test/factories/make-anime'
-import { afterAll, beforeAll, describe, expect } from 'vitest'
+import { afterAll, beforeAll, describe, expect, test } from 'vitest'
 // import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
 
 describe('Create Anime (e2e)', () => {

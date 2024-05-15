@@ -1,3 +1,5 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { FetchCommentsByEpisodeUseCase } from './fetch-comments-by-episode'
 import { InMemoryCommentsRepository } from 'test/repositories/in-memory-comments-repository'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'

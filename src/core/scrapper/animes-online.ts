@@ -6,7 +6,6 @@ import { ResourceNotFoundError } from '@/domain/application/use-cases/errors/res
 import { Slug } from '../values-objects/slug'
 import { EpisodeTypes } from '../enums/episode-types.enum'
 
-const GENRE_LIST = ['acao', 'artes-marciais', 'aventura', 'comedia', 'shounen']
 const BASE_URL = 'https://animesonlinecc.to/'
 
 interface IMoreInfos {
@@ -51,7 +50,7 @@ export interface GenreProps {
 
 export default class AnimeBrBiz {
   async getAnimesByGenre(genre: string, numberPage = 1) {
-    const animes = []
+    const animes: AnimeProps[] = []
     const baseURLGenre = `${BASE_URL}/genero/${genre}`
 
     const url = baseURLGenre + `/page/` + numberPage
@@ -74,9 +73,13 @@ export default class AnimeBrBiz {
         .replace('/', '')
 
       if (slug) {
-        const anime = await this.getAnimeBySlug(slug)
+        const response = await this.getAnimeBySlug(slug)
 
-        animes.push(anime)
+        if (response.isSuccess()) {
+
+          animes.push(response.value.anime)
+        }
+
       }
     }
 
@@ -87,7 +90,7 @@ export default class AnimeBrBiz {
     genre: string,
     page: number,
   ): Promise<Either<ResourceNotFoundError, { slugs: string[] }>> {
-    const slugs = []
+    const slugs: string[] = []
 
     for (let i = page; i < 80; i++) {
       const baseURLGenre = `${BASE_URL}/genero/${genre}`
@@ -105,7 +108,7 @@ export default class AnimeBrBiz {
       const pages = $('.items article').toArray()
 
       for (const page of pages) {
-        const slug = $(page)
+        const slug: string | undefined = $(page)
           .find('.data a')
           .attr('href')
           ?.replace('https://animesonlinecc.to/anime/', '')
@@ -115,9 +118,7 @@ export default class AnimeBrBiz {
           slugs.push(slug)
         }
       }
-
     }
-
 
     return success({ slugs })
   }
@@ -152,7 +153,10 @@ export default class AnimeBrBiz {
         }
       })
 
-    if (genres.includes({ title: 'sem-censura' }) || genres.includes({ title: '18' })) {
+    if (
+      genres.includes({ title: 'sem-censura' }) ||
+      genres.includes({ title: '18' })
+    ) {
       return failure(new ResourceNotFoundError())
     }
 
@@ -214,8 +218,6 @@ export default class AnimeBrBiz {
       const episodes: EpisodeProps[] = []
       let episodeIndex = 0
 
-      const slug = Slug.createFromText(`${animeSlug}-${seasonTitle}`).value
-
       const listLinksEpisodesElement = $(seasonElement)
         .find('.se-a .episodios li')
         .toArray()
@@ -238,7 +240,7 @@ export default class AnimeBrBiz {
           : 0
 
         if (
-          !episodes.find((episode) => episode.slug.value == episodeSlug.value)
+          !episodes.find((episode) => episode.slug.value === episodeSlug.value)
         ) {
           episodes.push({
             title: titleEpisode,

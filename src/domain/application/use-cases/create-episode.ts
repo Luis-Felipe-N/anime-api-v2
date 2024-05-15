@@ -3,15 +3,20 @@ import { Episode } from '@/domain/enterprise/entities/episode'
 import { AnimesRepository } from '../repositories/animes.repository'
 import { Either, failure, success } from '@/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { EpisodeTypes } from '@/core/enums/episode-types.enum'
+import { SeasonsRepository } from '../repositories/seasons-repository'
 
 interface CreateEpisodeUseCaseRequest {
-  animeId: string
+  seasonId: string
   title: string
   description: string
   cover: string
   index: number
   duration: number
   season: number
+  video: string
+  type: EpisodeTypes
 }
 
 type CreateEpisodeUseCaseResponse = Either<
@@ -24,32 +29,34 @@ type CreateEpisodeUseCaseResponse = Either<
 export class CreateEpisodeUseCase {
   constructor(
     private episodesRepository: EpisodesRepository,
-    private animesRepository: AnimesRepository,
-  ) {}
+    private seasonsRepository: SeasonsRepository,
+  ) { }
 
   async execute({
-    animeId,
+    seasonId,
     title,
     cover,
     description,
     duration,
     index,
-    season,
+    video,
+    type,
   }: CreateEpisodeUseCaseRequest): Promise<CreateEpisodeUseCaseResponse> {
-    const anime = await this.animesRepository.findById(animeId)
+    const season = await this.seasonsRepository.findById(seasonId)
 
-    if (!anime) {
+    if (!season) {
       return failure(new ResourceNotFoundError())
     }
 
     const episode = Episode.create({
-      animeId: anime.id,
+      seasonId: season.id,
       title,
       description,
       cover,
       index,
       duration,
-      season,
+      video,
+      type,
     })
 
     await this.episodesRepository.create(episode)

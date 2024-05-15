@@ -58,7 +58,7 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
   async save(season: Season) {
     const data = PrismaSeasonMapper.toPrisma(season)
 
-    await prisma.season.update({
+    await prisma.season.updateMany({
       where: {
         slug: data.slug,
       },
@@ -75,7 +75,7 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
   }
 
   async findBySlug(slug: string) {
-    const season = await prisma.season.findUnique({
+    const season = await prisma.season.findFirst({
       where: {
         slug,
       },
@@ -91,7 +91,13 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
       where: {
         id,
       },
-      include: { episodes: true, anime: true },
+      include: {
+        episodes: true, anime: {
+          include: {
+            genres: true
+          }
+        }
+      },
     })
 
     if (!season) return null
@@ -101,9 +107,10 @@ export class PrismaSeasonsRepository implements SeasonsRepository {
 
   async findManyByAnime(animeId: string): Promise<Season[]> {
     const seasons = await prisma.season.findMany({
-      where: { animeId }, orderBy: {
-        slug: 'asc'
-      }
+      where: { animeId },
+      orderBy: {
+        slug: 'asc',
+      },
     })
 
     return seasons.map(PrismaSeasonMapper.toDomain)

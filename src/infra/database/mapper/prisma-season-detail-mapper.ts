@@ -53,7 +53,7 @@ export class PrismaSeasonDetailsMapper {
         slug: Slug.create(raw.slug),
         updatedAt: raw.updatedAt,
         createdAt: raw.createdAt,
-        anime: PrismaAnimeDetailsMapper.toDomainWithoutSeasons(raw.anime),
+        anime: raw.anime?.genres && PrismaAnimeDetailsMapper.toDomainWithoutSeasons(raw.anime),
       },
       new UniqueEntityId(raw.id),
     )

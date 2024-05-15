@@ -26,7 +26,7 @@ type CreateAnimeUseCaseResponse = Either<
 >
 
 export class CreateAnimeUseCase {
-  constructor(private animesRepository: AnimesRepository) {}
+  constructor(private animesRepository: AnimesRepository) { }
 
   async execute({
     banner,
@@ -45,6 +45,7 @@ export class CreateAnimeUseCase {
       title,
       nsfw,
       trailerYtId,
+      rating: 0
     })
 
     const animeSeasons = seasons.map((season) =>

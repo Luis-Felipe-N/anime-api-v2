@@ -12,13 +12,14 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
     name: z.string(),
     email: z.string().email(),
     password: z.string().min(6),
+    avatar: z.string()
   })
 
-  const { name, email, password } = registerBodySchema.parse(request.body)
+  const { name, email, password, avatar } = registerBodySchema.parse(request.body)
 
   const useCase = makeRegisterUseCase()
 
-  const result = await useCase.execute({ name, email, password })
+  const result = await useCase.execute({ name, email, password, avatar })
 
   if (result.isFailure()) {
     const error = result.value

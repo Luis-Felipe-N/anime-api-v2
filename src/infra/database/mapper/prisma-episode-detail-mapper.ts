@@ -35,7 +35,9 @@ export class PrismaEpisodeDetailsMapper {
         createdAt: raw.createdAt,
         type: raw.type,
         video: raw.video,
-        season: raw.season ? PrismaSeasonDetailsMapper.toDomainWithoutEpisodes(raw.season) : null,
+        season: raw.season
+          ? PrismaSeasonDetailsMapper.toDomainWithoutEpisodes(raw.season)
+          : null,
       },
       new UniqueEntityId(raw.id),
     )

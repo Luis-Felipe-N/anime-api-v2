@@ -1,95 +1,97 @@
-import { WatchlistsRepository } from '@/domain/application/repositories/watchlist'
-import { prisma } from '../prisma/prisma'
-import { Watchlist } from '@/domain/enterprise/entities/watchlist'
-import { PrismaWatchlistMapper } from '../mapper/prisma-watchlist-mapper'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { PrismaWatchlistDetailMapper } from '../mapper/prisma-watchlist-detail-mapper'
+// // @ts-ignore
 
-export class PrismaWatchlistsRepository implements WatchlistsRepository {
-  async findById(id: string) {
-    const watchlist = await prisma.watchlist.findUnique({
-      where: {
-        id,
-      },
-    })
+// import { WatchlistsRepository } from '@/domain/application/repositories/watchlist'
+// import { prisma } from '../prisma/prisma'
+// import { Watchlist } from '@/domain/enterprise/entities/watchlist'
+// import { PrismaWatchlistMapper } from '../mapper/prisma-watchlist-mapper'
+// import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+// import { PrismaWatchlistDetailMapper } from '../mapper/prisma-watchlist-detail-mapper'
 
-    if (!watchlist) {
-      return null
-    }
+// export class PrismaWatchlistsRepository implements WatchlistsRepository {
+//   async findById(id: string) {
+//     const watchlist = await prisma.watchlist.findUnique({
+//       where: {
+//         id,
+//       },
+//     })
 
-    return PrismaWatchlistMapper.toDomain(watchlist)
-  }
+//     if (!watchlist) {
+//       return null
+//     }
 
-  async create(watchlist: Watchlist) {
+//     return PrismaWatchlistMapper.toDomain(watchlist)
+//   }
 
-    const data = PrismaWatchlistMapper.toPrisma(watchlist)
+//   async create(watchlist: Watchlist) {
+//     const data = PrismaWatchlistMapper.toPrisma(watchlist)
 
-    const watchlistPrisma = await prisma.watchlist.create({
-      data: {
-        ...data,
-        animes: data.animes
-      },
-      include: {
-        animes: true,
-      },
-    })
+//     const watchlistPrisma = await prisma.watchlist.create({
+//       data: {
+//         ...data,
+//         animes: data.animes,
+//       },
+//       include: {
+//         animes: true,
+//       },
+//     })
 
-    return PrismaWatchlistDetailMapper.toDomain(watchlistPrisma)
-  }
+//     return PrismaWatchlistDetailMapper.toDomain(watchlistPrisma)
+//   }
 
-  async findByUserId(userId: string) {
-    const watchlist = await prisma.watchlist.findUnique({
-      where: {
-        userId,
-      },
-      include: { animes: true },
-    })
+//   async findByUserId(userId: string) {
+//     const watchlist = await prisma.watchlist.findUnique({
+//       where: {
+//         userId,
+//       },
+//       include: { animes: true },
+//     })
 
-    if (!watchlist) {
-      return null
-    }
+//     if (!watchlist) {
+//       return null
+//     }
 
-    return PrismaWatchlistDetailMapper.toDomain(watchlist)
-  }
+//     return PrismaWatchlistDetailMapper.toDomain(watchlist)
+//   }
 
-  async findByUserIdOrCreate(userId: string) {
-    const watchlist = await prisma.watchlist.findUnique({
-      where: {
-        userId,
-      },
-      include: {
-        animes: true,
-      },
-    })
+//   async findByUserIdOrCreate(userId: string) {
+//     const watchlist = await prisma.watchlist.findUnique({
+//       where: {
+//         userId,
+//       },
+//       include: {
+//         animes: true,
+//       },
+//     })
 
-    if (!watchlist) {
-      const watchlist = await this.create(
-        Watchlist.create({
-          userId: new UniqueEntityId(userId),
-        }),
-      )
-      return watchlist
-    }
+//     if (!watchlist) {
+//       const watchlist = await this.create(
+//         Watchlist.create({
+//           userId: new UniqueEntityId(userId),
 
-    return PrismaWatchlistDetailMapper.toDomain(watchlist)
-  }
+//         }),
+//       )
+//       return watchlist
+//     }
 
-  async save(watchlist: Watchlist) {
-    const data = PrismaWatchlistMapper.toPrisma(watchlist)
-    console.log(data, data.animes)
-    const watchlistPrisma = await prisma.watchlist.update({
-      where: {
-        id: data.id,
-      },
-      include: {
-        animes: true,
-      },
-      data: {
-        ...data,
-        animes: data.animes
-      },
-    })
+//     return PrismaWatchlistDetailMapper.toDomain(watchlist)
+//   }
 
-    return PrismaWatchlistMapper.toDomain(watchlistPrisma)
-  }
-}
+//   async save(watchlist: Watchlist) {
+//     const data = PrismaWatchlistMapper.toPrisma(watchlist)
+//     console.log(data, data.animes)
+//     const watchlistPrisma = await prisma.watchlist.update({
+//       where: {
+//         id: data.id,
+//       },
+//       include: {
+//         animes: true,
+//       },
+//       data: {
+//         ...data,
+//         animes: data.animes,
+//       },
+//     })
+
+//     return PrismaWatchlistMapper.toDomain(watchlistPrisma)
+//   }
+// }

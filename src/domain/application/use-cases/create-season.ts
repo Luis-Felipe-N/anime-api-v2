@@ -23,7 +23,7 @@ export class CreateSeasonUseCase {
   constructor(
     private seasonsRepository: SeasonsRepository,
     private animesRepository: AnimesRepository,
-  ) {}
+  ) { }
 
   async execute({
     title,
@@ -51,6 +51,8 @@ export class CreateSeasonUseCase {
           duration: episode.duration,
           seasonId: season.id,
           slug: episode.slug,
+          video: episode.video,
+          type: episode.type
         },
         episode.id,
       ),

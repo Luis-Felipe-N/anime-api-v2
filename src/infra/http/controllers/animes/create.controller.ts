@@ -9,6 +9,8 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
 
   const { slug } = createAnimeBodySchema.parse(request.body)
 
+  console.log('UPDATE: ', slug)
+
   const useCase = makeUploadAnimeBySlugUseCase()
 
   await useCase.execute({ slug })

@@ -1,3 +1,5 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { InMemoryCommentsRepository } from 'test/repositories/in-memory-comments-repository'
 import { DeleteCommentUseCase } from './delete-comment'
