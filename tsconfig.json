@@ -21,15 +21,16 @@
     "paths": {
       "@/*": [
         "./src/*",
-        "./test/*",
+        // "./test/*",
       ]
     },
     "types": [
       "vitest/globals"
     ]
   },
-  "include": [
+  "exclude": [
     "./vite.config.ts",
-    "./src/**/*",
+    "./vitest.e2e.config.ts",
+    "./vitest.unit.config.ts"
   ],
 }
