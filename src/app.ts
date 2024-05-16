@@ -39,7 +39,7 @@ app.setErrorHandler((error, _, reply) => {
       .send({ message: 'Validation Error', issues: error.format() })
   }
 
-  if (env.NODE_ENV !== 'prod') {
+  if (env.NODE_ENV !== 'production') {
     console.error(error)
   } else {
     // Mandar o error para algum serviço de tratamento
