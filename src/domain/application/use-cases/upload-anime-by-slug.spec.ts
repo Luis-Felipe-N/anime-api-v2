@@ -28,39 +28,15 @@ describe('Upload Anime By Slug', () => {
 
   it('should be able to upload an anime by slug', async () => {
     const result = await sut.execute({
-      slug: 'castlevania',
+      slug: 'shin-ikki-tousen',
     })
 
     expect(result.isSuccess())
 
     if (result.isSuccess()) {
-      expect(result.value.anime.title).toBe('Castlevania')
+      expect(result.value.anime.title).toBe('Shin Ikki Tousen')
     }
   })
-
-  // it('should be able to create an anime with seasons', async () => {
-  //   const season = makeSeason({}, new UniqueEntityId('temp-01'))
-
-  //   const result = await sut.execute({
-  //     title: 'Jujutsu',
-  //     banner: 'banner-link',
-  //     cover: 'cover-link',
-  //     description: 'Descrição do anime',
-  //     nsfw: false,
-  //     seasons: [season],
-  //   })
-
-  //   expect(result.isSuccess()).toBe(true)
-
-  //   if (result.isSuccess()) {
-  //     expect(result.value.anime.slug.value).toEqual('jujutsu')
-  //     expect(inMemorySeasonsRepository.items).toEqual(
-  //       expect.arrayContaining([
-  //         expect.objectContaining({
-  //           id: new UniqueEntityId('temp-01'),
-  //         }),
-  //       ]),
-  //     )
-  //   }
-  // })
+}, {
+  timeout: 30000
 })

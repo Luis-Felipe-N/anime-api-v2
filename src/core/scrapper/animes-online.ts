@@ -142,6 +142,7 @@ export default class AnimeBrBiz {
     const post = $('img').attr('src')
     const rating = Number($('.dt_rating_vgs').text())
     const title = $('.breadcrumb_last').text()
+    console.log("TITLE: ", title)
     const description = this._getDescription($('.wp-content').text())
     const genres = $('.content .sgeneros a')
       .toArray()
@@ -153,12 +154,12 @@ export default class AnimeBrBiz {
         }
       })
 
-    if (
-      genres.includes({ title: 'sem-censura' }) ||
-      genres.includes({ title: '18' })
-    ) {
-      return failure(new ResourceNotFoundError())
-    }
+    // if (
+    //   genres.includes({ title: 'sem-censura' }) ||
+    //   genres.includes({ title: '18' })
+    // ) {
+    //   return failure(new ResourceNotFoundError())
+    // }
 
     if (!animePage) {
       return failure(new ResourceNotFoundError())
