@@ -21,9 +21,6 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "_moduleAliases": {
-    "@": "dist"
-  },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/bcryptjs": "^2.4.6",
