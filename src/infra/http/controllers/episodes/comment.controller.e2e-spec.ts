@@ -20,6 +20,7 @@ describe('Comment On Episode (e2e)', () => {
       name: 'Luis Felipe',
       email: 'luiss@gmail.com',
       password: '123456',
+      avatar: ''
     })
 
     const sessionsResponse = await request(app.server).post('/sessions').send({
@@ -51,7 +52,6 @@ describe('Comment On Episode (e2e)', () => {
         content: 'Conteúdo do comentário',
       })
 
-    console.log(response)
     expect(response.statusCode).toEqual(200)
 
     expect(response.body.comment.content).toBe('Conteúdo do comentário')

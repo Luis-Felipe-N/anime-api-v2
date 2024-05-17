@@ -1,25 +1,16 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "es2022",
-    "sourceMap": true,
     "outDir": "./dist",
+    "target": "es2020",
+    "module": "commonjs",
     "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "strictNullChecks": true,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
+    "skipLibCheck": true,
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ]
     },
     "types": [

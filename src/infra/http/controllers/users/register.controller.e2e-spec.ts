@@ -1,6 +1,6 @@
 import { app } from '@/app'
 import request from 'supertest'
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
+// import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
 describe('Register (e2e)', () => {
   beforeAll(async () => {
@@ -16,6 +16,7 @@ describe('Register (e2e)', () => {
       email: 'luiss@gmail.com',
       name: 'Luis Felipe',
       password: '123456',
+      avatar: ''
     })
 
     expect(response.statusCode).toEqual(201)

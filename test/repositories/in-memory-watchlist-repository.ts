@@ -1,58 +1,58 @@
-// import { UniqueEntityId } from "@/core/entities/unique-entity-id"
-// import { WatchlistsRepository } from "@/domain/application/repositories/watchlist"
-// // import { Watchlist } from "@/domain/enterprise/entities/watchlist"
+import { UniqueEntityId } from "@/core/entities/unique-entity-id"
+import { WatchlistsRepository } from "@/domain/application/repositories/watchlist"
+import { Watchlist } from "@/domain/enterprise/entities/watchlist"
 
 
-// export class InMemoryWatchlistsRepository implements WatchlistsRepository {
-//   public items: Watchlist[] = []
+export class InMemoryWatchlistsRepository implements WatchlistsRepository {
+    public items: Watchlist[] = []
 
-//   async create(watchlist: Watchlist) {
-//     this.items.push(watchlist)
+    async create(watchlist: Watchlist) {
+        this.items.push(watchlist)
 
-//     return watchlist
-//   }
+        return watchlist
+    }
 
 
-//   async save(watchlist: Watchlist) {
-//     const watchlistIndex = this.items.findIndex((item) => item.id === watchlist.id)
+    async save(watchlist: Watchlist) {
+        const watchlistIndex = this.items.findIndex((item) => item.id === watchlist.id)
 
-//     this.items[watchlistIndex] = watchlist
+        this.items[watchlistIndex] = watchlist
 
-//     return watchlist
-//   }
+        return watchlist
+    }
 
-//   async findById(id: string) {
-//     const watchlistMemory = this.items.find((watchlist) => id === watchlist.id.toString())
+    async findById(id: string) {
+        const watchlistMemory = this.items.find((watchlist) => id === watchlist.id.toString())
 
-//     if (!watchlistMemory) {
-//       return null
-//     }
+        if (!watchlistMemory) {
+            return null
+        }
 
-//     return watchlistMemory
-//   }
+        return watchlistMemory
+    }
 
-//   async findByUserId(userId: string) {
-//     const watchlistMemory = this.items.find((watchlist) => userId === watchlist.userId.toString())
+    async findByUserId(userId: string) {
+        const watchlistMemory = this.items.find((watchlist) => userId === watchlist.userId.toString())
 
-//     if (!watchlistMemory) {
-//       return null
-//     }
+        if (!watchlistMemory) {
+            return null
+        }
 
-//     return watchlistMemory
-//   }
+        return watchlistMemory
+    }
 
-//   async findByUserIdOrCreate(userId: string) {
-//     const watchlistMemory = this.items.find((watchlist) => userId === watchlist.userId.toString())
+    async findByUserIdOrCreate(userId: string) {
+        const watchlistMemory = this.items.find((watchlist) => userId === watchlist.userId.toString())
 
-//     if (!watchlistMemory) {
+        if (!watchlistMemory) {
 
-//       const watchlist = await this.create(Watchlist.create({
-//         userId: new UniqueEntityId(userId),
-//       }))
+            const watchlist = await this.create(Watchlist.create({
+                userId: new UniqueEntityId(userId),
+            }))
 
-//       return watchlist
-//     }
+            return watchlist
+        }
 
-//     return watchlistMemory
-//   }
-// }
+        return watchlistMemory
+    }
+}

@@ -1,55 +1,59 @@
-// import { Entity } from '@/core/entities/entity'
-// import { Optional } from '@/core/types/optional'
-// import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-// import { WatchlistAnimeList } from './watchlist-anime-list'
+import { Entity } from '@/core/entities/entity'
+import { Optional } from '@/core/types/optional'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { WatchlistAnimeList } from './watchlist-anime-list'
 
-// export interface WatchlistProps {
-//   userId: UniqueEntityId
-//   createdAt: Date
-//   updatedAt?: Date | null
-//   animes: WatchlistAnimeList
-// }
+export interface WatchlistProps {
+    userId: UniqueEntityId
+    createdAt: Date
+    updatedAt?: Date | null
+    animes: WatchlistAnimeList
+}
 
-// export class Watchlist extends Entity<WatchlistProps> {
-//   get userId() {
-//     return this.props.userId
-//   }
+export class Watchlist extends Entity<WatchlistProps> {
+    get userId() {
+        return this.props.userId
+    }
 
-//   get createdAt() {
-//     return this.props.createdAt
-//   }
+    get createdAt() {
+        return this.props.createdAt
+    }
 
-//   get updatedAt() {
-//     return this.props.updatedAt
-//   }
+    get updatedAt() {
+        return this.props.updatedAt
+    }
 
-//   get animes() {
-//     return this.props.animes
-//   }
+    get animes() {
+        return this.props.animes
+    }
 
-//   set animes(animes: WatchlistAnimeList) {
-//     this.props.animes = animes
+    get animesCount() {
+        return this.props.animes.getItems().length
+    }
 
-//     this.touch()
-//   }
+    set animes(animes: WatchlistAnimeList) {
+        this.props.animes = animes
 
-//   private touch() {
-//     this.props.updatedAt = new Date()
-//   }
+        this.touch()
+    }
 
-//   static create(
-//     props: Optional<WatchlistProps, 'createdAt' | 'animes'>,
-//     id?: UniqueEntityId,
-//   ) {
-//     const watchlist = new Watchlist(
-//       {
-//         ...props,
-//         createdAt: new Date(),
-//         animes: props.animes ?? new WatchlistAnimeList(),
-//       },
-//       id,
-//     )
+    private touch() {
+        this.props.updatedAt = new Date()
+    }
 
-//     return watchlist
-//   }
-// }
+    static create(
+        props: Optional<WatchlistProps, 'createdAt' | 'animes'>,
+        id?: UniqueEntityId,
+    ) {
+        const watchlist = new Watchlist(
+            {
+                ...props,
+                createdAt: new Date(),
+                animes: props.animes ?? new WatchlistAnimeList(),
+            },
+            id,
+        )
+
+        return watchlist
+    }
+}

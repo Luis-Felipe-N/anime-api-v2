@@ -16,6 +16,7 @@ describe('Profile (e2e)', () => {
       name: 'Luis Felipe',
       email: 'luiss@gmail.com',
       password: '123456',
+      avatar: ''
     })
 
     const sessionsResponse = await request(app.server).post('/sessions').send({

@@ -1,7 +1,6 @@
 import { app } from '@/app'
 import { prisma } from '@/infra/database/prisma/prisma'
 import request from 'supertest'
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 // import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
 
 describe('Create Anime (e2e)', () => {

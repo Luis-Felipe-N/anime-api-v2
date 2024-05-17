@@ -14,7 +14,7 @@ interface UploadAnimesUseCaseRequest {
 }
 
 export class UploadAnimesUseCase {
-  constructor(private animesRepository: AnimesRepository) {}
+  constructor(private animesRepository: AnimesRepository) { }
 
   async execute({ genre, page }: UploadAnimesUseCaseRequest) {
     const scraper = new AnimesOnlineScrapper()
@@ -22,7 +22,7 @@ export class UploadAnimesUseCase {
     const slugsResult = await scraper.getSlugsFromPage(genre, page)
 
     if (slugsResult.isSuccess()) {
-      ;(async () => {
+      ; (async () => {
         for await (const slug of slugsResult.value.slugs) {
           const result = await scraper.getAnimeBySlug(slug.trim())
 
@@ -43,7 +43,7 @@ export class UploadAnimesUseCase {
           anime.seasons = new SeasonList(animeSeasons)
           anime.genres = new GenreList(animeGenres)
           await this.animesRepository.createFromScrapper(anime)
-          console.log('ANIME: ', anime.slug)
+          // console.log('ANIME: ', anime.slug)
         }
       })()
     }

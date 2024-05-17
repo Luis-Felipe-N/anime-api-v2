@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -34,7 +28,7 @@ model User {
 
   watchedepisodes Watched[]
   comments        Comment[]
-  watchlist       Watchlist[]
+  watchlist       Watchlist?
 
   @@map("users")
 }
@@ -52,9 +46,8 @@ model Anime {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
-  seasons Season[]
-  genres  Genre[]
-
+  seasons    Season[]
+  genres     Genre[]
   watchlists WatchlistOnAnimes[]
 
   @@map("animes")
@@ -100,8 +93,8 @@ model Genre {
   slug  String
   title String
 
-  Anime   Anime  @relation(fields: [animeId], references: [id])
   animeId String @map("anime_id")
+  Anime   Anime  @relation(fields: [animeId], references: [id])
 
   @@unique([animeId, slug], name: "genreIdentifier")
   @@map("genres")
@@ -120,7 +113,7 @@ model Watched {
 
 model Watchlist {
   id     String @id @default(uuid())
-  userId String @unique @map("user_id")
+  userId String @map("user_id")
 
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
@@ -128,6 +121,7 @@ model Watchlist {
   user   User?               @relation(fields: [userId], references: [id])
   animes WatchlistOnAnimes[]
 
+  @@unique([userId])
   @@map("watchlists")
 }
 

@@ -5,7 +5,6 @@ import fastify from 'fastify'
 import fastifyJwt from '@fastify/jwt'
 import cors from '@fastify/cors'
 
-// import { usersRoutes } from './http/controllers/users/routes'
 import { animesRouter } from './infra/http/controllers/animes/routes'
 import { seasonsRouter } from './infra/http/controllers/season/routes'
 import { episodesRouter } from './infra/http/controllers/episodes/routes'
@@ -39,7 +38,7 @@ app.setErrorHandler((error, _, reply) => {
       .send({ message: 'Validation Error', issues: error.format() })
   }
 
-  if (env.NODE_ENV !== 'production') {
+  if (env.NODE_ENV !== 'prod') {
     console.error(error)
   } else {
     // Mandar o error para algum serviço de tratamento
