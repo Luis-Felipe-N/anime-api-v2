@@ -28,7 +28,6 @@ model User {
 
   watchedepisodes Watched[]
   comments        Comment[]
-  watchlist       Watchlist?
 
   @@map("users")
 }
@@ -46,9 +45,8 @@ model Anime {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
-  seasons    Season[]
-  genres     Genre[]
-  watchlists WatchlistOnAnimes[]
+  seasons Season[]
+  genres  Genre[]
 
   @@map("animes")
 }
@@ -82,8 +80,9 @@ model Episode {
   seasonId    String      @map("season_id")
   createdAt   DateTime    @default(now()) @map("created_at")
 
-  season   Season?   @relation(fields: [seasonId], references: [id])
-  comments Comment[]
+  season          Season?   @relation(fields: [seasonId], references: [id])
+  comments        Comment[]
+  watchedepisodes Watched[]
 
   @@map("episodes")
 }
@@ -107,33 +106,11 @@ model Watched {
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
   user      User?     @relation(fields: [userId], references: [id])
+  Episode   Episode   @relation(fields: [episodeId], references: [id])
+  episodeId String
 
+  @@unique([userId, episodeId], name: "watchedIdentifier")
   @@map("watcheds")
-}
-
-model Watchlist {
-  id     String @id @default(uuid())
-  userId String @map("user_id")
-
-  createdAt DateTime  @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
-
-  user   User?               @relation(fields: [userId], references: [id])
-  animes WatchlistOnAnimes[]
-
-  @@unique([userId])
-  @@map("watchlists")
-}
-
-model WatchlistOnAnimes {
-  anime       Anime     @relation(fields: [animeId], references: [id])
-  animeId     String
-  watchlist   Watchlist @relation(fields: [watchlistId], references: [id])
-  watchlistId String // relation scalar field (used in the `@relation` attribute above)
-  assignedAt  DateTime  @default(now())
-  assignedBy  String
-
-  @@id([animeId, watchlistId])
 }
 
 model Comment {

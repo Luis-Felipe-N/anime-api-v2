@@ -29,7 +29,6 @@ CREATE TABLE "animes" (
     "rating" DOUBLE PRECISION NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
-    "watchlistId" TEXT NOT NULL,
 
     CONSTRAINT "animes_pkey" PRIMARY KEY ("id")
 );
@@ -86,16 +85,6 @@ CREATE TABLE "watcheds" (
 );
 
 -- CreateTable
-CREATE TABLE "watchlists" (
-    "id" TEXT NOT NULL,
-    "user_id" TEXT NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3),
-
-    CONSTRAINT "watchlists_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "comments" (
     "id" TEXT NOT NULL,
     "content" TEXT NOT NULL,
@@ -123,9 +112,6 @@ CREATE UNIQUE INDEX "episodes_slug_key" ON "episodes"("slug");
 CREATE UNIQUE INDEX "genres_anime_id_slug_key" ON "genres"("anime_id", "slug");
 
 -- AddForeignKey
-ALTER TABLE "animes" ADD CONSTRAINT "animes_watchlistId_fkey" FOREIGN KEY ("watchlistId") REFERENCES "watchlists"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "seasons" ADD CONSTRAINT "seasons_anime_id_fkey" FOREIGN KEY ("anime_id") REFERENCES "animes"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -136,9 +122,6 @@ ALTER TABLE "genres" ADD CONSTRAINT "genres_anime_id_fkey" FOREIGN KEY ("anime_i
 
 -- AddForeignKey
 ALTER TABLE "watcheds" ADD CONSTRAINT "watcheds_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "watchlists" ADD CONSTRAINT "watchlists_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "comments" ADD CONSTRAINT "comments_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

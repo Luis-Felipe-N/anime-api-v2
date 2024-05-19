@@ -5,7 +5,7 @@ import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 export interface WatchedEpisodeProps {
   episodeId: UniqueEntityId
   userId: UniqueEntityId
-  duration: number
+  stopAt: number
   createdAt: Date
   updatedAt?: Date | null
 }
@@ -19,12 +19,12 @@ export class WatchedEpisode extends Entity<WatchedEpisodeProps> {
     return this.props.userId
   }
 
-  get duration() {
-    return this.props.duration
+  get stopAt() {
+    return this.props.stopAt
   }
 
-  set duration(duration: number) {
-    this.props.duration = duration
+  set stopAt(stopAt: number) {
+    this.props.stopAt = stopAt
     this.touch()
   }
 

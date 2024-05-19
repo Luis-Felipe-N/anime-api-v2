@@ -13,8 +13,6 @@ describe('Create Anime (e2e)', () => {
   })
 
   it('[POST] /animes', async () => {
-    // const { token } = await createAndAuthenticateUser(app)
-
     const response = await request(app.server).post('/animes').send({
       slug: 'castlevania',
     })
