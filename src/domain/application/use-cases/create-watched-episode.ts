@@ -22,7 +22,7 @@ export class CreateWatchedEpisodeUseCase {
   constructor(
     private watchedEpisodesRepository: WatchedEpisodesRepository,
     private episodesRepository: EpisodesRepository,
-  ) {}
+  ) { }
 
   async execute({
     episodeId,
@@ -38,7 +38,7 @@ export class CreateWatchedEpisodeUseCase {
     const watchedEpisode = WatchedEpisode.create({
       episodeId: episode.id,
       userId: new UniqueEntityId(userId),
-      duration,
+      stopAt: duration,
     })
 
     await this.watchedEpisodesRepository.create(watchedEpisode)

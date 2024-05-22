@@ -7,6 +7,7 @@ import { makeCreateWatchedEpisodeUseCase } from '@/infra/factories/users/make-wa
 import { FastifyRequest, FastifyReply } from 'fastify'
 
 import { z } from 'zod'
+import { WatchedEpisodePresenter } from '../../presenters/watched-episode-presenter'
 
 interface FastifyRequestC extends FastifyRequest {
     user: any
@@ -32,7 +33,7 @@ export async function watched(
     }
 
     return reply.status(200).send({
-        watchedEpisode: result.value.watchedEpisode,
+        watchedEpisode: WatchedEpisodePresenter.toHTTP(result.value.watchedEpisode),
     })
 
 }
