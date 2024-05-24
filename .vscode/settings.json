@@ -3,5 +3,11 @@
     "watchlist",
     "Watchlist",
     "watchlists"
-  ]
+  ],
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.defaultWebAppToDeploy": "/subscriptions/91ec1176-b4f2-46e8-a5fe-8260f0b2beb0/resourceGroups/apianime_group/providers/Microsoft.Web/sites/apianime",
+  "appService.deploySubpath": "."
 }
