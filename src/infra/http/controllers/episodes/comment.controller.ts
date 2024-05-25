@@ -31,7 +31,6 @@ export async function comment(request: FastifyRequestC, reply: FastifyReply) {
   if (result.isFailure()) {
     return failure(new Error())
   }
-
   return reply
     .status(200)
     .send({ comment: CommentPresenter.toHTTP(result.value.comment) })

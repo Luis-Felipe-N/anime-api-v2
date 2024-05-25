@@ -1,6 +1,7 @@
 import { Entity } from '@/core/entities/entity'
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Optional } from '@/core/types/optional'
+import { User } from './user'
 
 export interface CommentProps {
   authorId: UniqueEntityId
@@ -9,6 +10,7 @@ export interface CommentProps {
   content: string
   createdAt: Date
   updatedAt?: Date | null
+  author?: User | null
 }
 
 export class Comment extends Entity<CommentProps> {
@@ -36,6 +38,10 @@ export class Comment extends Entity<CommentProps> {
     return this.props.updatedAt
   }
 
+  get author() {
+    return this.props.author
+  }
+
   private touch() {
     this.props.updatedAt = new Date()
   }
@@ -53,6 +59,7 @@ export class Comment extends Entity<CommentProps> {
       {
         ...props,
         createdAt: new Date(),
+        author: props.author ?? null
       },
       id,
     )

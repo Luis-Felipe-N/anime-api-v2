@@ -3,15 +3,21 @@ import { prisma } from '../prisma/prisma'
 import { PrismaCommentMapper } from '../mapper/prisma-comment-mapper'
 import { CommentsRepository } from '@/domain/application/repositories/comment.repository'
 import { PaginationParams } from '@/core/types/pagination-params'
+import { PrismaCommentDetailsMapper } from '../mapper/prisma-comment-detail-mapper'
 
 export class PrismaCommentsRepository implements CommentsRepository {
   // constructor(private seasonsRepository: SeasonsRepository) {}
 
   async create(comment: Comment) {
     const data = PrismaCommentMapper.toPrisma(comment)
-    await prisma.comment.create({
+    const commentPrisma = await prisma.comment.create({
       data,
+      include: {
+        author: true
+      }
     })
+
+    return PrismaCommentDetailsMapper.toDomain(commentPrisma)
   }
 
   async fetchCommentsByEpisode(episodeId: string, params: PaginationParams) {
@@ -19,11 +25,14 @@ export class PrismaCommentsRepository implements CommentsRepository {
       where: {
         episodeId,
       },
+      include: {
+        author: true
+      },
       skip: (params.page - 1) * 20,
       take: 20,
     })
 
-    return comments.map(PrismaCommentMapper.toDomain)
+    return comments.map(PrismaCommentDetailsMapper.toDomain)
   }
 
   async findById(id: string): Promise<Comment | null> {
@@ -31,11 +40,14 @@ export class PrismaCommentsRepository implements CommentsRepository {
       where: {
         id,
       },
+      include: {
+        author: true
+      },
     })
 
     if (!comment) return null
 
-    return PrismaCommentMapper.toDomain(comment)
+    return PrismaCommentDetailsMapper.toDomain(comment)
   }
 
   async delete(comment: Comment) {

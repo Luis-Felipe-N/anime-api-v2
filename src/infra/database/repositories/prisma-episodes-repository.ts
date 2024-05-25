@@ -6,7 +6,7 @@ import { EpisodesRepository } from '@/domain/application/repositories/episode.re
 import { PrismaEpisodeDetailsMapper } from '../mapper/prisma-episode-detail-mapper'
 
 export class PrismaEpisodesRepository implements EpisodesRepository {
-  constructor() {}
+  constructor() { }
 
   async create(episode: Episode) {
     const data = PrismaEpisodeMapper.toPrisma(episode)
@@ -108,6 +108,7 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
   }
 
   async findById(id: string): Promise<Episode | null> {
+
     const episode = await prisma.episode.findUnique({
       where: {
         id,
