@@ -1,0 +1,24 @@
+name: Deploy to DigitalOcean Droplet
+'on':
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: npm i
+    
+    - name: copy file via ssh password
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{secrets.HOST}}
+        username: ${{secrets.USERNAME}}
+        key: ${{secrets.KEY}}
+        source: "., !node_modules"
+        target: "~/app/anime-api-v2"
