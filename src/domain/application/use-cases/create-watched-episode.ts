@@ -7,7 +7,7 @@ import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface CreateWatchedEpisodeUseCaseRequest {
   episodeId: string
-  userId: string
+  authorId: string
   duration: number
 }
 
@@ -26,7 +26,7 @@ export class CreateWatchedEpisodeUseCase {
 
   async execute({
     episodeId,
-    userId,
+    authorId,
     duration,
   }: CreateWatchedEpisodeUseCaseRequest): Promise<CreateWatchedEpisodeUseCaseResponse> {
     const episode = await this.episodesRepository.findById(episodeId)
@@ -37,12 +37,12 @@ export class CreateWatchedEpisodeUseCase {
 
     const watchedEpisode = WatchedEpisode.create({
       episodeId: episode.id,
-      userId: new UniqueEntityId(userId),
+      authorId: new UniqueEntityId(authorId),
       stopAt: duration,
     })
 
-    await this.watchedEpisodesRepository.create(watchedEpisode)
+    const watchedEpisodePrisma = await this.watchedEpisodesRepository.create(watchedEpisode)
 
-    return success({ watchedEpisode })
+    return success({ watchedEpisode: watchedEpisodePrisma })
   }
 }

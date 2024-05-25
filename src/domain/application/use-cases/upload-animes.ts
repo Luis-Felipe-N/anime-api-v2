@@ -43,7 +43,6 @@ export class UploadAnimesUseCase {
           anime.seasons = new SeasonList(animeSeasons)
           anime.genres = new GenreList(animeGenres)
           await this.animesRepository.createFromScrapper(anime)
-          // console.log('ANIME: ', anime.slug)
         }
       })()
     }

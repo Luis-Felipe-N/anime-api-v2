@@ -9,7 +9,7 @@ export class PrismaWatchedEpisodeMapper {
         return WatchedEpisode.create(
             {
                 episodeId: new UniqueEntityId(raw.episodeId),
-                userId: new UniqueEntityId(raw.userId),
+                authorId: new UniqueEntityId(raw.authorId),
                 stopAt: raw.stopAt,
                 createdAt: raw.createdAt,
                 updatedAt: raw.updatedAt,
@@ -25,7 +25,7 @@ export class PrismaWatchedEpisodeMapper {
             createdAt: raw.createdAt,
             updatedAt: raw.updatedAt,
             episodeId: raw.episodeId.toString(),
-            userId: raw.userId.toString()
+            authorId: raw.authorId.toString()
         }
     }
 }

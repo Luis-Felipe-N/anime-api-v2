@@ -26,7 +26,7 @@ export async function watched(
 
     const usecase = makeCreateWatchedEpisodeUseCase()
 
-    const result = await usecase.execute({ userId: request.user.sub, episodeId, duration })
+    const result = await usecase.execute({ authorId: request.user.sub, episodeId, duration })
 
     if (result.isFailure()) {
         return failure(new Error(''))

@@ -20,8 +20,8 @@ export class InMemoryWatchedEpisodesRepository implements WatchedEpisodesReposit
         return watchedepisode
     }
 
-    async findByEpisodeAndUser(userId: string, episodeId: string) {
-        const watchedepisodeMemory = this.items.find((watchedepisode) => userId === watchedepisode.userId.toString() && episodeId === watchedepisode.episodeId.toString())
+    async findByEpisodeAndUser(authorId: string, episodeId: string) {
+        const watchedepisodeMemory = this.items.find((watchedepisode) => authorId === watchedepisode.authorId.toString() && episodeId === watchedepisode.episodeId.toString())
 
         if (!watchedepisodeMemory) {
             return null

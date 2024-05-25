@@ -93,6 +93,7 @@ export default class AnimeBrBiz {
     const slugs: string[] = []
 
     for (let i = page; i < 80; i++) {
+      console.log("CURRENT PAGE: ", page)
       const baseURLGenre = `${BASE_URL}/genero/${genre}`
 
       const url = baseURLGenre + `/page/` + i

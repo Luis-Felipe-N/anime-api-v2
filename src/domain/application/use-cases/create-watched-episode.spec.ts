@@ -38,7 +38,7 @@ describe('Create Watched Episode', () => {
     const result = await sut.execute({
       duration: 240,
       episodeId: episode.id.toString(),
-      userId: 'user-id'
+      authorId: 'user-id'
     })
     expect(result.isSuccess()).toBe(true)
 

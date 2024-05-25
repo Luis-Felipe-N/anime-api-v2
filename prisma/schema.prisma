@@ -102,14 +102,16 @@ model Genre {
 model Watched {
   id        String    @id @default(uuid())
   stopAt    Float     @map("stop_at")
-  userId    String    @map("user_id")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  user      User?     @relation(fields: [userId], references: [id])
-  Episode   Episode   @relation(fields: [episodeId], references: [id])
-  episodeId String
 
-  @@unique([userId, episodeId], name: "watchedIdentifier")
+  authorId  String @map("author_id")
+  episodeId String @map("episode_id")
+
+  author  User     @relation(fields: [authorId], references: [id])
+  episode Episode? @relation(fields: [episodeId], references: [id])
+
+  @@unique([authorId, episodeId], name: "watchedIdentifier")
   @@map("watcheds")
 }
 

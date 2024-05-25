@@ -7,17 +7,21 @@ import { PrismaEpisodeDetailsMapper } from '../mapper/prisma-episode-detail-mapp
 import { WatchedEpisodesRepository } from '@/domain/application/repositories/watched-episodes'
 import { WatchedEpisode } from '@/domain/enterprise/entities/watched-episode'
 import { PrismaWatchedEpisodeMapper } from '../mapper/prisma-watched-episode-mapper'
+import { PrismaWatchedEpisodeDetailsMapper } from '../mapper/prisma-watched-episode-detail-mapper'
 
 export class PrismaWatchedEpisodesRepository implements WatchedEpisodesRepository {
-    // constructor() { }
 
     async create(watchedEpisodes: WatchedEpisode) {
         const data = PrismaWatchedEpisodeMapper.toPrisma(watchedEpisodes)
         const watched = await prisma.watched.create({
             data,
+            include: {
+                author: true,
+                episode: true
+            },
         })
 
-        return PrismaWatchedEpisodeMapper.toDomain(watched)
+        return PrismaWatchedEpisodeDetailsMapper.toDomain(watched)
     }
 
     async save(watchedEpisodes: WatchedEpisode) {
@@ -26,29 +30,37 @@ export class PrismaWatchedEpisodesRepository implements WatchedEpisodesRepositor
         const watched = await prisma.watched.update({
             where: {
                 watchedIdentifier: {
-                    userId: data.userId,
+                    authorId: data.authorId,
                     episodeId: data.episodeId
                 }
+            },
+            include: {
+                author: true,
+                episode: true
             },
             data,
         })
 
-        return PrismaWatchedEpisodeMapper.toDomain(watched)
+
+        return PrismaWatchedEpisodeDetailsMapper.toDomain(watched)
     }
 
-    async findByEpisodeAndUser(userId: string, episodeId: string): Promise<WatchedEpisode | null> {
+    async findByEpisodeAndUser(authorId: string, episodeId: string): Promise<WatchedEpisode | null> {
         const watched = await prisma.watched.findUnique({
             where: {
                 watchedIdentifier: {
-                    userId,
+                    authorId,
                     episodeId
                 }
+            },
+            include: {
+                author: true,
+                episode: true
             }
-
         })
 
         if (!watched) return null
 
-        return PrismaWatchedEpisodeMapper.toDomain(watched)
+        return PrismaWatchedEpisodeDetailsMapper.toDomain(watched)
     }
 }

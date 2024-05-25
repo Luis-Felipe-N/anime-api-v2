@@ -14,7 +14,7 @@ describe('Create Anime (e2e)', () => {
         await app.close()
     })
 
-    it('[POST] /animes', async () => {
+    it('[POST] /watched', async () => {
         await request(app.server).post('/users').send({
             name: 'Luis Felipe',
             email: 'luiss@gmail.com',
@@ -28,6 +28,7 @@ describe('Create Anime (e2e)', () => {
         })
 
         const { token } = sessionsResponse.body
+
         const anime = await makePrismaAnime({
             title: 'Jujutsu',
         })
@@ -44,14 +45,21 @@ describe('Create Anime (e2e)', () => {
         })
 
         const response = await request(app.server)
-            .get('/me')
+            .post('/watched')
             .set('Authorization', `Bearer ${token}`)
             .send({
-                episodeId: episode.id,
+                episodeId: episode.id.toString(),
                 duration: 100
             })
 
+        const watchedOnDatabase = await prisma.watched.findMany({
+            where: {
+                id: response.body.watchedEpisode.id
+            },
+        })
+
         console.log(response.body)
+        expect(watchedOnDatabase).toBeTruthy()
         expect(response.statusCode).toEqual(200)
     })
 })
