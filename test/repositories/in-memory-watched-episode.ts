@@ -1,4 +1,5 @@
 import { UniqueEntityId } from "@/core/entities/unique-entity-id"
+import { PaginationParams } from "@/core/types/pagination-params"
 import { WatchedEpisodesRepository } from "@/domain/application/repositories/watched-episodes"
 import { WatchedEpisode } from "@/domain/enterprise/entities/watched-episode"
 
@@ -30,13 +31,11 @@ export class InMemoryWatchedEpisodesRepository implements WatchedEpisodesReposit
         return watchedepisodeMemory
     }
 
-    // async findByUserId(userId: string) {
-    //     const watchedepisodeMemory = this.items.find((watchedepisode) => userId === watchedepisode.userId.toString())
+    async findManyByUserId(authorId: string, params: PaginationParams) {
+        const watchedepisodeMemory = this.items
+            .filter((watchedepisode) => authorId === watchedepisode.authorId.toString())
+            .slice((params.page - 1) * 20, params.page * 20)
 
-    //     if (!watchedepisodeMemory) {
-    //         return null
-    //     }
-
-    //     return watchedepisodeMemory
-    // }
+        return watchedepisodeMemory
+    }
 }
