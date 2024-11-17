@@ -21,7 +21,7 @@ A aplicação utiliza o modo de Credentials.
 
 
 ## RFs (Requisitos funcionais)
-- [ ] Deve ser possível pegar animes do ***animesonlinecc.to***;
+- [x] Deve ser possível pegar animes do ***animesonlinecc.to***;
 - [ ] Deve ser possível pegar animes do ***crunchyroll***;
 - [ ] Deve ser possível pegar filmes do ***vizer.tv***;
 
@@ -32,16 +32,16 @@ A aplicação utiliza o modo de Credentials.
 - [ ] Deve ser possível salvar o bookmarking do usuário;
 - [ ] Deve ser possível listar o histórico de visualização;
 - [ ] Deve ser possível marcar um episódio como assistido;
-- [ ] Deve ser possível avaliar um episódio;
+- [x] Deve ser possível avaliar um episódio;
 
-- [ ] Deve ser possível listar todos animes - com paginação;
+- [x] Deve ser possível listar todos animes - com paginação;
 - [x] Deve ser possível buscar um anime pelo slug;
 
 ## RNs (Regras de negócio)
 
-- [ ] O usuário não deve poder se cadastrar com um e-mail duplicado;
-- [ ] A ação de favoritar um anime não deve ser possível para um usuário que não está logado;
-- [ ] Usuário não deve comentar em um anime caso nao esteja logado;
+- [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
+- [x] A ação de favoritar um anime não deve ser possível para um usuário que não está logado;
+- [x] Usuário não deve comentar em um anime caso nao esteja logado;
 
 ## RNFs (Requisitos não-funcionais)
 <!-- - [ ] Alterar o background de acordo com o cover da música; -->
