@@ -20,7 +20,7 @@ export class UploadAnimesUseCase {
     const scraper = new AnimesOnlineScrapper()
 
     const slugsResult = await scraper.getSlugsFromPage(genre, page)
-
+    // console.log(slugsResult)
     if (slugsResult.isSuccess()) {
       ; (async () => {
         for await (const slug of slugsResult.value.slugs) {

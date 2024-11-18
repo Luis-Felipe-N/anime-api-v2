@@ -14,7 +14,7 @@ export class PrismaAnimesRepository implements AnimesRepository {
   constructor(
     private seasonsRepository: SeasonsRepository,
     private genresRepository: GenresRepository,
-  ) {}
+  ) { }
 
   async create(anime: Anime) {
     const { id, ...data } = PrismaAnimeMapper.toPrisma(anime)
@@ -182,7 +182,7 @@ export class PrismaAnimesRepository implements AnimesRepository {
     const itemCount = await prisma.anime.count({
       where: {
         banner: {
-          startsWith: 'https://media.kitsu.io',
+          startsWith: 'https://media.kitsu.app',
         },
         trailerYtId: {
           not: null,

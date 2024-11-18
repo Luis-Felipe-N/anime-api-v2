@@ -101,6 +101,7 @@ export default class AnimeBrBiz {
       const data = await fetchOrCache(url)
 
       if (!data) {
+        break
         return failure(new ResourceNotFoundError())
       }
 
@@ -116,10 +117,13 @@ export default class AnimeBrBiz {
           .replace('/', '')
 
         if (slug) {
+          console.log(slug)
           slugs.push(slug)
         }
       }
     }
+
+    console.log(slugs)
 
     return success({ slugs })
   }
