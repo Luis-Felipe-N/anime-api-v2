@@ -194,7 +194,7 @@ export class PrismaAnimesRepository implements AnimesRepository {
     const animes = await prisma.anime.findMany({
       where: {
         banner: {
-          startsWith: 'https://media.kitsu.io',
+          startsWith: 'https://media.kitsu.app',
         },
         trailerYtId: {
           not: null,
