@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "npx tsup src --clean --out-dir dist",
+    "build": "tsup src --clean --out-dir dist",
     "start": "node dist/server.js",
     "start:dev": "tsx watch src/server.ts",
     "test": "vitest run -c vitest.unit.config.ts",
@@ -34,6 +34,7 @@
     "supertest": "^7.0.0",
     "tsc-alias": "^1.8.10",
     "tsx": "^4.7.1",
+    "typescript": "^5.4.5",
     "vite": "^5.2.10",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.4.0"
@@ -50,7 +51,6 @@
     "fastify": "^4.27.0",
     "tsc": "^2.0.4",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.5",
     "zod": "^3.23.8"
   }
 }
