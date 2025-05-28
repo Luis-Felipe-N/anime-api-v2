@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsup src --clean --out-dir dist",
+    "build": "tsup-node src --clean --out-dir dist",
     "start": "node dist/server.js",
     "start:dev": "tsx watch src/server.ts",
     "test": "vitest run -c vitest.unit.config.ts",
