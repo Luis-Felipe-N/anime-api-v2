@@ -182,42 +182,34 @@ export class PrismaAnimesRepository implements AnimesRepository {
     const itemCount = await prisma.anime.count({
       where: {
         banner: {
-          startsWith: 'https://media.kitsu.app',
-        },
-        trailerYtId: {
-          not: null,
+          contains: 'kitsu',
         },
       },
     })
+    console.log(itemCount)
     const skip = Math.max(0, Math.floor(Math.random() * itemCount) - 5)
 
     const animes = await prisma.anime.findMany({
       where: {
         banner: {
-          startsWith: 'https://media.kitsu.app',
+          contains: 'kitsu',
         },
-        trailerYtId: {
-          not: null,
-        },
+
       },
       include: {
         seasons: true,
         genres: true,
       },
       orderBy: [
-        // {
-        //   rating: 'desc',
-        // },
         {
           banner: {
             sort: 'asc',
           },
         },
       ],
-      skip,
       take: 5,
     })
-
+    console.log({ animes })
     return animes.map(PrismaAnimeDetailsMapper.toDomain)
   }
 }

@@ -5,11 +5,13 @@ import { getNextEpisode } from './get-next-episode.contoller'
 import { verifyJwtMiddleware } from '@/infra/middleware/verify-jwt.middleware'
 import { comment } from './comment.controller'
 import { fetchCommentsByEpisode } from './fetch-comment.controller'
+import { getLinkById } from './get-link.controller'
 
 export async function episodesRouter(app: FastifyInstance) {
   app.post('/episodes/next', getNextEpisode)
 
   app.get('/episodes/:id', getById)
+  app.get('/episodes/link/:id', getLinkById)
   app.get('/episodes/season/:seasonId', fetchEpisodesBySeason)
   app.get(
     '/episodes/:episodeId/comments',
