@@ -10,7 +10,7 @@ export class ConflictException extends HttpException {
   ) {
     super(
       createHttpExceptionBody(message, error, HttpStatus.CONFLICT),
-      HttpStatus.UNAUTHORIZED,
+      HttpStatus.CONFLICT,
     )
   }
 }

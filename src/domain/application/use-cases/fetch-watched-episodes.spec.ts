@@ -71,7 +71,6 @@ describe('Fetch Watched Episodes', () => {
     expect(result.isSuccess()).toBe(true)
 
     if (result.isSuccess()) {
-      console.log(result)
       expect(result.value.watchedEpisodes).toHaveLength(2)
       expect(result.value.watchedEpisodes).toEqual([
         expect.objectContaining({

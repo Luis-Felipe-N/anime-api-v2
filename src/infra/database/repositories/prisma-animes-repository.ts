@@ -136,11 +136,13 @@ export class PrismaAnimesRepository implements AnimesRepository {
         seasons: true,
         genres: true,
       },
-      orderBy: {
-        banner: {
-          sort: 'asc',
+      orderBy: [
+        {
+          rating: 'desc', // Primary sort: by highest rating
         },
-      },
+        // You can add secondary sorting criteria if needed, e.g., by name or recent update
+        // { updatedAt: 'desc' },
+      ],
       skip: (params.page - 1) * 20,
       take: 20,
     })
@@ -186,7 +188,6 @@ export class PrismaAnimesRepository implements AnimesRepository {
         },
       },
     })
-    console.log(itemCount)
     const skip = Math.max(0, Math.floor(Math.random() * itemCount) - 5)
 
     const animes = await prisma.anime.findMany({
@@ -202,10 +203,10 @@ export class PrismaAnimesRepository implements AnimesRepository {
       },
       orderBy: [
         {
-          banner: {
-            sort: 'asc',
-          },
+          rating: 'desc', // Primary sort: by highest rating
         },
+        // You can add secondary sorting criteria if needed, e.g., by name or recent update
+        // { updatedAt: 'desc' },
       ],
       take: 5,
     })
