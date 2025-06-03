@@ -181,32 +181,17 @@ export class PrismaAnimesRepository implements AnimesRepository {
   }
 
   async findManyPopular(): Promise<Anime[]> {
-    const itemCount = await prisma.anime.count({
-      where: {
-        banner: {
-          contains: 'kitsu',
-        },
-      },
-    })
-    const skip = Math.max(0, Math.floor(Math.random() * itemCount) - 5)
 
     const animes = await prisma.anime.findMany({
-      where: {
-        banner: {
-          contains: 'kitsu',
-        },
-
-      },
       include: {
         seasons: true,
         genres: true,
       },
       orderBy: [
         {
-          rating: 'desc', // Primary sort: by highest rating
+          rating: 'desc',
         },
-        // You can add secondary sorting criteria if needed, e.g., by name or recent update
-        // { updatedAt: 'desc' },
+
       ],
       take: 5,
     })

@@ -22,7 +22,7 @@ type UploadAnimeBySlugUseCaseResponse = Either<
 >
 
 export class UploadAnimeBySlugUseCase {
-  constructor(private animesRepository: AnimesRepository) {}
+  constructor(private animesRepository: AnimesRepository) { }
 
   async execute({
     slug,
@@ -49,6 +49,7 @@ export class UploadAnimeBySlugUseCase {
     anime.genres = new GenreList(animeGenres)
 
     await this.animesRepository.createFromScrapper(anime)
+    console.log(anime)
 
     return success({ anime })
   }

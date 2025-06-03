@@ -5,6 +5,7 @@ import { Either, failure, success } from '../either'
 import { ResourceNotFoundError } from '@/domain/application/use-cases/errors/resource-not-found-error'
 import { Slug } from '../values-objects/slug'
 import { EpisodeTypes } from '../enums/episode-types.enum'
+import { title } from 'process'
 
 const BASE_URL = 'https://animesonlinecc.to/'
 
@@ -280,12 +281,13 @@ export default class AnimeBrBiz {
     )
 
     const dataAnime = data.data[0]?.attributes
-
+    console.log(dataAnime)
     if (!dataAnime) {
       return
     }
-
+    console.log(dataAnime.titles.en)
     const moreInfoAnime = {
+      title: dataAnime.titles.en,
       nsfw: dataAnime.nsfw,
       status: dataAnime.status,
       trailerYtId: dataAnime?.youtubeVideoId,
