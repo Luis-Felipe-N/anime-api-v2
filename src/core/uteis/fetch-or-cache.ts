@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { existsSync, mkdirSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
+import { createHash } from 'crypto'
 
 export async function fetchOrCache(
   url: string,
@@ -10,12 +11,15 @@ export async function fetchOrCache(
     mkdirSync('.cache')
   }
 
+  const hash = createHash('sha1').update(url).digest('hex')
+  const cachePath = `.cache/${hash}.html`
+
   if (
     !ignoreCache &&
-    existsSync(`.cache/${Buffer.from(url).toString('base64')}.html`)
+    existsSync(cachePath)
   ) {
     const HTMLData = await readFile(
-      `.cache/${Buffer.from(url).toString('base64')}.html`,
+      cachePath,
       { encoding: 'utf8' },
     )
     return HTMLData
@@ -24,12 +28,12 @@ export async function fetchOrCache(
       const { data: HTMLData } = await axios.get(url)
       if (!ignoreCache && HTMLData) {
         writeFile(
-          `.cache/${Buffer.from(url).toString('base64')}.html`,
+          cachePath,
           HTMLData,
           { encoding: 'utf8' },
         )
       }
       return HTMLData
-    } catch (error) {}
+    } catch (error) { }
   }
 }

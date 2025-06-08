@@ -137,11 +137,9 @@ export class PrismaAnimesRepository implements AnimesRepository {
         genres: true,
       },
       orderBy: [
-        {
-          rating: 'desc', // Primary sort: by highest rating
-        },
-        // You can add secondary sorting criteria if needed, e.g., by name or recent update
-        // { updatedAt: 'desc' },
+        { trailerYtId: 'asc' },
+        { updatedAt: 'desc' },
+        { rating: 'desc' },
       ],
       skip: (params.page - 1) * 20,
       take: 20,

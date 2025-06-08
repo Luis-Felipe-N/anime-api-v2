@@ -6,7 +6,7 @@ import { SeasonsRepository } from '../repositories/seasons-repository'
 
 interface FetchEpisodeBySeasonUseCaseRequest {
   seasonId: string
-  page: number
+  page: string
 }
 
 type FetchEpisodeBySeasonUseCaseResponse = Either<
@@ -20,7 +20,7 @@ export class FetchEpisodeBySeasonUseCase {
   constructor(
     private episodesRepository: EpisodesRepository,
     private seasonsRepository: SeasonsRepository,
-  ) {}
+  ) { }
 
   async execute({
     seasonId,
@@ -33,7 +33,7 @@ export class FetchEpisodeBySeasonUseCase {
     }
 
     const episodes = await this.episodesRepository.findManyBySeason(seasonId, {
-      page,
+      page: Number(page),
     })
 
     return success({ episodes })

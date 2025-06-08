@@ -24,4 +24,10 @@ export async function episodesRouter(app: FastifyInstance) {
     { onRequest: [verifyJwtMiddleware] },
     comment,
   )
+
+  app.get(
+    '/episodes/:episodeId/watched',
+    { onRequest: [verifyJwtMiddleware] },
+    comment,
+  )
 }

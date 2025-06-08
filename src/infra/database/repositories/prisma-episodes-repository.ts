@@ -66,8 +66,6 @@ export class PrismaEpisodesRepository implements EpisodesRepository {
       orderBy: {
         index: 'asc',
       },
-      skip: (params.page - 1) * 20,
-      take: 20,
     })
 
     return episodes.map(PrismaEpisodeDetailsMapper.toDomain)

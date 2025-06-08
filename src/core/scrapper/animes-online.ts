@@ -286,13 +286,16 @@ export default class AnimeBrBiz {
       return
     }
     console.log(dataAnime.titles.en)
-    const moreInfoAnime = {
-      title: dataAnime.titles.en,
+    const moreInfoAnime: Partial<AnimeProps & IMoreInfos> = {
       nsfw: dataAnime.nsfw,
       status: dataAnime.status,
       trailerYtId: dataAnime?.youtubeVideoId,
       banner: dataAnime.coverImage?.original,
       cover: dataAnime.posterImage?.original,
+    }
+
+    if (dataAnime.titles.en) {
+      moreInfoAnime.title = dataAnime.titles.en
     }
 
     return moreInfoAnime

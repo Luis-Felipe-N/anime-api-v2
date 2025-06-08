@@ -63,4 +63,8 @@ export class PrismaWatchedEpisodesRepository implements WatchedEpisodesRepositor
 
         return PrismaWatchedEpisodeDetailsMapper.toDomain(watched)
     }
+
+    findManyByUserId(authorId: string, params: PaginationParams): Promise<WatchedEpisode[]> {
+        
+    }
 }
