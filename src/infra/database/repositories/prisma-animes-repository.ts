@@ -137,9 +137,9 @@ export class PrismaAnimesRepository implements AnimesRepository {
         genres: true,
       },
       orderBy: [
-        { trailerYtId: 'asc' },
-        { updatedAt: 'desc' },
+        // { trailerYtId: 'desc' },
         { rating: 'desc' },
+        { updatedAt: 'desc' },
       ],
       skip: (params.page - 1) * 20,
       take: 20,
