@@ -34,7 +34,7 @@ export class FetchWatchedEpisodesUseCase {
     }
 
     const watchedEpisode = await this.watchedEpisodesRepository.findByEpisodeAndUser(authorId, episodeId)
-    console.log({ watchedEpisode })
+
     if (!watchedEpisode) {
       return failure(new ResourceNotFoundError())
     }
