@@ -29,6 +29,10 @@ describe('Create Anime (e2e)', () => {
 
         const { token } = sessionsResponse.body
 
+        const userResponse = await request(app.server).get('/me').set('Authorization', `Bearer ${token}`)
+
+        const { user } = userResponse.body
+
         const anime = await makePrismaAnime({
             title: 'Jujutsu',
         })
@@ -44,22 +48,29 @@ describe('Create Anime (e2e)', () => {
             index: 1,
         })
 
+        const exceptStopAt = 98
+
         const response = await request(app.server)
             .post('/watched')
             .set('Authorization', `Bearer ${token}`)
             .send({
                 episodeId: episode.id.toString(),
-                duration: 100
+                authorId: user.id,
+                duration: exceptStopAt
             })
 
-        const watchedOnDatabase = await prisma.watched.findMany({
+        const watchedOnDatabase = await prisma.watched.findUnique({
             where: {
-                id: response.body.watchedEpisode.id
+                watchedIdentifier: {
+                    authorId: user.id,
+                    episodeId: episode.id.toString()
+                }
             },
         })
 
-        console.log(response.body)
         expect(watchedOnDatabase).toBeTruthy()
+        expect(watchedOnDatabase?.authorId).toBe(user.id)
+        expect(watchedOnDatabase?.stopAt).toBe(exceptStopAt)
         expect(response.statusCode).toEqual(200)
     })
 })

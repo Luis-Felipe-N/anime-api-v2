@@ -6,6 +6,7 @@ import { verifyJwtMiddleware } from '@/infra/middleware/verify-jwt.middleware'
 import { comment } from './comment.controller'
 import { fetchCommentsByEpisode } from './fetch-comment.controller'
 import { getLinkById } from './get-link.controller'
+import { watched } from '../users/watched-episode.controller'
 
 export async function episodesRouter(app: FastifyInstance) {
   app.post('/episodes/next', getNextEpisode)
@@ -21,12 +22,6 @@ export async function episodesRouter(app: FastifyInstance) {
   /** AUTHENTICATED */
   app.post(
     '/episodes/:episodeId/comments',
-    { onRequest: [verifyJwtMiddleware] },
-    comment,
-  )
-
-  app.get(
-    '/episodes/:episodeId/watched',
     { onRequest: [verifyJwtMiddleware] },
     comment,
   )

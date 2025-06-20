@@ -3,16 +3,17 @@ import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { WatchedEpisode } from '@/domain/enterprise/entities/watched-episode'
 import { WatchedEpisodesRepository } from '../repositories/watched-episodes'
 import { UsersRepository } from '../repositories/users-repository'
+import { EpisodesRepository } from '../repositories/episode.repository'
 
 interface FetchWatchedEpisodesUseCaseRequest {
-  userId: string
-  page: number
+  episodeId: string
+  authorId: string
 }
 
 type FetchWatchedEpisodesUseCaseResponse = Either<
   ResourceNotFoundError,
   {
-    watchedEpisodes: WatchedEpisode[]
+    watchedEpisode: WatchedEpisode
   }
 >
 
@@ -20,22 +21,23 @@ export class FetchWatchedEpisodesUseCase {
   constructor(
     private watchedEpisodesRepository: WatchedEpisodesRepository,
     private usersRepository: UsersRepository,
+    private episodesRepository: EpisodesRepository,
   ) { }
 
   async execute({
-    userId,
-    page,
+    authorId, episodeId
   }: FetchWatchedEpisodesUseCaseRequest): Promise<FetchWatchedEpisodesUseCaseResponse> {
-    const user = await this.usersRepository.findById(userId)
+    const episode = await this.episodesRepository.findById(episodeId)
 
-    if (!user) {
+    if (!episode) {
       return failure(new ResourceNotFoundError())
     }
 
-    const watchedEpisodes = await this.watchedEpisodesRepository.findManyByUserId(userId, {
-      page,
-    })
-
-    return success({ watchedEpisodes })
+    const watchedEpisode = await this.watchedEpisodesRepository.findByEpisodeAndUser(authorId, episodeId)
+    console.log({ watchedEpisode })
+    if (!watchedEpisode) {
+      return failure(new ResourceNotFoundError())
+    }
+    return success({ watchedEpisode })
   }
 }
