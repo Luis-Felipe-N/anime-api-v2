@@ -1,7 +1,6 @@
-# docker run --name gympass-api -e POSTGRESQL_USERNAME=gympass -e POSTGRESQL_PASSWORD=gympass -e POSTGRESQL_DATABASE=gympass bitnami/postgresql:latest
+# docker run --name anime-api -e POSTGRESQL_USERNAME=anime -e POSTGRESQL_PASSWORD=anime -e POSTGRESQL_DATABASE=anime bitnami/postgresql:latest
 
 # VERSAO DO DOCKER-COMPOSE
-version: '3.8'
 
 services:
   postgress: 

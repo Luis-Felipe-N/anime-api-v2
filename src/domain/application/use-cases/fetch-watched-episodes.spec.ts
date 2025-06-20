@@ -26,6 +26,7 @@ describe('Fetch Watched Episodes', () => {
     sut = new FetchWatchedEpisodesUseCase(
       inMemoryWatchedEpisodesRepository,
       inMemoryUsersRepository,
+      inMemoryEpisodesRepository
     )
   })
 
@@ -64,22 +65,15 @@ describe('Fetch Watched Episodes', () => {
     }))
 
     const result = await sut.execute({
-      userId: user.id.toString(),
-      page: 1,
+      authorId: user.id.toString(),
+      episodeId: episode02.id.toString()
     })
 
     expect(result.isSuccess()).toBe(true)
 
     if (result.isSuccess()) {
-      expect(result.value.watchedEpisodes).toHaveLength(2)
-      expect(result.value.watchedEpisodes).toEqual([
-        expect.objectContaining({
-          episodeId: episode01.id,
-        }),
-        expect.objectContaining({
-          episodeId: episode02.id,
-        }),
-      ])
+      expect(result.value.watchedEpisode).toBeTruthy()
+      expect(result.value.watchedEpisode.episodeId).toEqual(episode02.id)
     }
   })
 })

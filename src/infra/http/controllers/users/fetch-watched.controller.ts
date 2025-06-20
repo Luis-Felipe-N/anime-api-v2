@@ -4,6 +4,8 @@ import { failure } from '@/core/either'
 import { makeCommentOnEpisodeUseCase } from '@/infra/factories/episodes/make-comment-on-epside-use-case'
 import { CommentPresenter } from '../../presenters/comment-presenters'
 import { makeFetchCommentsByEpisodeUseCase } from '@/infra/factories/episodes/make-fetch-comments-episode-use-case'
+import { makeFetchWatchedByEpisodeUseCase } from '@/infra/factories/episodes/make-fetch-watched-episode-use-case copy'
+import { WatchedEpisodePresenter } from '../../presenters/watched-episode-presenter'
 
 interface FastifyRequestC extends FastifyRequest {
   user: any
@@ -12,17 +14,17 @@ interface FastifyRequestC extends FastifyRequest {
 export async function fetchWatchedByEpisode(request: FastifyRequestC, reply: FastifyReply) {
 
 
-  const fetchWatchedByEpisodeParamsSchema = z.object({
+  const fetchWatchedByEpisodeSchema = z.object({
     episodeId: z.string(),
   })
 
-  const { episodeId } = fetchWatchedByEpisodeParamsSchema.parse(request.params)
+  const { episodeId } = fetchWatchedByEpisodeSchema.parse(request.params)
 
   const useCase = makeFetchWatchedByEpisodeUseCase()
 
   const result = await useCase.execute({
-    episodeId,
-    page
+    authorId: request.user.sub,
+    episodeId
   })
 
   if (result.isFailure()) {
@@ -31,5 +33,5 @@ export async function fetchWatchedByEpisode(request: FastifyRequestC, reply: Fas
 
   return reply
     .status(200)
-    .send({ comments: result.value.comments.map(CommentPresenter.toHTTP) })
+    .send({ watched: WatchedEpisodePresenter.toHTTP(result.value.watchedEpisode) })
 }

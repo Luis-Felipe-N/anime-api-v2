@@ -35,14 +35,25 @@ export class CreateWatchedEpisodeUseCase {
       return failure(new ResourceNotFoundError())
     }
 
-    const watchedEpisode = WatchedEpisode.create({
-      episodeId: episode.id,
-      authorId: new UniqueEntityId(authorId),
-      stopAt: duration,
-    })
+    const hasWatchedEpisode = await this.watchedEpisodesRepository.findByEpisodeAndUser(authorId, episodeId)
 
-    const watchedEpisodePrisma = await this.watchedEpisodesRepository.create(watchedEpisode)
+    if (hasWatchedEpisode) {
+      hasWatchedEpisode.stopAt = duration
 
-    return success({ watchedEpisode: watchedEpisodePrisma })
+      const watchedEpisodePrisma = await this.watchedEpisodesRepository.save(hasWatchedEpisode)
+
+      return success({ watchedEpisode: watchedEpisodePrisma })
+    } else {
+
+      const watchedEpisode = WatchedEpisode.create({
+        episodeId: episode.id,
+        authorId: new UniqueEntityId(authorId),
+        stopAt: duration,
+      })
+
+      const watchedEpisodePrisma = await this.watchedEpisodesRepository.create(watchedEpisode)
+
+      return success({ watchedEpisode: watchedEpisodePrisma })
+    }
   }
 }

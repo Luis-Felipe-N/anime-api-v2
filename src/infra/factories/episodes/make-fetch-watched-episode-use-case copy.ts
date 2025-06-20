@@ -5,11 +5,13 @@ import { PrismaWatchedEpisodesRepository } from '@/infra/database/repositories/p
 
 export function makeFetchWatchedByEpisodeUseCase() {
     const watchedRepository = new PrismaWatchedEpisodesRepository()
+    const episodeRepository = new PrismaEpisodesRepository()
     const userRepository = new PrismaUsersRepository()
 
     const useCase = new FetchWatchedEpisodesUseCase(
         watchedRepository,
         userRepository,
+        episodeRepository
     )
 
     return useCase
