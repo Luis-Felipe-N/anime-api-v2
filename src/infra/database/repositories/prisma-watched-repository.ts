@@ -64,7 +64,30 @@ export class PrismaWatchedEpisodesRepository implements WatchedEpisodesRepositor
         return PrismaWatchedEpisodeDetailsMapper.toDomain(watched)
     }
 
-    findManyByUserId(authorId: string, params: PaginationParams): Promise<WatchedEpisode[]> {
-        
+    async findManyByUserId(authorId: string): Promise<WatchedEpisode[]> {
+        const watchedEpisodes = await prisma.watched.findMany({
+            where: {
+                authorId: authorId
+            },
+            include: {
+                episode: {
+                    include: {
+                        season: {
+                            include: {
+                                anime: true
+                            }
+                        }
+                    }
+                },
+                author: true
+            },
+
+            orderBy: {
+                updatedAt: 'desc'
+            },
+            take: 5
+        })
+
+        return watchedEpisodes.map(PrismaWatchedEpisodeDetailsMapper.toDomain)
     }
 }

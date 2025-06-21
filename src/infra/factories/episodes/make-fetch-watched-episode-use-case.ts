@@ -3,16 +3,10 @@ import { PrismaEpisodesRepository } from '@/infra/database/repositories/prisma-e
 import { PrismaUsersRepository } from '@/infra/database/repositories/prisma-users-repository'
 import { PrismaWatchedEpisodesRepository } from '@/infra/database/repositories/prisma-watched-repository'
 
-export function makeFetchWatchedByEpisodeUseCase() {
+export function makeFetchWatchedEpisodesUseCase() {
     const watchedRepository = new PrismaWatchedEpisodesRepository()
-    const episodeRepository = new PrismaEpisodesRepository()
-    const userRepository = new PrismaUsersRepository()
 
-    const useCase = new FetchWatchedEpisodesUseCase(
-        watchedRepository,
-        userRepository,
-        episodeRepository
-    )
+    const useCase = new FetchWatchedEpisodesUseCase(watchedRepository)
 
     return useCase
 }

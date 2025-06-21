@@ -193,7 +193,7 @@ export class PrismaAnimesRepository implements AnimesRepository {
       ],
       take: 5,
     })
-    console.log({ animes })
+
     return animes.map(PrismaAnimeDetailsMapper.toDomain)
   }
 }

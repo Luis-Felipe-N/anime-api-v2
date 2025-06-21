@@ -31,10 +31,10 @@ export class InMemoryWatchedEpisodesRepository implements WatchedEpisodesReposit
         return watchedepisodeMemory
     }
 
-    async findManyByUserId(authorId: string, params: PaginationParams) {
+    async findManyByUserId(authorId: string) {
         const watchedepisodeMemory = this.items
             .filter((watchedepisode) => authorId === watchedepisode.authorId.toString())
-            .slice((params.page - 1) * 20, params.page * 20)
+            .slice((1 - 1) * 20, 1 * 20)
 
         return watchedepisodeMemory
     }

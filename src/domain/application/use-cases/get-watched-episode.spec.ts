@@ -9,26 +9,29 @@ import { InMemoryWatchedEpisodesRepository } from 'test/repositories/in-memory-w
 import { FetchWatchedEpisodesUseCase } from './fetch-watched-episodes'
 import { makeUser } from 'test/factories/make-user'
 import { makeWatchedEpisode } from 'test/factories/make-watched-episode'
+import { GetWatchedEpisodeUseCase } from './get-watched-episode'
 
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
 let inMemorySeasonsRepository: InMemorySeasonsRepository
 let inMemoryWatchedEpisodesRepository: InMemoryWatchedEpisodesRepository
 let inMemoryUsersRepository: InMemoryUsersRepository
-let sut: FetchWatchedEpisodesUseCase
+let sut: GetWatchedEpisodeUseCase
 
-describe('Fetch Watched Episodes', () => {
+describe('Get Watched Episode', () => {
   beforeEach(() => {
     inMemoryWatchedEpisodesRepository = new InMemoryWatchedEpisodesRepository()
     inMemoryEpisodesRepository = new InMemoryEpisodesRepository()
     inMemorySeasonsRepository = new InMemorySeasonsRepository(inMemoryEpisodesRepository)
     inMemoryUsersRepository = new InMemoryUsersRepository()
 
-    sut = new FetchWatchedEpisodesUseCase(
+    sut = new GetWatchedEpisodeUseCase(
       inMemoryWatchedEpisodesRepository,
+      inMemoryUsersRepository,
+      inMemoryEpisodesRepository
     )
   })
 
-  it('should be able to fetch watched episodes from user', async () => {
+  it('should be able to get watched episode from author and episode', async () => {
     const season = makeSeason()
     const user = makeUser()
 
@@ -68,11 +71,10 @@ describe('Fetch Watched Episodes', () => {
     })
 
     expect(result.isSuccess()).toBe(true)
-    console.log(result.value)
+
     if (result.isSuccess()) {
-      expect(result.value.watchedEpisodes).toBeTruthy()
-      expect(result.value.watchedEpisodes[0].episodeId).toEqual(episode01.id)
-      expect(result.value.watchedEpisodes[1].episodeId).toEqual(episode02.id)
+      expect(result.value.watchedEpisode).toBeTruthy()
+      expect(result.value.watchedEpisode.episodeId).toEqual(episode02.id)
     }
   })
 })
