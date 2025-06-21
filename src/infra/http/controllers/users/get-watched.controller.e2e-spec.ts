@@ -5,11 +5,9 @@ import request from 'supertest'
 import { makePrismaAnime } from 'test/factories/make-anime'
 import { makePrismaEpisode } from 'test/factories/make-episode'
 import { makePrismaSeason } from 'test/factories/make-season'
-import { makePrismaUser } from 'test/factories/make-user'
-import { makePrismaWatchedEpisode } from 'test/factories/make-watched-episode'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
-describe('Fetch Watched Episode (e2e)', () => {
+describe('Get Watched Episode (e2e)', () => {
   beforeAll(async () => {
     await app.ready()
   })
@@ -18,7 +16,7 @@ describe('Fetch Watched Episode (e2e)', () => {
     await app.close()
   })
 
-  it('[GET] /watched', async () => {
+  it('[get] /watched (get watched episode from author and episode)', async () => {
     await request(app.server).post('/users').send({
       name: 'Luis Felipe',
       email: 'luiss@gmail.com',
@@ -52,24 +50,24 @@ describe('Fetch Watched Episode (e2e)', () => {
       index: 1,
     })
 
-    const watchedEpisode01 = await makePrismaWatchedEpisode({
-      authorId: user.id,
-      episodeId: episode.id
-    })
-
     const response = await request(app.server)
-      .get(`/watched`)
+      .get(`/watched/${episode.id}`)
       .set('Authorization', `Bearer ${token}`)
 
-    const watchedEpisodesOnDatabase = await prisma.watched.findMany({
+    const watchedOnDatabase = await prisma.watched.findUnique({
       where: {
-        authorId: user.id
+        watchedIdentifier: {
+          episodeId: episode.id.toString(),
+          authorId: user.id
+        }
       }
     })
+
     console.log(response)
+
     expect(response.statusCode).toEqual(200)
-    expect(watchedEpisodesOnDatabase[0]).toBeTruthy()
-    expect(watchedEpisodesOnDatabase[0]?.id).toEqual(watchedEpisode01.id.toString())
-    expect(watchedEpisodesOnDatabase[0]?.authorId).toEqual(user.id)
+    expect(watchedOnDatabase).toBeTruthy()
+    expect(watchedOnDatabase?.episodeId).toEqual(episode.id.toString())
+    expect(watchedOnDatabase?.authorId).toEqual(user.id)
   })
 })

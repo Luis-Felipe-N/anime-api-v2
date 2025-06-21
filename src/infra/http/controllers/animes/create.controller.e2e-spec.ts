@@ -10,9 +10,10 @@ describe('Create Anime (e2e)', () => {
 
   afterAll(async () => {
     await app.close()
+    await prisma.$disconnect();
   })
 
-  it('[POST] /animes', async () => {
+  it('[POST] /animes (should be able to create an anime, its seasons, and episodes from a valid slug)', async () => {
     const response = await request(app.server).post('/animes').send({
       slug: 'castlevania',
     })
