@@ -1,5 +1,5 @@
-import { makeUploadAnimeBySlugUseCase } from 'src/infra/factories/animes/make-upload-anime-by-slug-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
+import { makeUploadAnimeBySlugUseCase } from '../../../../infra/factories/animes/make-upload-anime-by-slug-use-case'
 import { z } from 'zod'
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
