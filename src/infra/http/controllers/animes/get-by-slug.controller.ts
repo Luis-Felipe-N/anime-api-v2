@@ -1,4 +1,4 @@
-import { makeGetAnimeBySlugUseCase } from 'src/infra/factories/animes/make-get-anime-use-case'
+import { makeGetAnimeBySlugUseCase } from '../../../factories/animes/make-get-anime-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { AnimePresenter } from '../../presenters/anime-presenters'

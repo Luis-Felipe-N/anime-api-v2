@@ -1,7 +1,7 @@
-import { GenresRepository } from 'src/domain/application/repositories/genres.repository'
+import { GenresRepository } from '../../../domain/application/repositories/genres.repository'
 import { prisma } from '../prisma/prisma'
 import { PrismaGenreMapper } from '../mapper/prisma-genre-mapper'
-import { Genre } from 'src/domain/enterprise/entities/genre'
+import { Genre } from '../../../domain/enterprise/entities/genre'
 export class PrismaGenresRepository implements GenresRepository {
   constructor() {}
 

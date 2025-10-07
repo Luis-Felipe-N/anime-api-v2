@@ -1,10 +1,10 @@
 import { EpisodesRepository } from '../repositories/episode.repository'
-import { Episode } from 'src/domain/enterprise/entities/episode'
+import { Episode } from '../../enterprise/entities/episode'
 import { AnimesRepository } from '../repositories/animes.repository'
-import { Either, failure, success } from 'src/core/either'
+import { Either, failure, success } from '../../../core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
-import { EpisodeTypes } from 'src/core/enums/episode-types.enum'
+import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
+import { EpisodeTypes } from '../../../core/enums/episode-types.enum'
 import { SeasonsRepository } from '../repositories/seasons-repository'
 
 interface CreateEpisodeUseCaseRequest {

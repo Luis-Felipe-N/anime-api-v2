@@ -1,4 +1,4 @@
-import { Either, failure, success } from 'src/core/either'
+import { Either, failure, success } from '../../../core/either'
 
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { EpisodesRepository } from '../repositories/episode.repository'

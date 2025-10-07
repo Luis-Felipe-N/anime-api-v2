@@ -1,6 +1,6 @@
-import { User } from 'src/domain/enterprise/entities/user'
+import { User } from '../../enterprise/entities/user'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { Either, failure, success } from 'src/core/either'
+import { Either, failure, success } from '../../../core/either'
 import { UsersRepository } from '../repositories/users-repository'
 
 interface GetUserProfileUseCaseRequest {

@@ -1,6 +1,6 @@
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
-import { Slug } from 'src/core/values-objects/slug'
-import { Genre } from 'src/domain/enterprise/entities/genre'
+import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
+import { Slug } from '../../../core/values-objects/slug'
+import { Genre } from '../../../domain/enterprise/entities/genre'
 import { Prisma, Genre as PrismaGenre } from '@prisma/client'
 
 export class PrismaGenreMapper {

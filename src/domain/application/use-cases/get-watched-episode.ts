@@ -1,6 +1,6 @@
-import { Either, failure, success } from 'src/core/either'
+import { Either, failure, success } from '../../../core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { WatchedEpisode } from 'src/domain/enterprise/entities/watched-episode'
+import { WatchedEpisode } from '../../enterprise/entities/watched-episode'
 import { WatchedEpisodesRepository } from '../repositories/watched-episodes'
 import { UsersRepository } from '../repositories/users-repository'
 import { EpisodesRepository } from '../repositories/episode.repository'

@@ -1,6 +1,6 @@
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
-import { Slug } from 'src/core/values-objects/slug'
-import { Anime } from 'src/domain/enterprise/entities/anime'
+import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
+import { Slug } from '../../../core/values-objects/slug'
+import { Anime } from '../../../domain/enterprise/entities/anime'
 import { Prisma, Anime as PrismaAnime } from '@prisma/client'
 
 export class PrismaAnimeMapper {

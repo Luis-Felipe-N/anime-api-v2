@@ -1,4 +1,4 @@
-import { Episode } from 'src/domain/enterprise/entities/episode'
+import { Episode } from '../../../domain/enterprise/entities/episode'
 import { SeasonPresenter } from './season-presenters'
 
 export class EpisodePresenter {

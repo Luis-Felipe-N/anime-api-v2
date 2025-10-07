@@ -1,7 +1,7 @@
-import { Either, failure, success } from 'src/core/either'
+import { Either, failure, success } from '../../../core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { SeasonsRepository } from '../repositories/seasons-repository'
-import { Season } from 'src/domain/enterprise/entities/season'
+import { Season } from '../../enterprise/entities/season'
 import { AnimesRepository } from '../repositories/animes.repository'
 
 interface FetchSeasonsByAnimeUseCaseRequest {

@@ -1,7 +1,7 @@
-import { Entity } from 'src/core/entities/entity'
-import { Slug } from 'src/core/values-objects/slug'
-import { Optional } from 'src/core/types/optional'
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Entity } from '../../../core/entities/entity'
+import { Slug } from '../../../core/values-objects/slug'
+import { Optional } from '../../../core/types/optional'
+import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
 
 export interface GenreProps {
   animeId: UniqueEntityId

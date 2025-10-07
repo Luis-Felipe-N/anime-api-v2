@@ -1,5 +1,5 @@
-import { failure } from 'src/core/either'
-import { makeSearchAnimeUseCase } from 'src/infra/factories/animes/make-search-anime-use-case'
+import { failure } from '../../../../core/either'
+import { makeSearchAnimeUseCase } from '../../../factories/animes/make-search-anime-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { AnimePresenter } from '../../presenters/anime-presenters'

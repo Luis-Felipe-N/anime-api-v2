@@ -1,5 +1,5 @@
-import { PaginationParams } from 'src/core/types/pagination-params'
-import { Comment } from 'src/domain/enterprise/entities/comment'
+import { PaginationParams } from '../../../core/types/pagination-params'
+import { Comment } from '../../enterprise/entities/comment'
 
 export interface CommentsRepository {
   create(comment: Comment): Promise<Comment>

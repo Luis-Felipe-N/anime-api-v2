@@ -1,4 +1,4 @@
-import { Season } from 'src/domain/enterprise/entities/season'
+import { Season } from '../../../domain/enterprise/entities/season'
 import { EpisodePresenter } from './episode-presenters'
 import { AnimePresenter } from './anime-presenters'
 

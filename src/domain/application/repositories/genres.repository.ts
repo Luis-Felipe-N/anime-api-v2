@@ -1,4 +1,4 @@
-import { Genre } from 'src/domain/enterprise/entities/genre'
+import { Genre } from '../../enterprise/entities/genre'
 
 export interface FetchGenresByAnimeProps {
   animeId: string

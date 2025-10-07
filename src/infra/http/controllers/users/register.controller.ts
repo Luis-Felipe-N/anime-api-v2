@@ -1,7 +1,7 @@
-import { BadRequestException } from 'src/core/exception/bad-request.exception'
-import { ConflictException } from 'src/core/exception/conflict.exception'
-import { UserAlreadyExistsError } from 'src/domain/application/use-cases/errors/user-already-exists-error'
-import { makeRegisterUseCase } from 'src/infra/factories/users/make-register-use-case'
+import { BadRequestException } from '../../../../core/exception/bad-request.exception'
+import { ConflictException } from '../../../../core/exception/conflict.exception'
+import { UserAlreadyExistsError } from '../../../../domain/application/use-cases/errors/user-already-exists-error'
+import { makeRegisterUseCase } from '../../../factories/users/make-register-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
 
 import { z } from 'zod'

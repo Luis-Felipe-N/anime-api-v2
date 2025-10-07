@@ -1,4 +1,4 @@
-// import { Watchlist } from 'src/domain/enterprise/entities/watchlist'
+// import { Watchlist } from '../../../domain/enterprise/entities/watchlist'
 // import { AnimePresenter } from './anime-presenters'
 
 // export class WatchlistPresenter {

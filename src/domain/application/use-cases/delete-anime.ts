@@ -1,5 +1,5 @@
-import { Either, failure, success } from 'src/core/either'
-import { AnimesRepository } from 'src/domain/application/repositories/animes.repository'
+import { Either, failure, success } from '../../../core/either'
+import { AnimesRepository } from '../repositories/animes.repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface DeleteAnimeUseCaseRequest {

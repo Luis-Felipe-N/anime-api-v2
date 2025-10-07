@@ -1,4 +1,4 @@
-import { AnimeGenres } from 'src/domain/enterprise/entities/anime-genres'
+import { AnimeGenres } from '../../enterprise/entities/anime-genres'
 
 export interface AnimeGenresRepository {
   create(genre: AnimeGenres): Promise<void>

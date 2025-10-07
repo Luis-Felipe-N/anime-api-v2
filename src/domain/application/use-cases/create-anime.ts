@@ -1,11 +1,11 @@
-import { Either, success } from 'src/core/either'
-import { Optional } from 'src/core/types/optional'
-import { AnimesRepository } from 'src/domain/application/repositories/animes.repository'
-import { Anime } from 'src/domain/enterprise/entities/anime'
-import { Genre } from 'src/domain/enterprise/entities/genre'
-import { GenreList } from 'src/domain/enterprise/entities/genre-list'
-import { Season } from 'src/domain/enterprise/entities/season'
-import { SeasonList } from 'src/domain/enterprise/entities/season-list'
+import { Either, success } from '../../../core/either'
+import { Optional } from '../../../core/types/optional'
+import { AnimesRepository } from '../repositories/animes.repository'
+import { Anime } from '../../enterprise/entities/anime'
+import { Genre } from '../../enterprise/entities/genre'
+import { GenreList } from '../../enterprise/entities/genre-list'
+import { Season } from '../../enterprise/entities/season'
+import { SeasonList } from '../../enterprise/entities/season-list'
 
 interface CreateAnimeUseCaseRequest {
   banner: string | null

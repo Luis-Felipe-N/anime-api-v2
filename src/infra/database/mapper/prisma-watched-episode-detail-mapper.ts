@@ -1,7 +1,7 @@
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
 import { Prisma, Watched as PrismaWatchedEpisode, User as PrimaUser, Episode as PrismaEpisode, Season as PrismaSeason } from '@prisma/client'
 import { PrismaUserMapper } from './prisma-user-mapper'
-import { WatchedEpisode } from 'src/domain/enterprise/entities/watched-episode'
+import { WatchedEpisode } from '../../../domain/enterprise/entities/watched-episode'
 import { PrismaEpisodeMapper } from './prisma-episode-mapper'
 import { PrismaSeasonMapper } from './prisma-season-mapper'
 

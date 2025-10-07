@@ -1,4 +1,4 @@
-import { Watchlist } from 'src/domain/enterprise/entities/watchlist'
+import { Watchlist } from '../../enterprise/entities/watchlist'
 
 export interface WatchlistsRepository {
     create(watchlist: Watchlist): Promise<Watchlist>

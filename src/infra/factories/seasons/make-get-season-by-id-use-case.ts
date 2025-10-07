@@ -1,6 +1,6 @@
-import { GetSeasonByIdUseCase } from 'src/domain/application/use-cases/get-season-by-id'
-import { PrismaEpisodesRepository } from 'src/infra/database/repositories/prisma-episodes-repository'
-import { PrismaSeasonsRepository } from 'src/infra/database/repositories/prisma-seasons-repository'
+import { GetSeasonByIdUseCase } from '../../../domain/application/use-cases/get-season-by-id'
+import { PrismaEpisodesRepository } from '../../database/repositories/prisma-episodes-repository'
+import { PrismaSeasonsRepository } from '../../database/repositories/prisma-seasons-repository'
 
 export function makeGetSeasonByIdUseCase() {
   const episodesRepository = new PrismaEpisodesRepository()

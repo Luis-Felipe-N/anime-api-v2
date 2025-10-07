@@ -1,8 +1,8 @@
 // @ts-ignore
-import { makeGetUserProfileUseCase } from 'src/infra/factories/users/make-get-user-profile-use-case'
+import { makeGetUserProfileUseCase } from '../../../factories/users/make-get-user-profile-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { UserPresenter } from '../../presenters/user-presenters'
-import { BadRequestException } from 'src/core/exception/bad-request.exception'
+import { BadRequestException } from '../../../../core/exception/bad-request.exception'
 
 interface FastifyRequestC extends FastifyRequest {
   user: any

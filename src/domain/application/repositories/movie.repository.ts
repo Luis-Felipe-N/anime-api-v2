@@ -1,4 +1,4 @@
-import { Movie } from 'src/domain/enterprise/entities/movie'
+import { Movie } from '../../enterprise/entities/movie'
 
 export interface MoviesRepository {
   create(movie: Movie): Promise<void>

@@ -1,9 +1,9 @@
-import { SeasonsRepository } from 'src/domain/application/repositories/seasons-repository'
+import { SeasonsRepository } from '../../../domain/application/repositories/seasons-repository'
 import { PrismaSeasonMapper } from '../mapper/prisma-season-mapper'
 import { prisma } from '../prisma/prisma'
-import { Season } from 'src/domain/enterprise/entities/season'
+import { Season } from '../../../domain/enterprise/entities/season'
 import { PrismaSeasonDetailsMapper } from '../mapper/prisma-season-detail-mapper'
-import { EpisodesRepository } from 'src/domain/application/repositories/episode.repository'
+import { EpisodesRepository } from '../../../domain/application/repositories/episode.repository'
 
 export class PrismaSeasonsRepository implements SeasonsRepository {
   constructor(private episodesRepository: EpisodesRepository) { }

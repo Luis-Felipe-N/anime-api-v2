@@ -1,4 +1,4 @@
-import { Season } from 'src/domain/enterprise/entities/season'
+import { Season } from '../../enterprise/entities/season'
 
 export interface FetchSeasonsByAnimeProps {
   animeId: string

@@ -1,14 +1,14 @@
-import { AnimesRepository } from 'src/domain/application/repositories/animes.repository'
-import { Anime } from 'src/domain/enterprise/entities/anime'
+import { AnimesRepository } from '../../../domain/application/repositories/animes.repository'
+import { Anime } from '../../../domain/enterprise/entities/anime'
 import { Anime as PrismaAnime } from '@prisma/client'
 
 import { prisma } from '../prisma/prisma'
 import { PrismaAnimeMapper } from '../mapper/prisma-anime-mapper'
-import { SeasonsRepository } from 'src/domain/application/repositories/seasons-repository'
-import { PaginationParams } from 'src/core/types/pagination-params'
-import { GenresRepository } from 'src/domain/application/repositories/genres.repository'
+import { SeasonsRepository } from '../../../domain/application/repositories/seasons-repository'
+import { PaginationParams } from '../../../core/types/pagination-params'
+import { GenresRepository } from '../../../domain/application/repositories/genres.repository'
 import { PrismaAnimeDetailsMapper } from '../mapper/prisma-anime-detail-mapper'
-import { Normalize } from 'src/core/values-objects/normalize'
+import { Normalize } from '../../../core/values-objects/normalize'
 
 export class PrismaAnimesRepository implements AnimesRepository {
   constructor(

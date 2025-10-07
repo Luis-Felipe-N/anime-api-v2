@@ -1,6 +1,6 @@
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
-import { EpisodeProps } from 'src/core/scrapper/animes-online'
-import { Episode } from 'src/domain/enterprise/entities/episode'
+import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
+import { EpisodeProps } from '../../../core/scrapper/animes-online'
+import { Episode } from '../../enterprise/entities/episode'
 
 export function makeEpisodeUseCase(data: EpisodeProps) {
   const episode = Episode.create({

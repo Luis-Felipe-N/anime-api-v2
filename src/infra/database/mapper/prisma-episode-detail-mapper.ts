@@ -1,6 +1,6 @@
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
-import { Slug } from 'src/core/values-objects/slug'
-import { Episode } from 'src/domain/enterprise/entities/episode'
+import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
+import { Slug } from '../../../core/values-objects/slug'
+import { Episode } from '../../../domain/enterprise/entities/episode'
 import {
   Anime as PrismaAnime,
   Season as PrismaSeason,

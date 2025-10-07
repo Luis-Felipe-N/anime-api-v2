@@ -1,8 +1,8 @@
-import { FetchWatchedEpisodesUseCase } from 'src/domain/application/use-cases/fetch-watched-episodes'
-import { GetWatchedEpisodeUseCase } from 'src/domain/application/use-cases/get-watched-episode'
-import { PrismaEpisodesRepository } from 'src/infra/database/repositories/prisma-episodes-repository'
-import { PrismaUsersRepository } from 'src/infra/database/repositories/prisma-users-repository'
-import { PrismaWatchedEpisodesRepository } from 'src/infra/database/repositories/prisma-watched-repository'
+import { FetchWatchedEpisodesUseCase } from '../../../domain/application/use-cases/fetch-watched-episodes'
+import { GetWatchedEpisodeUseCase } from '../../../domain/application/use-cases/get-watched-episode'
+import { PrismaEpisodesRepository } from '../../database/repositories/prisma-episodes-repository'
+import { PrismaUsersRepository } from '../../database/repositories/prisma-users-repository'
+import { PrismaWatchedEpisodesRepository } from '../../database/repositories/prisma-watched-repository'
 
 export function makeGetWatchedByEpisodeUseCase() {
     const watchedRepository = new PrismaWatchedEpisodesRepository()

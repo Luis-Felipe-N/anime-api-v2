@@ -1,8 +1,8 @@
 import { z } from 'zod'
-import { failure } from 'src/core/either'
+import { failure } from '../../../../core/either'
 import { WatchedEpisodePresenter } from '../../presenters/watched-episode-presenter'
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { makeGetWatchedByEpisodeUseCase } from 'src/infra/factories/episodes/make-get-watched-episode-use-case'
+import { makeGetWatchedByEpisodeUseCase } from '../../../factories/episodes/make-get-watched-episode-use-case'
 
 interface FastifyRequestC extends FastifyRequest {
   user: any

@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { failure } from 'src/core/either'
-import { makeGetEpisodeByIdUseCase } from 'src/infra/factories/episodes/make-get-episode-by-id-use-case'
+import { failure } from '../../../../core/either'
+import { makeGetEpisodeByIdUseCase } from '../../../factories/episodes/make-get-episode-by-id-use-case'
 import { EpisodePresenter } from '../../presenters/episode-presenters'
 
 export async function getById(request: FastifyRequest, reply: FastifyReply) {

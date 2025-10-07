@@ -1,5 +1,5 @@
-import { PaginationParams } from 'src/core/types/pagination-params'
-import { Anime } from 'src/domain/enterprise/entities/anime'
+import { PaginationParams } from '../../../core/types/pagination-params'
+import { Anime } from '../../enterprise/entities/anime'
 
 export interface AnimesRepository {
   create(anime: Anime): Promise<void>

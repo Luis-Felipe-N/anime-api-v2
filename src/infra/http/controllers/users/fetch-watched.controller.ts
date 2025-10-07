@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { failure } from 'src/core/either'
+import { failure } from '../../../../core/either'
 
 import { WatchedEpisodePresenter } from '../../presenters/watched-episode-presenter'
-import { makeFetchWatchedEpisodesUseCase } from 'src/infra/factories/episodes/make-fetch-watched-episode-use-case'
+import { makeFetchWatchedEpisodesUseCase } from '../../../factories/episodes/make-fetch-watched-episode-use-case'
 
 
 interface FastifyRequestC extends FastifyRequest {

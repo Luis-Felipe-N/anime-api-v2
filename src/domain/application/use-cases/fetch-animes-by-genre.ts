@@ -1,7 +1,7 @@
-import { Either, success } from 'src/core/either'
+import { Either, success } from '../../../core/either'
 import { AnimesRepository } from '../repositories/animes.repository'
 import { GenresRepository } from '../repositories/genres.repository'
-import { Anime } from 'src/domain/enterprise/entities/anime'
+import { Anime } from '../../enterprise/entities/anime'
 
 interface FetchAnimesByGenreUseCaseRequest {
   genreSlug: string
