@@ -6,7 +6,7 @@ import { SeasonsRepository } from '../repositories/seasons-repository'
 
 interface FetchEpisodeBySeasonUseCaseRequest {
   seasonId: string
-  page: string
+  page: number
 }
 
 type FetchEpisodeBySeasonUseCaseResponse = Either<
