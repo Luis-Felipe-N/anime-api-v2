@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/src",
+            "dest": "/src/server.ts",
             "methods": [
                 "GET",
                 "POST",
