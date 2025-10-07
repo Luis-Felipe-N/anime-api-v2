@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "prisma generate && tsup-node src --clean --out-dir dist",
+    "build": "tsup-node src --clean --out-dir dist",
     "start": "node dist/server.js",
     "start:dev": "tsx watch src/server.ts",
     "test": "vitest run -c vitest.unit.config.ts",
@@ -15,7 +15,9 @@
     "test:install-prisma-environment": "npm link vitest-environment-prisma",
     "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
     "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix"
+    "lint:fix": "eslint src --ext .ts --fix",
+        "postinstall": "prisma generate"
+
   },
   "keywords": [],
   "author": "",
