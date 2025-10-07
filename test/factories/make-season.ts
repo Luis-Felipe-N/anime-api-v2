@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Season, SeasonProps } from '@/domain/enterprise/entities/season'
-import { PrismaSeasonMapper } from '@/infra/database/mapper/prisma-season-mapper'
-import { prisma } from '@/infra/database/prisma/prisma'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Season, SeasonProps } from 'src/domain/enterprise/entities/season'
+import { PrismaSeasonMapper } from 'src/infra/database/mapper/prisma-season-mapper'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export function makeSeason(

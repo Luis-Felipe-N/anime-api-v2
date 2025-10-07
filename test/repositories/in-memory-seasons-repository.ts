@@ -1,5 +1,5 @@
-import { SeasonsRepository } from '@/domain/application/repositories/seasons-repository'
-import { Season } from '@/domain/enterprise/entities/season'
+import { SeasonsRepository } from 'src/domain/application/repositories/seasons-repository'
+import { Season } from 'src/domain/enterprise/entities/season'
 import { InMemoryEpisodesRepository } from './in-memory-episodes-repository'
 
 export class InMemorySeasonsRepository implements SeasonsRepository {

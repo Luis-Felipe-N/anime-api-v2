@@ -1,6 +1,6 @@
-// import { AddAnimeOnWatchlistUseCase } from '@/domain/application/use-cases/add-anime-on-watchlist'
-// import { PrismaUsersRepository } from '@/infra/database/repositories/prisma-users-repository'
-// import { PrismaWatchlistsRepository } from '@/infra/database/repositories/prisma-watchlists-repository'
+// import { AddAnimeOnWatchlistUseCase } from 'src/domain/application/use-cases/add-anime-on-watchlist'
+// import { PrismaUsersRepository } from 'src/infra/database/repositories/prisma-users-repository'
+// import { PrismaWatchlistsRepository } from 'src/infra/database/repositories/prisma-watchlists-repository'
 
 // export function makeAddAnimeOnWatchlistUseCase() {
 //   const watchlistsRepository = new PrismaWatchlistsRepository()

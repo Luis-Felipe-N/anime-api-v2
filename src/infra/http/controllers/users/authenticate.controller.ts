@@ -1,7 +1,7 @@
-import { BadRequestException } from '@/core/exception/bad-request.exception'
-import { UnauthorizedException } from '@/core/exception/unauthorized.exception'
-import { InvalidCredentialsError } from '@/domain/application/use-cases/errors/invalid-credentials-error'
-import { makeAuthenticateUseCase } from '@/infra/factories/users/make-authenticate-use-case'
+import { BadRequestException } from 'src/core/exception/bad-request.exception'
+import { UnauthorizedException } from 'src/core/exception/unauthorized.exception'
+import { InvalidCredentialsError } from 'src/domain/application/use-cases/errors/invalid-credentials-error'
+import { makeAuthenticateUseCase } from 'src/infra/factories/users/make-authenticate-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
 
 import { z } from 'zod'

@@ -4,7 +4,7 @@ import { hash } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
 import { makeUser } from 'test/factories/make-user'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
 
 let usersRepository: InMemoryUsersRepository
 let sut: AuthenticateUseCase

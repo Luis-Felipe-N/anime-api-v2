@@ -1,4 +1,4 @@
-import { WatchlistAnime } from '@/domain/enterprise/entities/watchlist-anime'
+import { WatchlistAnime } from 'src/domain/enterprise/entities/watchlist-anime'
 
 export abstract class WatchlistAnimesRepository {
   abstract createMany(animes: WatchlistAnime[]): Promise<void>

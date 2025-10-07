@@ -1,6 +1,6 @@
-import { Season } from '@/domain/enterprise/entities/season'
+import { Season } from 'src/domain/enterprise/entities/season'
 
-import { Either, failure, success } from '@/core/either'
+import { Either, failure, success } from 'src/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { SeasonsRepository } from '../repositories/seasons-repository'
 

@@ -1,6 +1,6 @@
-import { failure } from '@/core/either'
+import { failure } from 'src/core/either'
 
-import { makeCreateWatchedEpisodeUseCase } from '@/infra/factories/users/make-watched-episode-use-case'
+import { makeCreateWatchedEpisodeUseCase } from 'src/infra/factories/users/make-watched-episode-use-case'
 import { FastifyRequest, FastifyReply } from 'fastify'
 
 import { z } from 'zod'

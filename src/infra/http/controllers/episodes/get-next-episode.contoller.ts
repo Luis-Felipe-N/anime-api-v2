@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { EpisodePresenter } from '../../presenters/episode-presenters'
-import { makeGetNextEpisodeUseCase } from '@/infra/factories/episodes/make-get-next-episode-use-case'
-import { failure } from '@/core/either'
+import { makeGetNextEpisodeUseCase } from 'src/infra/factories/episodes/make-get-next-episode-use-case'
+import { failure } from 'src/core/either'
 
 export async function getNextEpisode(
   request: FastifyRequest,

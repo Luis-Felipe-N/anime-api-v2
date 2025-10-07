@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Genre, GenreProps } from '@/domain/enterprise/entities/genre'
-import { PrismaGenreMapper } from '@/infra/database/mapper/prisma-genre-mapper'
-import { prisma } from '@/infra/database/prisma/prisma'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Genre, GenreProps } from 'src/domain/enterprise/entities/genre'
+import { PrismaGenreMapper } from 'src/infra/database/mapper/prisma-genre-mapper'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export function makeGenre(

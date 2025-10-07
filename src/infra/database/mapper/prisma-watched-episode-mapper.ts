@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { WatchedEpisode } from '@/domain/enterprise/entities/watched-episode'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { WatchedEpisode } from 'src/domain/enterprise/entities/watched-episode'
 
-// import { User } from '@/domain/enterprise/entities/user'
+// import { User } from 'src/domain/enterprise/entities/user'
 import { Prisma, Watched as PrismaWatched } from '@prisma/client'
 
 export class PrismaWatchedEpisodeMapper {

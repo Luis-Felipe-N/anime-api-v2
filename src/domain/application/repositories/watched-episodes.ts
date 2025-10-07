@@ -1,5 +1,5 @@
-import { PaginationParams } from '@/core/types/pagination-params'
-import { WatchedEpisode } from '@/domain/enterprise/entities/watched-episode'
+import { PaginationParams } from 'src/core/types/pagination-params'
+import { WatchedEpisode } from 'src/domain/enterprise/entities/watched-episode'
 
 export interface WatchedEpisodesRepository {
   create(watchedEpisodes: WatchedEpisode): Promise<WatchedEpisode>

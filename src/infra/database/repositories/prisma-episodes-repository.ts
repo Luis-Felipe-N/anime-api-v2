@@ -1,8 +1,8 @@
 import { prisma } from '../prisma/prisma'
-import { Episode } from '@/domain/enterprise/entities/episode'
-import { PaginationParams } from '@/core/types/pagination-params'
+import { Episode } from 'src/domain/enterprise/entities/episode'
+import { PaginationParams } from 'src/core/types/pagination-params'
 import { PrismaEpisodeMapper } from '../mapper/prisma-episode-mapper'
-import { EpisodesRepository } from '@/domain/application/repositories/episode.repository'
+import { EpisodesRepository } from 'src/domain/application/repositories/episode.repository'
 import { PrismaEpisodeDetailsMapper } from '../mapper/prisma-episode-detail-mapper'
 
 export class PrismaEpisodesRepository implements EpisodesRepository {

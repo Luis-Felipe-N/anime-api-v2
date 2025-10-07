@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Anime, AnimeProps } from '@/domain/enterprise/entities/anime'
-import { PrismaAnimeMapper } from '@/infra/database/mapper/prisma-anime-mapper'
-import { prisma } from '@/infra/database/prisma/prisma'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Anime, AnimeProps } from 'src/domain/enterprise/entities/anime'
+import { PrismaAnimeMapper } from 'src/infra/database/mapper/prisma-anime-mapper'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export function makeAnime(

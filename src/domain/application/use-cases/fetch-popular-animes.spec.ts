@@ -6,7 +6,7 @@ import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-rep
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeGenre } from 'test/factories/make-genre'
 
-import { GenreList } from '@/domain/enterprise/entities/genre-list'
+import { GenreList } from 'src/domain/enterprise/entities/genre-list'
 import { FetchPopularAnimesUseCase } from './fetch-popular-animes'
 import { makeAnime } from 'test/factories/make-anime'
 

@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
 import { DeleteEpisodeUseCase } from './delete-episode'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeEpisode } from 'test/factories/make-episode'

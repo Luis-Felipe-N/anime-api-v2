@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Comment, CommentProps } from '@/domain/enterprise/entities/comment'
-import { PrismaCommentMapper } from '@/infra/database/mapper/prisma-comment-mapper'
-import { prisma } from '@/infra/database/prisma/prisma'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Comment, CommentProps } from 'src/domain/enterprise/entities/comment'
+import { PrismaCommentMapper } from 'src/infra/database/mapper/prisma-comment-mapper'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export function makeComment(

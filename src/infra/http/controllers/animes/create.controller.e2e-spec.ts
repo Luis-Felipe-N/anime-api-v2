@@ -1,7 +1,7 @@
-import { app } from '@/app'
-import { prisma } from '@/infra/database/prisma/prisma'
+import { app } from 'src/app'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import request from 'supertest'
-// import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
+// import { createAndAuthenticateUser } from 'src/lib/test/create-and-authenticate-user'
 
 describe('Create Anime (e2e)', () => {
   beforeAll(async () => {

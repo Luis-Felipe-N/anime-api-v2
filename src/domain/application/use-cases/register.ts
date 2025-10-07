@@ -1,8 +1,8 @@
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 
 import { hash } from 'bcryptjs'
-import { Either, failure, success } from '@/core/either'
-import { User } from '@/domain/enterprise/entities/user'
+import { Either, failure, success } from 'src/core/either'
+import { User } from 'src/domain/enterprise/entities/user'
 import { UsersRepository } from '../repositories/users-repository'
 
 interface RegisterUseCaseRequest {

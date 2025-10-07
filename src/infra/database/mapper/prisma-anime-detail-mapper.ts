@@ -1,6 +1,6 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Slug } from '@/core/values-objects/slug'
-import { Anime } from '@/domain/enterprise/entities/anime'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Slug } from 'src/core/values-objects/slug'
+import { Anime } from 'src/domain/enterprise/entities/anime'
 import {
   Anime as PrismaAnime,
   Season as PrismaSeason,
@@ -8,8 +8,8 @@ import {
 } from '@prisma/client'
 
 import { PrismaSeasonMapper } from './prisma-season-mapper'
-import { SeasonList } from '@/domain/enterprise/entities/season-list'
-import { GenreList } from '@/domain/enterprise/entities/genre-list'
+import { SeasonList } from 'src/domain/enterprise/entities/season-list'
+import { GenreList } from 'src/domain/enterprise/entities/genre-list'
 import { PrismaGenreMapper } from './prisma-genre-mapper'
 
 type PrismaAnimeDetails = PrismaAnime & {

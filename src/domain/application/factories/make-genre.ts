@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { GenreProps } from '@/core/scrapper/animes-online'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { GenreProps } from 'src/core/scrapper/animes-online'
 
-import { Genre } from '@/domain/enterprise/entities/genre'
+import { Genre } from 'src/domain/enterprise/entities/genre'
 
 export function makeGenreUseCase(data: GenreProps) {
   const genre = Genre.create({

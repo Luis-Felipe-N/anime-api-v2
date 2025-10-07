@@ -1,9 +1,9 @@
-import { Anime } from '@/domain/enterprise/entities/anime'
-import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
+import { Anime } from 'src/domain/enterprise/entities/anime'
+import { AnimesRepository } from 'src/domain/application/repositories/animes.repository'
 import { InMemorySeasonsRepository } from './in-memory-seasons-repository'
-import { PaginationParams } from '@/core/types/pagination-params'
+import { PaginationParams } from 'src/core/types/pagination-params'
 import { InMemoryGenresRepository } from './in-memory-genres-repository'
-import { Normalize } from '@/core/values-objects/normalize'
+import { Normalize } from 'src/core/values-objects/normalize'
 
 export class InMemoryAnimesRepository implements AnimesRepository {
   public items: Anime[] = []

@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { GetEpisodeBySlugUseCase } from './get-episode-by-slug'
-import { Slug } from '@/core/values-objects/slug'
+import { Slug } from 'src/core/values-objects/slug'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { makeEpisode } from 'test/factories/make-episode'
 

@@ -1,7 +1,7 @@
-import { UsersRepository } from '@/domain/application/repositories/users-repository'
+import { UsersRepository } from 'src/domain/application/repositories/users-repository'
 import { prisma } from '../prisma/prisma'
 import { PrismaUserMapper } from '../mapper/prisma-user-mapper'
-import { User } from '@/domain/enterprise/entities/user'
+import { User } from 'src/domain/enterprise/entities/user'
 
 export class PrismaUsersRepository implements UsersRepository {
   async findById(id: string) {

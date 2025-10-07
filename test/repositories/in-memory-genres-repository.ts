@@ -1,5 +1,5 @@
-import { Genre } from '@/domain/enterprise/entities/genre'
-import { GenresRepository } from '@/domain/application/repositories/genres.repository'
+import { Genre } from 'src/domain/enterprise/entities/genre'
+import { GenresRepository } from 'src/domain/application/repositories/genres.repository'
 
 export class InMemoryGenresRepository implements GenresRepository {
   public items: Genre[] = []

@@ -1,8 +1,8 @@
-import { Comment } from '@/domain/enterprise/entities/comment'
+import { Comment } from 'src/domain/enterprise/entities/comment'
 import { CommentsRepository } from '../repositories/comment.repository'
 import { EpisodesRepository } from '../repositories/episode.repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { Either, failure, success } from '@/core/either'
+import { Either, failure, success } from 'src/core/either'
 
 interface FetchCommentsByEpisodeUseCaseRequest {
   episodeId: string

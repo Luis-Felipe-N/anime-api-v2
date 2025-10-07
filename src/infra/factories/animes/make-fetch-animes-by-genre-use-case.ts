@@ -1,8 +1,8 @@
 import { PrismaAnimesRepository } from '../../database/repositories/prisma-animes-repository'
 import { PrismaSeasonsRepository } from '../../database/repositories/prisma-seasons-repository'
-import { FetchAnimesByGenreUseCase } from '@/domain/application/use-cases/fetch-animes-by-genre'
+import { FetchAnimesByGenreUseCase } from 'src/domain/application/use-cases/fetch-animes-by-genre'
 import { PrismaGenresRepository } from '../../database/repositories/prisma-genres-repository'
-import { PrismaEpisodesRepository } from '@/infra/database/repositories/prisma-episodes-repository'
+import { PrismaEpisodesRepository } from 'src/infra/database/repositories/prisma-episodes-repository'
 
 export function makeFetchAnimesByGenreUseCase() {
   const episodesRepository = new PrismaEpisodesRepository()

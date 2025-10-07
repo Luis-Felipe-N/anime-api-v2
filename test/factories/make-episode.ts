@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Episode, EpisodeProps } from '@/domain/enterprise/entities/episode'
-import { PrismaEpisodeMapper } from '@/infra/database/mapper/prisma-episode-mapper'
-import { prisma } from '@/infra/database/prisma/prisma'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Episode, EpisodeProps } from 'src/domain/enterprise/entities/episode'
+import { PrismaEpisodeMapper } from 'src/infra/database/mapper/prisma-episode-mapper'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export function makeEpisode(

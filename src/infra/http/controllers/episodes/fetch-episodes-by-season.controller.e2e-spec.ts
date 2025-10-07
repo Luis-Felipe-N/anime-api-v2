@@ -1,5 +1,5 @@
-import { app } from '@/app'
-import { Slug } from '@/core/values-objects/slug'
+import { app } from 'src/app'
+import { Slug } from 'src/core/values-objects/slug'
 import request from 'supertest'
 
 import { makePrismaAnime } from 'test/factories/make-anime'

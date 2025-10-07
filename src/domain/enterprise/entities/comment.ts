@@ -1,6 +1,6 @@
-import { Entity } from '@/core/entities/entity'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Optional } from '@/core/types/optional'
+import { Entity } from 'src/core/entities/entity'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Optional } from 'src/core/types/optional'
 import { User } from './user'
 
 export interface CommentProps {

@@ -1,7 +1,7 @@
 import { InMemoryAnimesRepository } from 'test/repositories/in-memory-animes-repository'
 import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-repository'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
-import { UploadAnimeBySlugUseCase } from '@/domain/application/use-cases/upload-anime-by-slug'
+import { UploadAnimeBySlugUseCase } from 'src/domain/application/use-cases/upload-anime-by-slug'
 import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-repository'
 import { beforeEach, describe, expect, it } from 'vitest'
 

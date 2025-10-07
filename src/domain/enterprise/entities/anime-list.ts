@@ -1,4 +1,4 @@
-import { WatchedList } from '@/core/entities/watched-list'
+import { WatchedList } from 'src/core/entities/watched-list'
 import { Anime } from './anime'
 
 export class AnimeList extends WatchedList<Anime> {

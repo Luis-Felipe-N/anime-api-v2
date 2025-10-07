@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-import { makeFetchSeasonsByAnimeUseCase } from '@/infra/factories/seasons/make-fetch-seasons-by-anime-use-case'
+import { makeFetchSeasonsByAnimeUseCase } from 'src/infra/factories/seasons/make-fetch-seasons-by-anime-use-case'
 import { SeasonPresenter } from '../../presenters/season-presenters'
 
 export async function fetchSeasonsByAnime(

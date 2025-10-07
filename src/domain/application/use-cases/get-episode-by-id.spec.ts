@@ -4,7 +4,7 @@ import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { makeEpisode } from 'test/factories/make-episode'
 import { GetEpisodeByIdUseCase } from './get-episode-by-id'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
 
 let inMemoryEpisodesRepository: InMemoryEpisodesRepository
 let sut: GetEpisodeByIdUseCase

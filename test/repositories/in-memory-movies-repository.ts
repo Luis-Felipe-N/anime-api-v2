@@ -1,5 +1,5 @@
-import { Movie } from '@/domain/enterprise/entities/movie'
-import { MoviesRepository } from '@/domain/application/repositories/movie.repository'
+import { Movie } from 'src/domain/enterprise/entities/movie'
+import { MoviesRepository } from 'src/domain/application/repositories/movie.repository'
 
 export class InMemoryMoviesRepository implements MoviesRepository {
   public items: Movie[] = []

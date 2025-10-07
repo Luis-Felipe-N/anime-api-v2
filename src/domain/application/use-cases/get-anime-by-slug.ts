@@ -1,6 +1,6 @@
-import { Either, failure, success } from '@/core/either'
-import { AnimesRepository } from '@/domain/application/repositories/animes.repository'
-import { Anime } from '@/domain/enterprise/entities/anime'
+import { Either, failure, success } from 'src/core/either'
+import { AnimesRepository } from 'src/domain/application/repositories/animes.repository'
+import { Anime } from 'src/domain/enterprise/entities/anime'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 interface GetAnimeBySlugUseCaseRequest {

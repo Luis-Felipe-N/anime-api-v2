@@ -1,5 +1,5 @@
-import { app } from '@/app'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { app } from 'src/app'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
 import request from 'supertest'
 
 import { makePrismaAnime } from 'test/factories/make-anime'

@@ -1,9 +1,9 @@
-import { Season } from '@/domain/enterprise/entities/season'
-import { Either, failure, success } from '@/core/either'
+import { Season } from 'src/domain/enterprise/entities/season'
+import { Either, failure, success } from 'src/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { SeasonsRepository } from '../repositories/seasons-repository'
-import { Episode } from '@/domain/enterprise/entities/episode'
-import { EpisodeList } from '@/domain/enterprise/entities/episode-list'
+import { Episode } from 'src/domain/enterprise/entities/episode'
+import { EpisodeList } from 'src/domain/enterprise/entities/episode-list'
 import { AnimesRepository } from '../repositories/animes.repository'
 
 interface CreateSeasonUseCaseRequest {

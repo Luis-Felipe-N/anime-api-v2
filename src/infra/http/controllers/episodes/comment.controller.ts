@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { failure } from '@/core/either'
-import { makeCommentOnEpisodeUseCase } from '@/infra/factories/episodes/make-comment-on-epside-use-case'
+import { failure } from 'src/core/either'
+import { makeCommentOnEpisodeUseCase } from 'src/infra/factories/episodes/make-comment-on-epside-use-case'
 import { CommentPresenter } from '../../presenters/comment-presenters'
 
 interface FastifyRequestC extends FastifyRequest {

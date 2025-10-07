@@ -1,8 +1,8 @@
 import { PrismaAnimesRepository } from '../../database/repositories/prisma-animes-repository'
 import { PrismaSeasonsRepository } from '../../database/repositories/prisma-seasons-repository'
 import { PrismaGenresRepository } from '../../database/repositories/prisma-genres-repository'
-import { PrismaEpisodesRepository } from '@/infra/database/repositories/prisma-episodes-repository'
-import { FetchPopularAnimesUseCase } from '@/domain/application/use-cases/fetch-popular-animes'
+import { PrismaEpisodesRepository } from 'src/infra/database/repositories/prisma-episodes-repository'
+import { FetchPopularAnimesUseCase } from 'src/domain/application/use-cases/fetch-popular-animes'
 
 export function makeFetchPopularAnimesUseCase() {
   const episodesRepository = new PrismaEpisodesRepository()

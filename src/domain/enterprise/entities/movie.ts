@@ -1,7 +1,7 @@
-import { Entity } from '@/core/entities/entity'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Optional } from '@/core/types/optional'
-import { Slug } from '@/core/values-objects/slug'
+import { Entity } from 'src/core/entities/entity'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Optional } from 'src/core/types/optional'
+import { Slug } from 'src/core/values-objects/slug'
 
 interface MovieProps {
   title: string

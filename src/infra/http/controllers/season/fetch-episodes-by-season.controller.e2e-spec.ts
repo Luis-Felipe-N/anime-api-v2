@@ -1,12 +1,12 @@
-import { app } from '@/app'
-import { Slug } from '@/core/values-objects/slug'
+import { app } from 'src/app'
+import { Slug } from 'src/core/values-objects/slug'
 import request from 'supertest'
 
 import { makePrismaAnime } from 'test/factories/make-anime'
 import { makePrismaEpisode } from 'test/factories/make-episode'
 import { makePrismaSeason } from 'test/factories/make-season'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-// import { createAndAuthenticateUser } from '@/lib/test/create-and-authenticate-user'
+// import { createAndAuthenticateUser } from 'src/lib/test/create-and-authenticate-user'
 
 describe('Create Anime (e2e)', () => {
   beforeAll(async () => {

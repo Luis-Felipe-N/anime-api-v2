@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Comment } from '@/domain/enterprise/entities/comment'
-import { CommentsRepository } from '@/domain/application/repositories/comment.repository'
-import { Either, failure, success } from '@/core/either'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Comment } from 'src/domain/enterprise/entities/comment'
+import { CommentsRepository } from 'src/domain/application/repositories/comment.repository'
+import { Either, failure, success } from 'src/core/either'
 import { EpisodesRepository } from '../repositories/episode.repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 

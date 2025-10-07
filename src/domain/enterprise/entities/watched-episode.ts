@@ -1,6 +1,6 @@
-import { Entity } from '@/core/entities/entity'
-import { Optional } from '@/core/types/optional'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { Entity } from 'src/core/entities/entity'
+import { Optional } from 'src/core/types/optional'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
 import { Episode } from './episode'
 import { User } from './user'
 

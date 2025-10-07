@@ -1,8 +1,8 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { User, UserProps } from '@/domain/enterprise/entities/user'
-import { PrismaUserMapper } from '@/infra/database/mapper/prisma-user-mapper'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { User, UserProps } from 'src/domain/enterprise/entities/user'
+import { PrismaUserMapper } from 'src/infra/database/mapper/prisma-user-mapper'
 
-import { prisma } from '@/infra/database/prisma/prisma'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export function makeUser(

@@ -5,7 +5,7 @@ import { RegisterUseCase } from './register'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from 'test/repositories/in-memory-users-repository'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
 
 let usersRepository: InMemoryUsersRepository
 let sut: RegisterUseCase

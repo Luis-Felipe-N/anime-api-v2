@@ -1,4 +1,4 @@
-import { UseCaseError } from '@/core/exception/use-case-errors'
+import { UseCaseError } from 'src/core/exception/use-case-errors'
 
 export class UploadAnimeError extends Error implements UseCaseError {
   constructor() {

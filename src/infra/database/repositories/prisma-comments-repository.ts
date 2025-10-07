@@ -1,8 +1,8 @@
-import { Comment } from '@/domain/enterprise/entities/comment'
+import { Comment } from 'src/domain/enterprise/entities/comment'
 import { prisma } from '../prisma/prisma'
 import { PrismaCommentMapper } from '../mapper/prisma-comment-mapper'
-import { CommentsRepository } from '@/domain/application/repositories/comment.repository'
-import { PaginationParams } from '@/core/types/pagination-params'
+import { CommentsRepository } from 'src/domain/application/repositories/comment.repository'
+import { PaginationParams } from 'src/core/types/pagination-params'
 import { PrismaCommentDetailsMapper } from '../mapper/prisma-comment-detail-mapper'
 
 export class PrismaCommentsRepository implements CommentsRepository {

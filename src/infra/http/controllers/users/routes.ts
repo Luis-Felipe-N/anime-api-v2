@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 
-import { verifyJwtMiddleware } from '@/infra/middleware/verify-jwt.middleware'
+import { verifyJwtMiddleware } from 'src/infra/middleware/verify-jwt.middleware'
 
 import { authenticate } from './authenticate.controller'
 import { watched } from './watched-episode.controller'

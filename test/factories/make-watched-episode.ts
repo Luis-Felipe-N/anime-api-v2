@@ -1,7 +1,7 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { WatchedEpisode, WatchedEpisodeProps } from '@/domain/enterprise/entities/watched-episode'
-import { PrismaWatchedEpisodeMapper } from '@/infra/database/mapper/prisma-watched-episode-mapper'
-import { prisma } from '@/infra/database/prisma/prisma'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { WatchedEpisode, WatchedEpisodeProps } from 'src/domain/enterprise/entities/watched-episode'
+import { PrismaWatchedEpisodeMapper } from 'src/infra/database/mapper/prisma-watched-episode-mapper'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import { faker } from '@faker-js/faker'
 
 export function makeWatchedEpisode(

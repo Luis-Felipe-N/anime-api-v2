@@ -1,5 +1,5 @@
-import { Episode } from '@/domain/enterprise/entities/episode'
-import { EpisodesRepository } from '@/domain/application/repositories/episode.repository'
+import { Episode } from 'src/domain/enterprise/entities/episode'
+import { EpisodesRepository } from 'src/domain/application/repositories/episode.repository'
 
 export class InMemoryEpisodesRepository implements EpisodesRepository {
   public items: Episode[] = []

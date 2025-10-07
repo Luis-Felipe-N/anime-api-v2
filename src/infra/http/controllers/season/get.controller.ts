@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { failure } from '@/core/either'
+import { failure } from 'src/core/either'
 import { SeasonPresenter } from '../../presenters/season-presenters'
-import { makeGetSeasonByIdUseCase } from '@/infra/factories/seasons/make-get-season-by-id-use-case'
+import { makeGetSeasonByIdUseCase } from 'src/infra/factories/seasons/make-get-season-by-id-use-case'
 
 export async function getById(request: FastifyRequest, reply: FastifyReply) {
   const getByIdParamsSchema = z.object({

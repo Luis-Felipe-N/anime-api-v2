@@ -4,7 +4,7 @@ import { InMemorySeasonsRepository } from 'test/repositories/in-memory-seasons-r
 import { GetSeasonByIdUseCase } from './get-season-by-id'
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeSeason } from 'test/factories/make-season'
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
 let inMemorySeasonsRepository: InMemorySeasonsRepository

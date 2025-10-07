@@ -1,8 +1,8 @@
 import { compare } from 'bcryptjs'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
-import { User } from '@/domain/enterprise/entities/user'
+import { User } from 'src/domain/enterprise/entities/user'
 import { UsersRepository } from '../repositories/users-repository'
-import { Either, failure, success } from '@/core/either'
+import { Either, failure, success } from 'src/core/either'
 
 interface AuthenticateUseCaseRequest {
   email: string

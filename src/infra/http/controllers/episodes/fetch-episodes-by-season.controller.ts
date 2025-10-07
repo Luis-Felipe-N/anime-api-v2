@@ -1,4 +1,4 @@
-import { makeFetchEpisodeBySeasonUseCase } from '@/infra/factories/episodes/make-fetch-episode-by-season-use-case'
+import { makeFetchEpisodeBySeasonUseCase } from 'src/infra/factories/episodes/make-fetch-episode-by-season-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { EpisodePresenter } from '../../presenters/episode-presenters'

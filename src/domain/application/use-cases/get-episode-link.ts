@@ -1,8 +1,8 @@
-import { Episode } from '@/domain/enterprise/entities/episode'
+import { Episode } from 'src/domain/enterprise/entities/episode'
 import { EpisodesRepository } from '../repositories/episode.repository'
-import { Either, failure, success } from '@/core/either'
+import { Either, failure, success } from 'src/core/either'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
-import { extractor } from '@/core/uteis/extractor'
+import { extractor } from 'src/core/uteis/extractor'
 
 interface GetEpisodeLinkByIdUseCaseRequest {
     id: string

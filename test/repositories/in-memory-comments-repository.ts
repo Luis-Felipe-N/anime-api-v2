@@ -1,6 +1,6 @@
-import { Comment } from '@/domain/enterprise/entities/comment'
-import { CommentsRepository } from '@/domain/application/repositories/comment.repository'
-import { PaginationParams } from '@/core/types/pagination-params'
+import { Comment } from 'src/domain/enterprise/entities/comment'
+import { CommentsRepository } from 'src/domain/application/repositories/comment.repository'
+import { PaginationParams } from 'src/core/types/pagination-params'
 
 export class InMemoryCommentsRepository implements CommentsRepository {
   public items: Comment[] = []

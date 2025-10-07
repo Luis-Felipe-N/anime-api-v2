@@ -7,7 +7,7 @@ import { InMemoryGenresRepository } from 'test/repositories/in-memory-genres-rep
 import { InMemoryEpisodesRepository } from 'test/repositories/in-memory-episodes-repository'
 import { makeGenre } from 'test/factories/make-genre'
 import { makeAnime } from 'test/factories/make-anime'
-import { GenreList } from '@/domain/enterprise/entities/genre-list'
+import { GenreList } from 'src/domain/enterprise/entities/genre-list'
 
 let inMemoryAnimesRepository: InMemoryAnimesRepository
 let inMemoryGenresRepository: InMemoryGenresRepository

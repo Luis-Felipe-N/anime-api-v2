@@ -1,5 +1,5 @@
-import { PaginationParams } from '@/core/types/pagination-params'
-import { Episode } from '@/domain/enterprise/entities/episode'
+import { PaginationParams } from 'src/core/types/pagination-params'
+import { Episode } from 'src/domain/enterprise/entities/episode'
 
 export interface EpisodesRepository {
   create(episode: Episode): Promise<void>

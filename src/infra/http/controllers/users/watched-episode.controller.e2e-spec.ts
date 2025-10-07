@@ -1,5 +1,5 @@
-import { app } from '@/app'
-import { prisma } from '@/infra/database/prisma/prisma'
+import { app } from 'src/app'
+import { prisma } from 'src/infra/database/prisma/prisma'
 import request from 'supertest'
 import { makePrismaAnime } from 'test/factories/make-anime'
 import { makePrismaEpisode } from 'test/factories/make-episode'

@@ -1,5 +1,5 @@
-import { UniqueEntityId } from '@/core/entities/unique-entity-id'
-import { Comment } from '@/domain/enterprise/entities/comment'
+import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
+import { Comment } from 'src/domain/enterprise/entities/comment'
 import { Prisma, Comment as PrismaComment, User as PrimaUser } from '@prisma/client'
 import { PrismaUserMapper } from './prisma-user-mapper'
 

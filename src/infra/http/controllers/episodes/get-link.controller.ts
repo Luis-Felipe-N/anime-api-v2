@@ -1,8 +1,8 @@
 import { z } from 'zod'
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { failure } from '@/core/either'
+import { failure } from 'src/core/either'
 import { EpisodePresenter } from '../../presenters/episode-presenters'
-import { makeGetEpisodeLinkByIdUseCase } from '@/infra/factories/episodes/make-get-episode-link-by-id-use-case'
+import { makeGetEpisodeLinkByIdUseCase } from 'src/infra/factories/episodes/make-get-episode-link-by-id-use-case'
 
 export async function getLinkById(request: FastifyRequest, reply: FastifyReply) {
   const getByIdParamsSchema = z.object({

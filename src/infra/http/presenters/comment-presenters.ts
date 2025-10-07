@@ -1,4 +1,4 @@
-import { Comment } from '@/domain/enterprise/entities/comment'
+import { Comment } from 'src/domain/enterprise/entities/comment'
 import { UserPresenter } from './user-presenters'
 
 export class CommentPresenter {
