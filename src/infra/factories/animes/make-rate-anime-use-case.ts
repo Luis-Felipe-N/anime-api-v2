@@ -1,5 +1,5 @@
-import { RateAnimeUseCase } from "src/domain/application/use-cases/rate-anime"
-import { PrismaAnimesRepository } from "src/infra/database/repositories/prisma-animes-repository"
+import { RateAnimeUseCase } from "../../../domain/application/use-cases/rate-anime"
+import { PrismaAnimesRepository } from "../../database/repositories/prisma-animes-repository"
 import { PrismaSeasonsRepository } from '../../database/repositories/prisma-seasons-repository'
 import { PrismaGenresRepository } from '../../database/repositories/prisma-genres-repository'
 import { PrismaEpisodesRepository } from '../../database/repositories/prisma-episodes-repository'

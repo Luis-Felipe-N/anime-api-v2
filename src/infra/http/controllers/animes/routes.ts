@@ -5,7 +5,7 @@ import { getBySlug } from './get-by-slug.controller'
 import { search } from './seach.controller'
 import { upload } from './upload.controller'
 import { popular } from './fetch-popular-animes.controller'
-import { verifyJwtMiddleware } from 'src/infra/middleware/verify-jwt.middleware'
+import { verifyJwtMiddleware } from '../../../middleware/verify-jwt.middleware'
 import { rateAnimeController } from './rate-anime.controller'
 
 export async function animesRouter(app: FastifyInstance) {

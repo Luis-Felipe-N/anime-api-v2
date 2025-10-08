@@ -1,5 +1,5 @@
-import type { RatingsRepository } from "src/domain/application/repositories/ratings-repository"
-import type { Rating } from "src/domain/enterprise/entities/rating"
+import type { RatingsRepository } from "../../../domain/application/repositories/ratings-repository"
+import type { Rating } from "../../../domain/enterprise/entities/rating"
 import { PrismaRatingMapper } from "../mapper/prisma-rating-mapper"
 import { prisma } from "../prisma/prisma"
 

@@ -1,6 +1,6 @@
 import { Rating as PrismaRating } from '@prisma/client'
-import { UniqueEntityId } from 'src/core/entities/unique-entity-id'
-import { Rating } from 'src/domain/enterprise/entities/rating'
+import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
+import { Rating } from '../../../domain/enterprise/entities/rating'
 
 export class PrismaRatingMapper {
   static toDomain(raw: PrismaRating): Rating {

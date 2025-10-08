@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { makeRateAnimeUseCase } from 'src/infra/factories/animes/make-rate-anime-use-case'
+import { makeRateAnimeUseCase } from '../../../factories/animes/make-rate-anime-use-case'
 import { z } from 'zod'
 
 interface FastifyRequestC extends FastifyRequest {
