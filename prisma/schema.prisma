@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 enum UserRole {
@@ -28,6 +28,7 @@ model User {
 
   watchedepisodes Watched[]
   comments        Comment[]
+  ratings         Rating[]
 
   @@map("users")
 }
@@ -45,8 +46,12 @@ model Anime {
   createdAt   DateTime  @default(now()) @map("created_at")
   updatedAt   DateTime? @updatedAt @map("updated_at")
 
-  seasons Season[]
-  genres  Genre[]
+  seasons       Season[]
+  genres        Genre[]
+  averageRating Float?   @default(0)
+  ratingsCount  Int?     @default(0)
+
+  ratings Rating[]
 
   @@map("animes")
 }
@@ -127,4 +132,20 @@ model Comment {
   episode Episode? @relation(fields: [episodeId], references: [id])
 
   @@map("comments")
+}
+
+model Rating {
+  id        String   @id @default(uuid())
+  rating    Int // Nota de 1 a 5
+  review    String?  @db.Text // O texto do review (opcional)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  anime   Anime  @relation(fields: [animeId], references: [id])
+  animeId String
+
+  @@unique([userId, animeId]) // Garante que um usuário só pode avaliar um anime uma vez
 }
