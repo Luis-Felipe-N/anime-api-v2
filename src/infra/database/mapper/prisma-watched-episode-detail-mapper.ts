@@ -1,18 +1,38 @@
 import { UniqueEntityId } from '../../../core/entities/unique-entity-id'
-import { Prisma, Watched as PrismaWatchedEpisode, User as PrimaUser, Episode as PrismaEpisode, Season as PrismaSeason } from '@prisma/client'
+import { 
+  Watched as PrismaWatchedEpisode, 
+  User as PrimaUser, 
+  Episode as PrismaEpisode, 
+  Season as PrismaSeason, 
+  Anime as PrismaAnime,
+  Genre as PrismaGenre,
+ } from '@prisma/client'
 import { PrismaUserMapper } from './prisma-user-mapper'
 import { WatchedEpisode } from '../../../domain/enterprise/entities/watched-episode'
-import { PrismaEpisodeMapper } from './prisma-episode-mapper'
-import { PrismaSeasonMapper } from './prisma-season-mapper'
+import { PrismaEpisodeDetailsMapper } from './prisma-episode-detail-mapper'
+
+type PrismaAnimeDetails = PrismaAnime & {
+  genres?: PrismaGenre | null
+}
+
+type PrismaSeasonDetails = PrismaSeason & {
+  anime: PrismaAnimeDetails | null
+}
+
+type PrismaEpisodeDetails = PrismaEpisode & {
+  season: PrismaSeasonDetails | null
+}
+
 
 type PrismaWatchedEpisodeDetails = PrismaWatchedEpisode & {
   author: PrimaUser | null
-  episode: PrismaEpisode | null
+  episode: PrismaEpisodeDetails | null
+  season?: PrismaSeason | null
 }
 
 export class PrismaWatchedEpisodeDetailsMapper {
   static toDomain(raw: PrismaWatchedEpisodeDetails): WatchedEpisode {
-
+    console.log(raw)
     return WatchedEpisode.create(
       {
         stopAt: raw.stopAt,
@@ -21,7 +41,7 @@ export class PrismaWatchedEpisodeDetailsMapper {
         createdAt: raw.createdAt,
         updatedAt: raw.updatedAt,
         author: raw.author ? PrismaUserMapper.toDomain(raw.author) : null,
-        episode: raw.episode ? PrismaEpisodeMapper.toDomain(raw.episode) : null
+        episode: raw.episode ? PrismaEpisodeDetailsMapper.toDomain(raw.episode) : null,
       },
       new UniqueEntityId(raw.id),
     )
